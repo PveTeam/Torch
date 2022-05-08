@@ -60,7 +60,7 @@ namespace Torch.API.WebAPI
         {
             try
             {
-                path ??= Path.Combine(Directory.GetCurrentDirectory(), "Plugins", $"{item.Name}.zip");
+                path ??= Path.Combine(AppContext.BaseDirectory, "Plugins", $"{item.Name}.zip");
                 
                 if (item.Versions.Length == 0)
                 {
