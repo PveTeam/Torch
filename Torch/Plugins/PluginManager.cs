@@ -383,6 +383,13 @@ namespace Torch.Managers
 
                 
             }
+
+            var harmonyAssembly = assemblies.FirstOrDefault(b => b.FullName?.StartsWith("0Harmony") == true);
+            if (harmonyAssembly is { })
+            {
+                _log.Warn($"Plugin {item.Manifest.Name} is using harmony library, logic collision between plugins could be encountered!");
+                assemblies.Remove(harmonyAssembly);
+            }
             
             RegisterAllAssemblies(assemblies);
             InstantiatePlugin(item.Manifest, assemblies);
