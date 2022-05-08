@@ -44,8 +44,10 @@ namespace Torch.Patches
 
         private static void WhitelistCtorPrefix(MyScriptCompiler scriptCompiler)
         {
+            var baseDir = new FileInfo(typeof(Type).Assembly.Location).DirectoryName!;
+            
             scriptCompiler.AddReferencedAssemblies(
-                typeof(ValueType).Assembly.Location,
+                typeof(Type).Assembly.Location,
                 typeof(LinkedList<>).Assembly.Location,
                 typeof(Regex).Assembly.Location,
                 typeof(Enumerable).Assembly.Location,
@@ -54,7 +56,11 @@ namespace Torch.Patches
                 typeof(PropertyChangedEventArgs).Assembly.Location,
                 typeof(TypeConverter).Assembly.Location,
                 typeof(System.Diagnostics.TraceSource).Assembly.Location,
+                typeof(System.Security.Policy.Evidence).Assembly.Location,
                 typeof(ProtoBuf.Meta.RuntimeTypeModel).Assembly.Location,
+                typeof(ProtoContractAttribute).Assembly.Location,
+                Path.Combine(baseDir, "netstandard.dll"),
+                Path.Combine(baseDir, "System.Runtime.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Game.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Common.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Graphics.dll"),
@@ -73,6 +79,10 @@ namespace Torch.Patches
             MyModWatchdog.Init(updateThread);
             MyScriptCompiler.Static.AddImplicitIngameNamespacesFromTypes(referencedTypes);
             MyScriptCompiler.Static.AddConditionalCompilationSymbols(symbols);
+
+            using var batch = MyScriptCompiler.Static.Whitelist.OpenBatch();
+            batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(ConcurrentQueue<>));
+            
             return false;
         }
         
