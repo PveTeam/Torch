@@ -50,7 +50,7 @@ namespace Torch.Server.Views
             var PercentChangeOnDownload = 100 / PluginsToDownload.Count;
 
             foreach (PluginItem PluginItem in PluginsToDownload) {
-                if (!Task.Run(async () => await PluginQuery.Instance.DownloadPlugin(PluginItem.Id)).Result) {
+                if (!PluginQuery.Instance.DownloadPlugin(PluginItem.Id).Result) {
                     failedDownloads++;
                     DownloadProgress += PercentChangeOnDownload;
                     (sender as BackgroundWorker).ReportProgress(DownloadProgress);
