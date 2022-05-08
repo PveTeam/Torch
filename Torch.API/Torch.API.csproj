@@ -8,7 +8,6 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <OutputPath>..\bin\$(Platform)\$(Configuration)\</OutputPath>
     <UseWpf>True</UseWpf>
-    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <PlatformTarget>x64</PlatformTarget>
     <Configurations>Debug;Release</Configurations>
     <Platforms>AnyCPU</Platforms>
@@ -102,8 +101,5 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\Versioning\AssemblyVersion.cs" Link="Properties/AssemblyVersion.cs" />
   </ItemGroup>
 </Project>
