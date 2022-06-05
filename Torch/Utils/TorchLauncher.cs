@@ -17,13 +17,8 @@ namespace Torch.Utils
                 try
                 {
                     var name = AssemblyName.GetAssemblyName(file);
-                    var key = name.Name ?? name.FullName.Split(',')[0];
-#if NETFRAMEWORK
-                    if (!Assemblies.ContainsKey(key))
-                        Assemblies.Add(key, file);
-#else
+                    var key = name.Name ?? name.FullName[..','];
                     Assemblies.TryAdd(key, file);
-#endif
                 }
                 catch (BadImageFormatException)
                 {
@@ -37,7 +32,7 @@ namespace Torch.Utils
         private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             var name = args.Name;
-            return Assemblies.TryGetValue(name.IndexOf(',') > 0 ? name.Substring(0, name.IndexOf(',')) : name, out var path) ? Assembly.LoadFrom(path) : null;
+            return Assemblies.TryGetValue(name.IndexOf(',') > 0 ? name[..','] : name, out var path) ? Assembly.LoadFrom(path) : null;
         }
     }
 }

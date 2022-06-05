@@ -32,11 +32,9 @@ internal class UnhandledExceptionHandler
             Console.WriteLine("Restarting in 5 seconds.");
             Thread.Sleep(5000);
             var exe = typeof(Program).Assembly.Location;
-#if NETFRAMEWORK
-            _config.WaitForPID = Process.GetCurrentProcess().Id.ToString();
-#else
+            
             _config.WaitForPID = Environment.ProcessId.ToString();
-#endif
+            
             Process.Start(exe, _config.ToString());
         }
         else

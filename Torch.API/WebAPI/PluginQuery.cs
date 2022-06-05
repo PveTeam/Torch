@@ -78,11 +78,7 @@ namespace Torch.API.WebAPI
                 if(File.Exists(path))
                     File.Delete(path);
 
-#if NETFRAMEWORK
-                using var f = File.Create(path);
-#else
                 await using var f = File.Create(path);
-#endif
                 await s.CopyToAsync(f);
             }
             catch (Exception ex)

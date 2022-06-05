@@ -13,9 +13,7 @@ namespace Torch.Utils;
 
 public static class TorchLogManager
 {
-#if !NETFRAMEWORK
-    private static AssemblyLoadContext LoadContext = new("TorchLog");
-#endif
+    private static readonly AssemblyLoadContext LoadContext = new("TorchLog");
 
     public static LoggingConfiguration Configuration { get; private set; }
 
@@ -31,11 +29,7 @@ public static class TorchLogManager
         if (!Directory.Exists(dir)) return;
         
         foreach (var type in Directory.EnumerateFiles(dir, "*.dll")
-#if NETFRAMEWORK
-                     .Select(Assembly.LoadFile)
-#else
                      .Select(LoadContext.LoadFromAssemblyPath)
-#endif
                      .SelectMany(b => b.ExportedTypes)
                      .Where(b => b.GetCustomAttribute<TargetAttribute>() is { }))
         {

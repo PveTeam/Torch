@@ -221,12 +221,10 @@ namespace Torch.Server
                 LogManager.Flush();
 
                 string exe = Assembly.GetExecutingAssembly().Location.Replace("dll", "exe");
-#if NETFRAMEWORK
-                config.WaitForPID = Process.GetCurrentProcess().Id.ToString();
-#else
+                
                 config.WaitForPID = Environment.ProcessId.ToString();
-#endif
                 config.TempAutostart = true;
+                
                 Process.Start(exe, config.ToString());
 
                 Environment.Exit(0);
@@ -374,11 +372,8 @@ namespace Torch.Server
             // return stack.ToString();
 
             // Modified from https://www.examplefiles.net/cs/579311
-#if NETFRAMEWORK
-            using var target = DataTarget.CreateSnapshotAndAttach(Process.GetCurrentProcess().Id);
-#else
             using var target = DataTarget.CreateSnapshotAndAttach(Environment.ProcessId);
-#endif
+            
             var runtime = target.ClrVersions[0].CreateRuntime();
 
             var clrThread = runtime.Threads.First(b => b.ManagedThreadId == thread.ManagedThreadId);
