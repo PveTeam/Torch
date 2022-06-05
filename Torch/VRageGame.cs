@@ -35,11 +35,13 @@ using VRage.Game.ObjectBuilder;
 using VRage.Game.SessionComponents;
 using VRage.GameServices;
 using VRage.Mod.Io;
+using VRage.Platform.Windows;
 using VRage.Plugins;
 using VRage.Scripting;
 using VRage.Steam;
 using VRage.Utils;
 using VRageRender;
+using Game = Sandbox.Engine.Platform.Game;
 using MyRenderProfiler = VRage.Profiler.MyRenderProfiler;
 
 namespace Torch
@@ -141,7 +143,9 @@ namespace Torch
         private void Create()
         {
             bool dedicated = true;
+            Game.IsDedicated = true;
             Environment.SetEnvironmentVariable("SteamAppId", _appSteamId.ToString());
+            MyVRageWindows.Init("SpaceEngineersDedicated", MySandboxGame.Log, null, false);
             SpaceEngineersGame.SetupBasicGameInfo();
             SpaceEngineersGame.SetupPerGameSettings();
             MyFinalBuildConstants.APP_VERSION = MyPerGameSettings.BasicGameInfo.GameVersion;

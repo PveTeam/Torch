@@ -419,12 +419,15 @@ namespace Torch.Managers
             AppDomain.CurrentDomain.AssemblyResolve += ResolveDependentAssembly;
             foreach (Assembly asm in assemblies)
             {
-                TorchBase.RegisterAuxAssembly(asm);
+                TorchLauncher.RegisterAssembly(asm);
             }
         }
         
         private static bool IsAssemblyCompatible(AssemblyName a, AssemblyName b)
         {
+            if (a.Version is null || b.Version is null)
+                return a.Name == b.Name;
+            
             return a.Name == b.Name && a.Version.Major == b.Version.Major && a.Version.Minor == b.Version.Minor;
         }
         

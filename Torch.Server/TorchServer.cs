@@ -37,15 +37,9 @@ namespace Torch.Server
 {
     public class TorchServer : TorchBase, ITorchServer
     {
-        private bool _hasRun;
-        private bool _canRun;
-        private TimeSpan _elapsedPlayTime;
-        private bool _isRunning;
         private float _simRatio;
-        private ServerState _state;
         private Stopwatch _uptime;
         private Timer _watchdog;
-        private int _players;
         private MultiplayerManagerDedicated _multiplayerManagerDedicated;
         
         internal bool FatalException { get; set; }
@@ -67,11 +61,13 @@ namespace Torch.Server
 
             var sessionManager = Managers.GetManager<ITorchSessionManager>();
             sessionManager.AddFactory(x => new MultiplayerManagerDedicated(this));
+            sessionManager.SessionStateChanged += OnSessionStateChanged;
             
             // Needs to be done at some point after MyVRageWindows.Init
             // where the debug listeners are registered
             if (!((TorchConfig)Config).EnableAsserts)
                 MyDebug.Listeners.Clear();
+            
             _simUpdateTimer.Elapsed += SimUpdateElapsed;
             _simUpdateTimer.Start();
         }
@@ -85,7 +81,7 @@ namespace Torch.Server
             }
         }
 
-        public bool HasRun { get => _hasRun; set => SetValue(ref _hasRun, value); }
+        public bool HasRun { get; set; }
 
         
         /// <inheritdoc />
@@ -104,21 +100,18 @@ namespace Torch.Server
         }
 
         /// <inheritdoc />
-        public TimeSpan ElapsedPlayTime { get => _elapsedPlayTime; set => SetValue(ref _elapsedPlayTime, value); }
+        public TimeSpan ElapsedPlayTime { get; set; }
 
         /// <inheritdoc />
         public Thread GameThread => MySandboxGame.Static?.UpdateThread;
 
         /// <inheritdoc />
-        public bool IsRunning { get => _isRunning; set => SetValue(ref _isRunning, value); }
+        public bool IsRunning { get; set; }
 
-        public bool CanRun { get => _canRun; set => SetValue(ref _canRun, value); }
+        public bool CanRun { get; set; }
 
         /// <inheritdoc />
         public InstanceManager DedicatedInstance { get; }
-
-        /// <inheritdoc />
-        public string InstanceName { get; }
 
         /// <inheritdoc />
         protected override uint SteamAppId => 244850;
@@ -127,22 +120,17 @@ namespace Torch.Server
         protected override string SteamAppName => "SpaceEngineersDedicated";
 
         /// <inheritdoc />
-        public ServerState State { get => _state; private set => SetValue(ref _state, value); }
+        public ServerState State { get; private set; }
 
         public event Action<ITorchServer> Initialized;
 
-        /// <inheritdoc />
-        public string InstancePath { get; }
-
-        public int OnlinePlayers { get => _players; private set => SetValue(ref _players, value); }
+        public int OnlinePlayers { get; private set; }
 
         /// <inheritdoc />
         public override void Init()
         {
             Log.Info("Initializing server");
-            MySandboxGame.IsDedicated = true;
             base.Init();
-            Managers.GetManager<ITorchSessionManager>().SessionStateChanged += OnSessionStateChanged;
             GetManager<InstanceManager>().LoadInstance(InstancePath);
             CanRun = true;
             Initialized?.Invoke(this);
@@ -237,21 +225,27 @@ namespace Torch.Server
         [SuppressPropertyChangedWarnings]
         private void OnSessionStateChanged(ITorchSession session, TorchSessionState newState)
         {
-            if (newState == TorchSessionState.Unloading || newState == TorchSessionState.Unloaded)
+            switch (newState)
             {
-                _watchdog?.Dispose();
-                _watchdog = null;
-                ModCommunication.Unregister();
+                case TorchSessionState.Unloading:
+                    _watchdog?.Dispose();
+                    _watchdog = null;
+                    ModCommunication.Unregister();
+                    break;
+                case TorchSessionState.Loaded:
+                    _multiplayerManagerDedicated = CurrentSession.Managers.GetManager<MultiplayerManagerDedicated>();
+                    _multiplayerManagerDedicated.PlayerJoined += MultiplayerManagerDedicatedOnPlayerJoined;
+                    _multiplayerManagerDedicated.PlayerLeft += MultiplayerManagerDedicatedOnPlayerLeft;
+                    CurrentSession.Managers.GetManager<CommandManager>().RegisterCommandModule(typeof(WhitelistCommands));
+                    ModCommunication.Register();
+                    break;
+                case TorchSessionState.Loading:
+                case TorchSessionState.Unloaded:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
 
-            if (newState == TorchSessionState.Loaded)
-            {
-                _multiplayerManagerDedicated = CurrentSession.Managers.GetManager<MultiplayerManagerDedicated>();
-                _multiplayerManagerDedicated.PlayerJoined += MultiplayerManagerDedicatedOnPlayerJoined;
-                _multiplayerManagerDedicated.PlayerLeft += MultiplayerManagerDedicatedOnPlayerLeft;
-                CurrentSession.Managers.GetManager<CommandManager>().RegisterCommandModule(typeof(WhitelistCommands));
-                ModCommunication.Register();
-            }
         }
 
         private void MultiplayerManagerDedicatedOnPlayerLeft(IPlayer player)

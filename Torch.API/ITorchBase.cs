@@ -17,30 +17,6 @@ namespace Torch.API
     public interface ITorchBase
     {
         /// <summary>
-        /// Fired when the session begins loading.
-        /// </summary>
-        [Obsolete("Prefer using the TorchSessionManager.SessionStateChanged event")]
-        event Action SessionLoading;
-
-        /// <summary>
-        /// Fired when the session finishes loading.
-        /// </summary>
-        [Obsolete("Prefer using the TorchSessionManager.SessionStateChanged event")]
-        event Action SessionLoaded;
-
-        /// <summary>
-        /// Fires when the session begins unloading.
-        /// </summary>
-        [Obsolete("Prefer using the TorchSessionManager.SessionStateChanged event")]
-        event Action SessionUnloading;
-
-        /// <summary>
-        /// Fired when the session finishes unloading.
-        /// </summary>
-        [Obsolete("Prefer using the TorchSessionManager.SessionStateChanged event")]
-        event Action SessionUnloaded;
-
-        /// <summary>
         /// Gets the currently running session instance, or null if none exists.
         /// </summary>
         ITorchSession CurrentSession { get; }
@@ -67,6 +43,16 @@ namespace Torch.API
         /// The binary version of the current instance.
         /// </summary>
         Version TorchVersion { get; }
+        
+        /// <summary>
+        /// Path of the dedicated instance folder.
+        /// </summary>
+        string InstancePath { get; }
+        
+        /// <summary>
+        /// Name of the dedicated instance.
+        /// </summary>
+        string InstanceName { get; }
 
         /// <summary>
         /// Invoke an action on the game thread.
@@ -145,16 +131,6 @@ namespace Torch.API
         /// The current <see cref="ServerState"/>
         /// </summary>
         ServerState State { get; }
-
-        /// <summary>
-        /// Path of the dedicated instance folder.
-        /// </summary>
-        string InstancePath { get; }
-        
-        /// <summary>
-        /// Name of the dedicated instance.
-        /// </summary>
-        string InstanceName { get; }
 
         /// <summary>
         /// Raised when the server's Init() method has completed.

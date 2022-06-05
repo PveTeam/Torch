@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Torch.Event;
+using Torch.Managers.PatchManager;
+using VRage.Collections;
 
 namespace Torch.Utils
 {
-    public class TorchLauncher
+    public static class TorchLauncher
     {
-        private static readonly Dictionary<string, string> Assemblies = new Dictionary<string, string>();
+        private static readonly MyConcurrentHashSet<Assembly> RegisteredAssemblies = new();
+        private static readonly Dictionary<string, string> Assemblies = new();
 
         public static void Launch(params string[] binaryPaths)
         {
@@ -27,6 +31,15 @@ namespace Torch.Utils
             }
 
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
+        }
+
+        public static void RegisterAssembly(Assembly assembly)
+        {
+            if (!RegisteredAssemblies.Add(assembly))
+                return;
+            ReflectedManager.Process(assembly);
+            EventManager.AddDispatchShims(assembly);
+            PatchManager.AddPatchShims(assembly);
         }
 
         private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
