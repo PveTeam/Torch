@@ -72,10 +72,6 @@ namespace Torch.Server
         public bool NoGui { get => _noGui; set => Set(value, ref _noGui); }
 
         /// <inheritdoc />
-        [XmlIgnore, Arg("waitforpid", "Makes Torch wait for another process to exit.")]
-        public string WaitForPID { get; set; }
-
-        /// <inheritdoc />
         [Display(Name = "Update Torch", Description = "Check every start for new versions of torch.", GroupName = "Server")]
         public bool GetTorchUpdates { get => _getTorchUpdates; set => Set(value, ref _getTorchUpdates); }
 

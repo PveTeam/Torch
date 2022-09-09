@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Xml;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -13,31 +15,21 @@ namespace Torch.Server
         [STAThread]
         public static void Main(string[] args)
         {
-            var context = CreateApplicationContext();
-
-            SetupLogging();
-
-            var oldTorchCfg = Path.Combine(context.TorchDirectory.FullName, "Torch.cfg");
-            var torchCfg = Path.Combine(context.InstanceDirectory.FullName, "Torch.cfg");
+            var configurationBuilder = new ConfigurationBuilder()
+                .AddEnvironmentVariables("TORCH")
+                .AddCommandLine(args);
+            var configuration = configurationBuilder.Build();
             
-            if (File.Exists(oldTorchCfg))
-                File.Move(oldTorchCfg, torchCfg);
+            var context = CreateApplicationContext(configuration);
 
-            var config = Persistent<TorchConfig>.Load(torchCfg);
-            config.Data.InstanceName = context.InstanceName;
-            config.Data.InstancePath = context.InstanceDirectory.FullName;
+            SetupLogging(context);
+            var config = SetupConfiguration(context, configurationBuilder);
             
-            if (!config.Data.Parse(args))
-            {
-                Console.WriteLine("Invalid arguments");
-                Environment.Exit(1);
-            }
-
             var handler = new UnhandledExceptionHandler(config.Data);
             AppDomain.CurrentDomain.UnhandledException += handler.OnUnhandledException;
 
             var initializer = new Initializer(config);
-            if (!initializer.Initialize(args))
+            if (!initializer.Initialize(configuration))
                 Environment.Exit(1);
 
 #if DEBUG
@@ -46,63 +38,14 @@ namespace Torch.Server
             TorchLauncher.Launch(context.TorchDirectory.FullName, Path.Combine(context.TorchDirectory.FullName, "torch64"),
                 context.GameBinariesDirectory.FullName);
 #endif
-            
-            CopyNative();
-            
+
             initializer.Run();
         }
 
-        private static void CopyNative()
+        private static void SetupLogging(IApplicationContext context)
         {
-            var log = LogManager.GetLogger("TorchLauncher");
-            
-            if (ApplicationContext.Current.GameFilesDirectory.Attributes.HasFlag(FileAttributes.ReadOnly))
-            {
-                log.Warn("Torch directory is readonly. You should copy steam_api64.dll, Havok.dll from bin manually");
-                return;
-            }
-
-            try
-            {
-                var apiSource = Path.Combine(ApplicationContext.Current.GameBinariesDirectory.FullName, "steam_api64.dll");
-                var apiTarget = Path.Combine(ApplicationContext.Current.GameFilesDirectory.FullName, "steam_api64.dll");
-                if (!File.Exists(apiTarget))
-                {
-                    File.Copy(apiSource, apiTarget);
-                }
-                else if (File.GetLastWriteTime(apiTarget) < ApplicationContext.Current.GameBinariesDirectory.LastWriteTime)
-                {
-                    File.Delete(apiTarget);
-                    File.Copy(apiSource, apiTarget);
-                }
-
-                var havokSource = Path.Combine(ApplicationContext.Current.GameBinariesDirectory.FullName, "Havok.dll");
-                var havokTarget = Path.Combine(ApplicationContext.Current.GameFilesDirectory.FullName, "Havok.dll");
-
-                if (!File.Exists(havokTarget))
-                {
-                    File.Copy(havokSource, havokTarget);
-                }
-                else if (File.GetLastWriteTime(havokTarget) < File.GetLastWriteTime(havokSource))
-                {
-                    File.Delete(havokTarget);
-                    File.Copy(havokSource, havokTarget);
-                }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                // file is being used by another process, probably previous torch has not been closed yet
-            }
-            catch (Exception e)
-            {
-                log.Error(e);
-            }
-        }
-
-        private static void SetupLogging()
-        {
-            var oldNlog = Path.Combine(ApplicationContext.Current.TorchDirectory.FullName, "NLog.config");
-            var newNlog = Path.Combine(ApplicationContext.Current.InstanceDirectory.FullName, "NLog.config");
+            var oldNlog = Path.Combine(context.TorchDirectory.FullName, "NLog.config");
+            var newNlog = Path.Combine(context.InstanceDirectory.FullName, "NLog.config");
             if (File.Exists(oldNlog) && !File.ReadAllText(oldNlog).Contains("FlowDocument"))
                 File.Move(oldNlog, newNlog);
             else if (!File.Exists(newNlog))
@@ -111,22 +54,47 @@ namespace Torch.Server
             
             Target.Register<LogViewerTarget>(nameof(LogViewerTarget));
             TorchLogManager.RegisterTargets(Environment.GetEnvironmentVariable("TORCH_LOG_EXTENSIONS_PATH") ??
-                                            Path.Combine(ApplicationContext.Current.InstanceDirectory.FullName, "LoggingExtensions"));
+                                            Path.Combine(context.InstanceDirectory.FullName, "LoggingExtensions"));
             
             TorchLogManager.SetConfiguration(new XmlLoggingConfiguration(newNlog));
         }
 
-        private static IApplicationContext CreateApplicationContext()
+        private static Persistent<TorchConfig> SetupConfiguration(IApplicationContext context, IConfigurationBuilder builder)
         {
-            var isService = Environment.GetEnvironmentVariable("TORCH_SERVICE")
-                ?.Equals(bool.TrueString, StringComparison.OrdinalIgnoreCase) ?? false;
+            var oldTorchCfg = Path.Combine(context.TorchDirectory.FullName, "Torch.cfg");
+            var torchCfg = Path.Combine(context.InstanceDirectory.FullName, "Torch.cfg");
+            
+            if (File.Exists(oldTorchCfg))
+                File.Move(oldTorchCfg, torchCfg);
+
+            var configurationSource = new XmlConfigurationSource
+            {
+                Path = torchCfg
+            };
+            
+            configurationSource.ResolveFileProvider();
+            builder.Sources.Insert(0, configurationSource);
+
+            var configuration = builder.Build();
+
+            var config = new Persistent<TorchConfig>(torchCfg, configuration.Get<TorchConfig>());
+            config.Data.InstanceName = context.InstanceName;
+            config.Data.InstancePath = context.InstanceDirectory.FullName;
+
+            return config;
+        }
+
+        private static IApplicationContext CreateApplicationContext(IConfiguration configuration)
+        {
+            var isService = configuration.GetValue("service", false);
             
             var workingDir = AppContext.BaseDirectory;
-            var gamePath = Environment.GetEnvironmentVariable("TORCH_GAME_PATH") ?? workingDir;
+            var gamePath = configuration.GetValue("gamePath", workingDir);
             var binDir = Path.Combine(gamePath, "DedicatedServer64");
+            
             Directory.SetCurrentDirectory(gamePath);
 
-            var instanceName = Environment.GetEnvironmentVariable("TORCH_INSTANCE") ?? "Instance";
+            var instanceName = configuration.GetValue("instanceName", "Instance");
             string instancePath;
             
             if (Path.IsPathRooted(instanceName))
@@ -136,7 +104,7 @@ namespace Torch.Server
             }
             else
             {
-                instancePath = Directory.CreateDirectory(instanceName).FullName;
+                instancePath = Directory.CreateDirectory(instanceName!).FullName;
             }
             
             return new ApplicationContext(new(workingDir), new(gamePath), new(binDir), 

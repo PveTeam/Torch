@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Targets;
 using Sandbox.Engine.Utils;
@@ -42,7 +43,7 @@ namespace Torch.Server
             ConfigPersistent = torchConfig;
         }
 
-        public bool Initialize(string[] args)
+        public bool Initialize(IConfiguration configuration)
         {
             if (_init)
                 return false;
@@ -54,16 +55,15 @@ namespace Torch.Server
             LogManager.ReconfigExistingLoggers();
             Log.Debug("Debug logging enabled.");
 #endif
-
-            // This is what happens when Keen is bad and puts extensions into the System namespace.
-            if (!Enumerable.Contains(args, "-noupdate"))
+            
+            if (!configuration.GetValue("noupdate", false))
                 RunSteamCmd();
 
-            if (!string.IsNullOrEmpty(Config.WaitForPID))
+            if (configuration.GetSection("waitForPid") is { } processPid)
             {
                 try
                 {
-                    var pid = int.Parse(Config.WaitForPID);
+                    var pid = processPid.Get<int>();
                     var waitProc = Process.GetProcessById(pid);
                     Log.Info("Continuing in 5 seconds.");
                     Log.Warn($"Waiting for process {pid} to close");

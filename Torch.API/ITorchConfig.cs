@@ -22,7 +22,6 @@ namespace Torch
         bool ShouldUpdatePlugins { get; }
         bool ShouldUpdateTorch { get; }
         int TickTimeout { get; set; }
-        string WaitForPID { get; set; }
         string ChatName { get; set; }
         string ChatColor { get; set; }
         string TestPlugin { get; set; }
