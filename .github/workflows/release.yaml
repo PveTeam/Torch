@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  tags:
+    - "*"
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    env:
+      VERSION: ${{ github.ref_name }}
+      BUILD_CONFIGURATION: Release
+    steps:
+      - uses: actions/checkout@master
+        name: Checkout
+      - uses: actions/setup-dotnet@v3
+        name: Setup dotnet
+        with:
+          dotnet-version: '6.0.x'
+      - uses: actions/cache@v1
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Restore dependencies
+        run: dotnet restore Torch.Server/Torch.Server.csproj --use-lock-file
+      - name: Build
+        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c $BUILD_CONFIGURATION /p:AssemblyVersion=$VERSION /p:Version=$VERSION
+      - name: Publish
+        run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c $BUILD_CONFIGURATION
+      - uses: vimtor/action-zip@v1
+        name: Zip Release
+        with:
+          files: publish/
+          dest: release.zip
+      - name: Build Changelog
+        id: build_changelog
+        uses: mikepenz/release-changelog-builder-action@{latest-release}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          body: ${{ steps.github_release.outputs.changelog }}
+          draft: true
+          prerelease: false
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: release.zip
+          asset_name: torch-server.zip
+          asset_content_type: application/zip
+      - name: Publish release
+        uses: StuYarrow/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          id: ${{ steps.create_release.outputs.id }}

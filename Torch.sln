@@ -20,6 +20,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torch.Server.Tests", "Torch
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Torch.Mod", "Torch.Mod\Torch.Mod.shproj", "{3CE4D2E9-B461-4F19-8233-F87E0DFDDD74}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI/CD workflows", "CI/CD workflows", "{DFC9AB6D-BD21-4748-8CE8-57097DC673AF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\release.yaml = .github\workflows\release.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Torch.Mod\Torch.Mod.projitems*{3ce4d2e9-b461-4f19-8233-f87e0dfddd74}*SharedItemsImports = 13
@@ -51,6 +56,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{DFC9AB6D-BD21-4748-8CE8-57097DC673AF} = {7AD02A71-1D4C-48F9-A8C1-789A5512424F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB51D91F-958D-4B63-A897-3C40642ACD3E}
