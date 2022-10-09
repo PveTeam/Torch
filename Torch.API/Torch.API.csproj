@@ -12,94 +12,17 @@
     <Configurations>Debug;Release</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
+  
   <PropertyGroup Condition="$(Configuration) == 'Release'">
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
-<!--   <Import Project="$(SolutionDir)\TransformOnBuild.targets" /> -->
+  
   <ItemGroup>
-    <PackageReference Include="NLog" Version="5.0.0-rc2" />
+    <PackageReference Include="NLog" Version="5.0.4" />
     <PackageReference Include="SemanticVersioning" Version="2.0.2" />
-    <PackageReference Include="System.Text.Json" Version="6.0.2" Condition="$(TargetFramework) == 'net48'" />
-    <PackageReference Include="System.Net.Http" Version="4.3.4" Condition="$(TargetFramework) == 'net48'" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" Condition="$(TargetFramework) == 'net48'" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="HavokWrapper, Version=1.0.6278.22649, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\HavokWrapper.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\Sandbox.Common.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Game, Version=0.1.6305.30774, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\Sandbox.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Graphics, Version=0.1.6305.30761, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\Sandbox.Graphics.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="SpaceEngineers.Game, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\SpaceEngineers.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="SpaceEngineers.ObjectBuilders, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\SpaceEngineers.ObjectBuilders.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage">
-      <HintPath>..\GameBinaries\VRage.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VRage.Audio, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Audio.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Dedicated">
-      <HintPath>..\GameBinaries\VRage.Dedicated.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VRage.Game, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Input, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Input.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Library">
-      <HintPath>..\GameBinaries\VRage.Library.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VRage.Math, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Math.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Render, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Render.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Render11, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Render11.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Scripting, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Scripting.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.201.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

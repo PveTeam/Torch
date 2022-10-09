@@ -22,7 +22,6 @@ using Sandbox.Game.World;
 using Sandbox.Graphics.GUI;
 using SpaceEngineers.Game;
 using SpaceEngineers.Game.GUI;
-using Steamworks;
 using Torch.API;
 using Torch.Utils;
 using VRage;
@@ -140,15 +139,19 @@ namespace Torch
             }
         }
 
+        internal static void SetupVersionInfo()
+        {
+            Game.IsDedicated = true;
+            SpaceEngineersGame.SetupBasicGameInfo();
+            MyFinalBuildConstants.APP_VERSION = MyPerGameSettings.BasicGameInfo.GameVersion;
+        } 
+
         private void Create()
         {
-            bool dedicated = true;
-            Game.IsDedicated = true;
+            var dedicated = Game.IsDedicated;
             Environment.SetEnvironmentVariable("SteamAppId", _appSteamId.ToString());
             MyVRageWindows.Init("SpaceEngineersDedicated", MySandboxGame.Log, null, false);
-            SpaceEngineersGame.SetupBasicGameInfo();
             SpaceEngineersGame.SetupPerGameSettings();
-            MyFinalBuildConstants.APP_VERSION = MyPerGameSettings.BasicGameInfo.GameVersion;
             MySessionComponentExtDebug.ForceDisable = true;
             MyPerGameSettings.SendLogToKeen = false;
             // SpaceEngineersGame.SetupAnalytics();

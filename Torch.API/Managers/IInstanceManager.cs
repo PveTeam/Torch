@@ -14,7 +14,6 @@ public interface IInstanceManager : IManager
 
 public interface IWorld
 {
-    string FolderName { get; }
     string WorldPath { get; }
     MyObjectBuilder_SessionSettings KeenSessionSettings { get; }
     MyObjectBuilder_Checkpoint KeenCheckpoint { get; }

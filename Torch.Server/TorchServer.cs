@@ -210,10 +210,9 @@ namespace Torch.Server
 
                 string exe = Assembly.GetExecutingAssembly().Location.Replace("dll", "exe");
                 
-                config.WaitForPID = Environment.ProcessId.ToString();
                 config.TempAutostart = true;
                 
-                Process.Start(exe, config.ToString());
+                Process.Start(exe, $"-waitForPid {Environment.ProcessId} {config}");
 
                 Environment.Exit(0);
             })

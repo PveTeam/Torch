@@ -22,8 +22,8 @@ namespace Torch.Server
             
             var context = CreateApplicationContext(configuration);
 
-            SetupLogging(context);
-            var config = SetupConfiguration(context, configurationBuilder);
+            SetupLogging(context, configuration);
+            var config = SetupConfiguration(context, configurationBuilder, out configuration);
             
             var handler = new UnhandledExceptionHandler(config.Data);
             AppDomain.CurrentDomain.UnhandledException += handler.OnUnhandledException;
@@ -42,24 +42,28 @@ namespace Torch.Server
             initializer.Run();
         }
 
-        private static void SetupLogging(IApplicationContext context)
+        private static void SetupLogging(IApplicationContext context, IConfiguration configuration)
         {
             var oldNlog = Path.Combine(context.TorchDirectory.FullName, "NLog.config");
-            var newNlog = Path.Combine(context.InstanceDirectory.FullName, "NLog.config");
+            var newNlog = configuration.GetValue("loggingConfigPath", Path.Combine(context.InstanceDirectory.FullName, "NLog.config"));
             if (File.Exists(oldNlog) && !File.ReadAllText(oldNlog).Contains("FlowDocument"))
                 File.Move(oldNlog, newNlog);
             else if (!File.Exists(newNlog))
-                using (var f = File.Create(newNlog))
+                using (var f = File.Create(newNlog!))
                     typeof(Program).Assembly.GetManifestResourceStream("Torch.Server.NLog.config")!.CopyTo(f);
             
             Target.Register<LogViewerTarget>(nameof(LogViewerTarget));
-            TorchLogManager.RegisterTargets(Environment.GetEnvironmentVariable("TORCH_LOG_EXTENSIONS_PATH") ??
-                                            Path.Combine(context.InstanceDirectory.FullName, "LoggingExtensions"));
+            TorchLogManager.RegisterTargets(configuration.GetValue("loggingExtensionsPath",
+                                                                   Path.Combine(
+                                                                       context.InstanceDirectory.FullName,
+                                                                       "LoggingExtensions")));
             
             TorchLogManager.SetConfiguration(new XmlLoggingConfiguration(newNlog));
         }
 
-        private static Persistent<TorchConfig> SetupConfiguration(IApplicationContext context, IConfigurationBuilder builder)
+        private static Persistent<TorchConfig> SetupConfiguration(IApplicationContext context,
+                                                                  IConfigurationBuilder builder,
+                                                                  out IConfigurationRoot configuration)
         {
             var oldTorchCfg = Path.Combine(context.TorchDirectory.FullName, "Torch.cfg");
             var torchCfg = Path.Combine(context.InstanceDirectory.FullName, "Torch.cfg");
@@ -67,17 +71,11 @@ namespace Torch.Server
             if (File.Exists(oldTorchCfg))
                 File.Move(oldTorchCfg, torchCfg);
 
-            var configurationSource = new XmlConfigurationSource
-            {
-                Path = torchCfg
-            };
-            
-            configurationSource.ResolveFileProvider();
-            builder.Sources.Insert(0, configurationSource);
+            builder.AddXmlFile(torchCfg, true, true);
 
-            var configuration = builder.Build();
+            configuration = builder.Build();
 
-            var config = new Persistent<TorchConfig>(torchCfg, configuration.Get<TorchConfig>());
+            var config = new Persistent<TorchConfig>(torchCfg, configuration.Get<TorchConfig>() ?? new());
             config.Data.InstanceName = context.InstanceName;
             config.Data.InstancePath = context.InstanceDirectory.FullName;
 

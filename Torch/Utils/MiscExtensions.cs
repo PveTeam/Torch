@@ -6,7 +6,6 @@ using System.Threading;
 using Sandbox.Engine.Multiplayer;
 using Sandbox.Game.Entities;
 using Sandbox.Game.World;
-using Steamworks;
 
 namespace Torch.Utils
 {
@@ -52,12 +51,6 @@ namespace Torch.Utils
             Array.Copy(buffer, 0, result, 0, result.Length);
             _streamBuffer.Value.SetTarget(buffer);
             return result;
-        }
-
-        public static IPAddress GetRemoteIP(this P2PSessionState_t state)
-        {
-            // What is endianness anyway?
-            return new IPAddress(BitConverter.GetBytes(state.m_nRemoteIP).Reverse().ToArray());
         }
 
         public static string GetGridOwnerName(this MyCubeGrid grid)

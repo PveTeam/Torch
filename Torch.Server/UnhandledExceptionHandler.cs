@@ -33,9 +33,7 @@ internal class UnhandledExceptionHandler
             Thread.Sleep(5000);
             var exe = typeof(Program).Assembly.Location;
             
-            _config.WaitForPID = Environment.ProcessId.ToString();
-            
-            Process.Start(exe, _config.ToString());
+            Process.Start(exe, $"-waitForPid {Environment.ProcessId} {_config}");
         }
         else
         {

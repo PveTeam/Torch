@@ -236,9 +236,9 @@ namespace Torch.Server.Managers
             {
                 var world = DedicatedConfig.SelectedWorld;
 
-                world.Checkpoint.SessionName = string.IsNullOrEmpty(DedicatedConfig.WorldName)
+                world.Checkpoint.SessionName = string.IsNullOrEmpty(world.Checkpoint.SessionName)
                     ? Path.GetDirectoryName(DedicatedConfig.LoadWorld)
-                    : DedicatedConfig.WorldName;
+                    : world.Checkpoint.SessionName;
                 world.WorldConfiguration.Settings = DedicatedConfig.SessionSettings;
                 world.WorldConfiguration.Mods.Clear();
 
@@ -284,7 +284,6 @@ namespace Torch.Server.Managers
     {
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
-        public string FolderName { get; set; }
         public string WorldPath { get; }
         public MyObjectBuilder_SessionSettings KeenSessionSettings => WorldConfiguration.Settings;
         public MyObjectBuilder_Checkpoint KeenCheckpoint => Checkpoint;
@@ -313,7 +312,6 @@ namespace Torch.Server.Managers
                 WorldSizeKB = new DirectoryInfo(worldPath).GetFiles().Sum(x => x.Length) / 1024;
                 _checkpointPath = Path.Combine(WorldPath, "Sandbox.sbc");
                 _worldConfigPath = Path.Combine(WorldPath, "Sandbox_config.sbc");
-                FolderName = Path.GetFileName(worldPath);
                 if (loadFiles)
                     LoadSandbox();
             }

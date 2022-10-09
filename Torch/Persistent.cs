@@ -20,6 +20,7 @@ namespace Torch
     public sealed class Persistent<T> : IDisposable where T : new()
     {
         private static readonly XmlSerializer Serializer = new(typeof(T));
+        private static readonly XmlSerializerNamespaces Namespaces = new(new[] {new XmlQualifiedName("", "")});
         private static Logger _log = LogManager.GetCurrentClassLogger();
         public string Path { get; set; }
         private T _data;
@@ -69,9 +70,10 @@ namespace Torch
             using var f = File.Create(path);
             using var writer = new XmlTextWriter(f, Encoding.UTF8)
             {
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                Namespaces = false
             };
-            Serializer.Serialize(writer, Data);
+            Serializer.Serialize(writer, Data, Namespaces);
         }
 
         public static Persistent<T> Load(string path, bool saveIfNew = true)

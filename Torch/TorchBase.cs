@@ -251,6 +251,7 @@ namespace Torch
         {
             Debug.Assert(!_init, "Torch instance is already initialized.");
             ObjectFactoryInitPatch.ForceRegisterAssemblies();
+            VRageGame.SetupVersionInfo();
 
             Debug.Assert(MyPerGameSettings.BasicGameInfo.GameVersion != null, "MyPerGameSettings.BasicGameInfo.GameVersion != null");
             GameVersion = new MyVersion(MyPerGameSettings.BasicGameInfo.GameVersion.Value);

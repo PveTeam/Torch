@@ -3,7 +3,7 @@
   "profiles": {
     "Torch.Server": {
       "commandName": "Project",
-      "commandLineArgs": "-noupdate",
+      "commandLineArgs": "--noupdate true --gamepath \"C:\\Program Files (x86)\\Steam\\steamapps\\common\\SpaceEngineersDedicatedServer\"",
       "use64Bit": true,
       "hotReloadEnabled": false
     }

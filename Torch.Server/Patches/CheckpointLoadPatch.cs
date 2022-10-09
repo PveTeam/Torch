@@ -3,6 +3,7 @@ using NLog;
 using Sandbox.Engine.Networking;
 using Torch.API.Managers;
 using Torch.Managers.PatchManager;
+using Torch.Server;
 using Torch.Server.Managers;
 using Torch.Utils;
 using VRage.Game;
@@ -25,6 +26,9 @@ public static class CheckpointLoadPatch
     private static bool Prefix(ref MyObjectBuilder_Checkpoint __result)
     {
 #pragma warning disable CS0618
+        if (!((TorchServer)TorchBase.Instance).HasRun)
+            return true;
+        
         var world = TorchBase.Instance.Managers.GetManager<InstanceManager>().DedicatedConfig.SelectedWorld;
 #pragma warning restore CS0618
         if (world is null)

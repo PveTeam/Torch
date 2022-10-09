@@ -3,7 +3,6 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net6-windows</TargetFramework>
     <LangVersion>10</LangVersion>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <PublishUrl>publish\</PublishUrl>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -14,150 +13,61 @@
     <OutputPath>..\bin\$(Platform)\$(Configuration)\</OutputPath>
     <UseWPF>true</UseWPF>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <PlatformTarget>x64</PlatformTarget>
-    <Configurations>Debug;Release</Configurations>
-    <Platforms>AnyCPU</Platforms>
-    <IsPackable>false</IsPackable>
     <NeutralLanguage>en</NeutralLanguage>
-    
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <BeautyLibsDir>torch64</BeautyLibsDir>
     <NoBeautyFlag>True</NoBeautyFlag>
     <ForceBeauty>True</ForceBeauty>
   </PropertyGroup>
+  
   <PropertyGroup>
     <StartupObject>Torch.Server.Program</StartupObject>
   </PropertyGroup>
+  
   <PropertyGroup>
     <ApplicationIcon>torchicon.ico</ApplicationIcon>
   </PropertyGroup>
-<!--   <Import Project="$(SolutionDir)\TransformOnBuild.targets" /> -->
+  
   <ItemGroup>
-    <PackageReference Include="AutoCompleteTextBox" Version="1.5.0" />
+    <PackageReference Include="AutoCompleteTextBox" Version="1.6.0" />
     <PackageReference Include="Ben.Demystifier" Version="0.4.1" />
     <PackageReference Include="ControlzEx" Version="5.0.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
-    <PackageReference Include="MdXaml" Version="1.13.0" />
-    <PackageReference Include="Microsoft.Diagnostics.Runtime" Version="2.0.226801" />
+    <PackageReference Include="MdXaml" Version="1.16.0" />
+    <PackageReference Include="Microsoft.Diagnostics.Runtime" Version="2.2.332302" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="6.0.0" />
-    <PackageReference Include="NLog" Version="5.0.0-rc2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="4.0.0" PrivateAssets="all" />
+    <PackageReference Include="NLog" Version="5.0.4" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.0.3" PrivateAssets="all" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="6.0.0" />
     <PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.3" />
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.201.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="HavokWrapper, Version=1.0.6051.28726, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\HavokWrapper.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\Microsoft.CodeAnalysis.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\Sandbox.Common.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Game, Version=0.1.6305.30774, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\Sandbox.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Sandbox.Graphics, Version=0.1.6305.30761, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\Sandbox.Graphics.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="SpaceEngineers.Game, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\SpaceEngineers.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="Steamworks.NET">
-      <HintPath>..\GameBinaries\Steamworks.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="VRage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Audio, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Audio.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Dedicated, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Dedicated.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Game, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Game.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Input, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Input.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Library.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Math, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Math.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Platform.Windows, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\GameBinaries\VRage.Platform.Windows.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="VRage.Render, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\GameBinaries\VRage.Render.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Render11, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Render11.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Scripting, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\GameBinaries\VRage.Scripting.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="VRage.Steam">
-      <HintPath>..\GameBinaries\VRage.Steam.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
+  
   <ItemGroup>
     <Compile Remove="ServerManager.cs" />
     <Compile Remove="ViewModels\SessionSettingsViewModel1.cs" />
     <Compile Remove="Views\WorldSelectControl.xaml.cs" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Torch.API\Torch.API.csproj" />
     <ProjectReference Include="..\Torch\Torch.csproj" />
   </ItemGroup>
+  
   <ItemGroup>
     <Resource Include="torchicon.ico" />
   </ItemGroup>
+  
   <ItemGroup>
     <Page Remove="Views\WorldSelectControl.xaml" />
     <EmbeddedResource Include="..\NLog.config" Visible="false" />

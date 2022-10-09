@@ -6,14 +6,13 @@ using System.Reflection;
 using NLog;
 using Torch.Event;
 using Torch.Managers.PatchManager;
-using VRage.Collections;
 
 namespace Torch.Utils
 {
     public static class TorchLauncher
     {
         private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
-        private static readonly MyConcurrentHashSet<Assembly> RegisteredAssemblies = new();
+        private static readonly HashSet<Assembly> RegisteredAssemblies = new();
         private static readonly Dictionary<string, string> Assemblies = new();
 
         public static void Launch(params string[] binaryPaths)
@@ -94,7 +93,7 @@ namespace Torch.Utils
         private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             var name = args.Name;
-            return Assemblies.TryGetValue(name.IndexOf(',') > 0 ? name[..','] : name, out var path) ? Assembly.LoadFrom(path) : null;
+            return Assemblies.TryGetValue(name.IndexOf(',') > 0 ? name[..name.IndexOf(',')] : name, out var path) ? Assembly.LoadFrom(path) : null;
         }
     }
 }

@@ -113,7 +113,7 @@ namespace Torch.Session
                     _currentSession.Detach();
                 }
 
-                _log.Info($"Starting new torch session for {_instanceManager.SelectedWorld.FolderName}");
+                _log.Info($"Starting new torch session for {_instanceManager.SelectedWorld.KeenCheckpoint.SessionName}");
 
                 _currentSession = new TorchSession(Torch, MySession.Static, _instanceManager.SelectedWorld);
                 SetState(TorchSessionState.Loading);
@@ -139,7 +139,7 @@ namespace Torch.Session
                         CurrentSession.Managers.AddManager(manager);
                 }
                 (CurrentSession as TorchSession)?.Attach();
-                _log.Info($"Loaded torch session for {CurrentSession.World.FolderName}");
+                _log.Info($"Loaded torch session for {CurrentSession.World.KeenCheckpoint.SessionName}");
                 SetState(TorchSessionState.Loaded);
             }
             catch (Exception e)
@@ -156,7 +156,7 @@ namespace Torch.Session
                 if (_currentSession is null)
                     throw new InvalidOperationException("Session loaded event occurred when we don't have a session.");
                 
-                _log.Info($"Unloading torch session for {_currentSession.World.FolderName}");
+                _log.Info($"Unloading torch session for {_currentSession.World.KeenCheckpoint.SessionName}");
                 SetState(TorchSessionState.Unloading);
                 _currentSession.Detach();
             }
@@ -174,7 +174,7 @@ namespace Torch.Session
                 if (_currentSession is null)
                     throw new InvalidOperationException("Session loaded event occurred when we don't have a session.");
                 
-                _log.Info($"Unloaded torch session for {_currentSession.World.FolderName}");
+                _log.Info($"Unloaded torch session for {_currentSession.World.KeenCheckpoint.SessionName}");
                 SetState(TorchSessionState.Unloaded);
                 _currentSession = null;
             }

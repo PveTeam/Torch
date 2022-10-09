@@ -59,14 +59,14 @@ namespace Torch.Server
             if (!configuration.GetValue("noupdate", false))
                 RunSteamCmd();
 
-            if (configuration.GetSection("waitForPid") is { } processPid)
+            var processPid = configuration.GetValue<int>("waitForPid");
+            if (processPid != 0)
             {
                 try
                 {
-                    var pid = processPid.Get<int>();
-                    var waitProc = Process.GetProcessById(pid);
+                    var waitProc = Process.GetProcessById(processPid);
                     Log.Info("Continuing in 5 seconds.");
-                    Log.Warn($"Waiting for process {pid} to close");
+                    Log.Warn($"Waiting for process {processPid} to close");
                     while (!waitProc.HasExited)
                     {
                         Console.Write(".");

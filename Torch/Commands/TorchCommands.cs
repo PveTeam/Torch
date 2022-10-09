@@ -11,7 +11,6 @@ using System.Timers;
 using NLog;
 using Sandbox.Game.Multiplayer;
 using Sandbox.ModAPI;
-using Steamworks;
 using Torch;
 using Torch.API;
 using Torch.API.Managers;

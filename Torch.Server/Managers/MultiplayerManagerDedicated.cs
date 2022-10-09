@@ -12,7 +12,6 @@ using Sandbox.Engine.Multiplayer;
 using Sandbox.Engine.Networking;
 using Sandbox.Game.Gui;
 using Sandbox.Game.World;
-using Steamworks;
 using Torch.API;
 using Torch.API.Managers;
 using Torch.Managers;
