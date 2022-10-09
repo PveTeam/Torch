@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c $env:BUILD_CONFIGURATION /p:AssemblyVersion=$env:VERSION /p:Version=$env:VERSION
       - name: Publish
-        run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c $env:BUILD_CONFIGURATION
+        run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c $env:BUILD_CONFIGURATION -o ./publish
       - uses: vimtor/action-zip@v1
         name: Zip Release
         with:
