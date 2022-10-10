@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using Mono.Cecil;
+using NLog;
 
 namespace Torch.Plugins;
 
 internal static class AssemblyRewriter
 {
+    private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
     private static readonly ZipResolver _zipResolver;
     private static readonly DefaultAssemblyResolver _defaultResolver;
 
@@ -23,12 +26,25 @@ internal static class AssemblyRewriter
     public static Assembly ProcessWeavers(this Stream stream, ZipArchive archive)
     {
         _zipResolver.Archive = archive;
+        
         using var assStream = new MemoryStream();
         stream.CopyTo(assStream);
         assStream.Position = 0;
-        var ass = ProcessInternal(assStream, _zipResolver);
-        _zipResolver.Archive = null;
-        return ass;
+        
+        try
+        {
+            var ass = ProcessInternal(assStream, _zipResolver);
+            return ass;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Unable to process assembly, skipping");
+            return Assembly.Load(assStream.ToArray());
+        }
+        finally
+        {
+            _zipResolver.Archive = null;
+        }
     }
     
     public static Assembly ProcessWeavers(this Stream stream, string path)
