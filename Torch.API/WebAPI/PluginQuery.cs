@@ -14,7 +14,7 @@ namespace Torch.API.WebAPI
     public class PluginQuery
     {
         private const string ALL_QUERY = "https://torchapi.com/api/plugins/";
-        private const string PLUGIN_QUERY = "https://torchapi.com/api/plugins/?guid={0}";
+        private const string PLUGIN_QUERY = "https://torchapi.com/api/plugins/search/{0}";
         private readonly HttpClient _client;
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
