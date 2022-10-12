@@ -205,16 +205,30 @@ namespace Torch.Server
             new Thread(() =>
             {
                 StopInternal();
-                var config = (TorchConfig)Config;
                 LogManager.Flush();
-
-                string exe = Assembly.GetExecutingAssembly().Location.Replace("dll", "exe");
                 
-                config.TempAutostart = true;
-                
-                Process.Start(exe, $"-waitForPid {Environment.ProcessId} {config}");
-
+#if DEBUG
                 Environment.Exit(0);
+#endif
+
+                var exe = Assembly.GetExecutingAssembly().Location.Replace("dll", "exe");
+
+                var args = Environment.GetCommandLineArgs();
+
+                for (var i = 0; i < args.Length; i++)
+                {
+                    if (args[i].Contains(' '))
+                        args[i] = $"\"{args[i]}\"";
+                    
+                    if (!args[i].Contains("--tempAutostart", StringComparison.InvariantCultureIgnoreCase) &&
+                        !args[i].Contains("--waitForPid", StringComparison.InvariantCultureIgnoreCase)) 
+                        continue;
+                    
+                    args[i] = string.Empty;
+                    args[++i] = string.Empty;
+                }
+
+                Process.Start(exe, $"--waitForPid {Environment.ProcessId} --tempAutostart true {string.Join(" ", args)}");
             })
             {
                 Name = "Restart thread"
