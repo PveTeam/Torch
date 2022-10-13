@@ -109,6 +109,9 @@ public class TorchConfig : ViewModel, ITorchConfig
              GroupName = "Server")]
     public bool EntityManagerEnabled { get; set; } = true;
 
+    [Display(Name = "Login Token", Description = "Steam GSLT (can be used if you have dynamic ip)", GroupName = "Server")]
+    public string LoginToken { get; set; }
+    
     // for backward compatibility
     public void Save(string path = null) => Initializer.Instance?.ConfigPersistent?.Save(path);
 }

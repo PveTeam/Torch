@@ -31,6 +31,8 @@ namespace Torch
         int FontSize { get; set; }
         UGCServiceType UgcServiceType { get; set; }
         bool EntityManagerEnabled { get; set; }
+        string LoginToken { get; set; }
+        
         void Save(string path = null);
     }
 }
