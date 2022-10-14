@@ -92,6 +92,7 @@ namespace Torch
         /// <summary>
         /// 
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="InvalidOperationException">Thrown if a TorchBase instance already exists.</exception>
         protected TorchBase(ITorchConfig config)
         {
@@ -147,6 +148,20 @@ namespace Torch
                     PatchManager.CommitInternal();
                 }
             };
+
+            var harmonyLog = LogManager.GetLogger("HarmonyX");
+            HarmonyLib.Tools.Logger.ChannelFilter = HarmonyLib.Tools.Logger.LogChannel.Debug;
+            HarmonyLib.Tools.Logger.MessageReceived += (_, args) => harmonyLog.Log(args.LogChannel switch
+            {
+                HarmonyLib.Tools.Logger.LogChannel.None => LogLevel.Off,
+                HarmonyLib.Tools.Logger.LogChannel.Info => LogLevel.Info,
+                HarmonyLib.Tools.Logger.LogChannel.IL => LogLevel.Trace,
+                HarmonyLib.Tools.Logger.LogChannel.Warn => LogLevel.Warn,
+                HarmonyLib.Tools.Logger.LogChannel.Error => LogLevel.Error,
+                HarmonyLib.Tools.Logger.LogChannel.Debug => LogLevel.Debug,
+                HarmonyLib.Tools.Logger.LogChannel.All => LogLevel.Debug,
+                _ => throw new ArgumentOutOfRangeException()
+            }, args.Message);
         }
 
         [Obsolete("Prefer using Managers.GetManager for global managers")]
