@@ -125,7 +125,6 @@ namespace Torch
             sessionManager.AddFactory((x) => Sync.IsServer ? new ChatManagerServer(this) : new ChatManagerClient(this));
             sessionManager.AddFactory((x) => Sync.IsServer ? new CommandManager(this) : null);
             sessionManager.AddFactory((x) => new EntityManager(this));
-            sessionManager.AddFactory((x) => new ScriptCompilationManager(this));
 
             Managers.AddManager(sessionManager);
             Managers.AddManager(new PatchManager(this));
@@ -135,6 +134,7 @@ namespace Torch
 #pragma warning disable CS0618
             Managers.AddManager(Plugins);
 #pragma warning restore CS0618
+            Managers.AddManager(new ScriptCompilationManager(this));
             TorchAPI.Instance = this;
 
             GameStateChanged += (game, state) =>
