@@ -89,8 +89,6 @@ namespace Torch.Server
             var workingDir = AppContext.BaseDirectory;
             var gamePath = configuration.GetValue("gamePath", workingDir);
             var binDir = Path.Combine(gamePath, "DedicatedServer64");
-            
-            Directory.SetCurrentDirectory(gamePath);
 
             var instanceName = configuration.GetValue("instanceName", "Instance");
             string instancePath;
@@ -104,6 +102,8 @@ namespace Torch.Server
             {
                 instancePath = Directory.CreateDirectory(instanceName!).FullName;
             }
+            
+            Directory.SetCurrentDirectory(gamePath);
             
             return new ApplicationContext(new(workingDir), new(gamePath), new(binDir), 
                 new(instancePath), instanceName, isService);
