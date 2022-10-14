@@ -12,7 +12,7 @@ public static class SteamLoginPatch
     private static readonly ILogger Log = LogManager.GetCurrentClassLogger();
     
     [ReflectedMethodInfo(null, "LogOnAnonymous", TypeName = "VRage.Steam.MySteamGameServer, VRage.Steam")]
-    private static readonly MethodInfo LoginMethod;
+    private static MethodInfo LoginMethod = null!;
 
     public static void Patch(PatchContext context)
     {

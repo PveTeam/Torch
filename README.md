@@ -12,7 +12,10 @@ Torch is the successor to SE Server Extender and gives server admins the tools t
 
 ### Fork Difference
 * .NET 6.0 runtime
-* Additional options & features
+* Optimized in-game scripts (also newer compiler & language versions)
+* Better configuration via cli arguments, environment variables or xml config
+* Designed to run multiple instance from same install directory without having you to waste disk space 
+* Mostly compatible with original torch's plugins
 
 ### Discord
 
@@ -21,10 +24,13 @@ If you have any questions or issues please join our [discord](https://discord.gg
 ### Installation
 
 * Unzip the Torch release into its own directory and run the executable. It will automatically download the SE DS and generate the other necessary files.
-  - If you already have a DS installed you can unzip the Torch files into the folder that contains the DedicatedServer64 folder.
+  - If you already have a DS installed you can:
+    * Unzip the Torch files into the folder that contains the DedicatedServer64 folder.
+    * Pass path to game files using config parameter `gamePath`
 
 # Building
-To build Torch you must first have a complete SE Dedicated installation somewhere. Before you open the solution, run the Setup batch file and enter the path of that installation's DedicatedServer64 folder. The script will make a symlink to that folder so the Torch solution can find the DLL references it needs.
+
+As a regular dotnet project with cli by running `dotnet build Torch.Server/Torch.Server.csproj`, with VS 2022 or higher, with JB Rider or Fleet.
 
 If you have a more enjoyable server experience because of Torch, please consider supporting us on Patreon. (https://www.patreon.com/TorchSE)
 
