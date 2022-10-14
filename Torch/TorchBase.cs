@@ -124,6 +124,7 @@ namespace Torch
             sessionManager.AddFactory((x) => Sync.IsServer ? new ChatManagerServer(this) : new ChatManagerClient(this));
             sessionManager.AddFactory((x) => Sync.IsServer ? new CommandManager(this) : null);
             sessionManager.AddFactory((x) => new EntityManager(this));
+            sessionManager.AddFactory((x) => new ScriptCompilationManager(this));
 
             Managers.AddManager(sessionManager);
             Managers.AddManager(new PatchManager(this));
