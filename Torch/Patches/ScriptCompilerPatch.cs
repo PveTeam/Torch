@@ -12,6 +12,7 @@ using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.CodeAnalysis;
+using ParallelTasks;
 using ProtoBuf;
 using Torch.Managers.PatchManager;
 using Torch.Managers.PatchManager.MSIL;
@@ -82,6 +83,14 @@ namespace Torch.Patches
 
             using var batch = MyScriptCompiler.Static.Whitelist.OpenBatch();
             batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(ConcurrentQueue<>));
+            batch.AllowNamespaceOfTypes(MyWhitelistTarget.Both, typeof(ImmutableArray), typeof(ArrayExtensions));
+            batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(ProtoContractAttribute).Assembly.GetExportedTypes()
+                                 .Where(b => b.Namespace == "ProtoBuf" && b.Name.Contains("Attribute"))
+                                 .Concat(new[]
+                                 {
+                                     typeof(DataFormat), typeof(MemberSerializationOptions), typeof(ImplicitFields)
+                                 }).ToArray());
+            batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(WorkData));
             
             return false;
         }
