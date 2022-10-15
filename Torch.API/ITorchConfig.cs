@@ -32,7 +32,22 @@ namespace Torch
         UGCServiceType UgcServiceType { get; set; }
         bool EntityManagerEnabled { get; set; }
         string LoginToken { get; set; }
+        UpdateSource UpdateSource { get; set; }
         
         void Save(string path = null);
+    }
+
+    public class UpdateSource
+    {
+        public UpdateSourceType SourceType { get; set; }
+        public string Url { get; set; }
+        public string Repository { get; set; }
+        public string Branch { get; set; }
+    }
+
+    public enum UpdateSourceType
+    {
+        Github,
+        Jenkins
     }
 }

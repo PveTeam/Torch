@@ -111,7 +111,14 @@ public class TorchConfig : ViewModel, ITorchConfig
 
     [Display(Name = "Login Token", Description = "Steam GSLT (can be used if you have dynamic ip)", GroupName = "Server")]
     public string LoginToken { get; set; }
-    
+
+    public UpdateSource UpdateSource { get; set; } = new()
+    {
+        Repository = "PveTeam/Torch",
+        Url = "https://api.github.com",
+        SourceType = UpdateSourceType.Github
+    };
+
     // for backward compatibility
     public void Save(string path = null) => Initializer.Instance?.ConfigPersistent?.Save(path);
 }

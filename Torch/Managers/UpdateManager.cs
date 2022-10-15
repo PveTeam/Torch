@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.IO.Packaging;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -21,8 +22,9 @@ namespace Torch.Managers
     public class UpdateManager : Manager
     {
         private readonly Timer _updatePollTimer;
-        private string _torchDir = new FileInfo(typeof(UpdateManager).Assembly.Location).DirectoryName;
-        private Logger _log = LogManager.GetCurrentClassLogger();
+        private readonly string _torchDir = ApplicationContext.Current.TorchDirectory.FullName;
+        private readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         [Dependency]
         private FilesystemManager _fsManager = null!;
         
@@ -50,26 +52,22 @@ namespace Torch.Managers
 
             try
             {
-                var job = await JenkinsQuery.Instance.GetLatestVersion(Torch.TorchVersion.Build);
-                if (job == null)
-                {
-                    _log.Info("Failed to fetch latest version.");
-                    return;
-                }
+                var updateSource = Torch.Config.UpdateSource;
                 
-                if (job.Version > Torch.TorchVersion)
+                IUpdateQuery source = updateSource.SourceType switch
                 {
-                    _log.Warn($"Updating Torch from version {Torch.TorchVersion} to version {job.Version}");
-                    var updateName = Path.Combine(_fsManager.TempDirectory, "torchupdate.zip");
-                    //new WebClient().DownloadFile(new Uri(releaseInfo.Item2), updateName);
-                    if (!await JenkinsQuery.Instance.DownloadRelease(job, updateName))
-                    {
-                        _log.Warn("Failed to download new release!");
-                        return;
-                    }
-                    UpdateFromZip(updateName, _torchDir);
-                    File.Delete(updateName);
-                    _log.Warn($"Torch version {job.Version} has been installed, please restart Torch to finish the process.");
+                    UpdateSourceType.Github => new GithubQuery(updateSource.Url),
+                    UpdateSourceType.Jenkins => new JenkinsQuery(updateSource.Url),
+                    _ => throw new ArgumentOutOfRangeException()
+                };
+                
+                var release = await source.GetLatestReleaseAsync(updateSource.Repository, updateSource.Branch);
+
+                if (release.Version > Torch.TorchVersion)
+                {
+                    _log.Warn($"Updating Torch from version {Torch.TorchVersion} to version {release.Version}");
+                    await UpdateAsync(release, _torchDir);
+                    _log.Warn($"Torch version {release.Version} has been installed, please restart Torch to finish the process.");
                 }
                 else
                 {
@@ -83,23 +81,29 @@ namespace Torch.Managers
             }
         }
 
-        private void UpdateFromZip(string zipFile, string extractPath)
+        private async Task UpdateAsync(UpdateRelease release, string extractPath)
         {
-            using (var zip = ZipFile.OpenRead(zipFile))
+            using var client = new HttpClient();
+            await using var stream = await client.GetStreamAsync(release.ArtifactUrl);
+            UpdateFromZip(stream, extractPath);
+        }
+
+        private void UpdateFromZip(Stream zipStream, string extractPath)
+        {
+            using var zip = new ZipArchive(zipStream, ZipArchiveMode.Read, true);
+            
+            foreach (var file in zip.Entries)
             {
-                foreach (var file in zip.Entries)
-                {
-                    if(file.Name == "NLog-user.config" && File.Exists(Path.Combine(extractPath, file.FullName)))
-                        continue;
+                if(file.Name == "NLog-user.config" && File.Exists(Path.Combine(extractPath, file.FullName)))
+                    continue;
 
-                    _log.Debug($"Unzipping {file.FullName}");
-                    var targetFile = Path.Combine(extractPath, file.FullName);
-                    _fsManager.SoftDelete(extractPath, file.FullName);
-                    file.ExtractToFile(targetFile, true);
-                }
-
-                //zip.ExtractToDirectory(extractPath); //throws exceptions sometimes?
+                _log.Debug($"Unzipping {file.FullName}");
+                var targetFile = Path.Combine(extractPath, file.FullName);
+                _fsManager.SoftDelete(extractPath, file.FullName);
+                file.ExtractToFile(targetFile, true);
             }
+
+            //zip.ExtractToDirectory(extractPath); //throws exceptions sometimes?
         }
 
         /// <inheritdoc />
