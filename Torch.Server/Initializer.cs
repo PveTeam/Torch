@@ -57,7 +57,7 @@ namespace Torch.Server
 #endif
             
             if (!configuration.GetValue("noupdate", false))
-                RunSteamCmd();
+                RunSteamCmd(configuration);
 
             var processPid = configuration.GetValue<int>("waitForPid");
             if (processPid != 0)
@@ -124,11 +124,12 @@ namespace Torch.Server
             }
         }
         
-        public static void RunSteamCmd()
+        public static void RunSteamCmd(IConfiguration configuration)
         {
             var log = LogManager.GetLogger("SteamCMD");
 
-            var path = Environment.GetEnvironmentVariable("TORCH_STEAMCMD") ?? Path.GetFullPath(STEAMCMD_DIR);
+            var path = configuration.GetValue<string>("steamCmdPath") ?? ApplicationContext.Current.TorchDirectory
+                .CreateSubdirectory(STEAMCMD_DIR).FullName;
             
             if (!Directory.Exists(path))
             {
@@ -143,7 +144,8 @@ namespace Torch.Server
                     log.Info("Downloading SteamCMD.");
                     using (var client = new HttpClient()) 
                     using (var file = File.Create(STEAMCMD_ZIP))
-                        client.GetStreamAsync("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip").Result.CopyTo(file);
+                    using (var stream = client.GetStreamAsync("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip").Result)
+                        stream.CopyTo(file);
 
                     ZipFile.ExtractToDirectory(STEAMCMD_ZIP, path);
                     File.Delete(STEAMCMD_ZIP);
@@ -159,7 +161,7 @@ namespace Torch.Server
             log.Info("Checking for DS updates.");
             var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
             {
-                Arguments = string.Format(STEAMCMD_ARGS, Environment.GetEnvironmentVariable("TORCH_GAME_PATH") ?? "../"),
+                Arguments = string.Format(STEAMCMD_ARGS, configuration.GetValue("gamePath", "../")),
                 WorkingDirectory = path,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
