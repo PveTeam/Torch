@@ -37,7 +37,7 @@ jobs:
           value: ${{ env.TORCH_VERSION }}
           index_of_str: "v"
       - name: Build
-        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} /p:AssemblyVersion=${{ env.TORCH_VERSION }} /p:Version=${{ steps.normalize_version.outputs.substring }}
+        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} /p:AssemblyVersion=${{ steps.normalize_version.outputs.substring }} /p:Version=${{ steps.normalize_version.outputs.substring }}
       - name: Publish
         run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c ${{ env.BUILD_CONFIGURATION }} -o ./publish
       - uses: vimtor/action-zip@v1
