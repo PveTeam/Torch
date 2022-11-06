@@ -10,7 +10,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
-      VERSION: ${{ github.ref_name }}
+      TORCH_VERSION: ${{ github.ref_name }}
       BUILD_CONFIGURATION: Release
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -32,7 +32,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore Torch.Server/Torch.Server.csproj --use-lock-file
       - name: Build
-        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c $env:BUILD_CONFIGURATION /p:AssemblyVersion=$env:VERSION /p:Version=$env:VERSION
+        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c $env:BUILD_CONFIGURATION /p:AssemblyVersion=$env:TORCH_VERSION /p:Version=$env:TORCH_VERSION
       - name: Publish
         run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c $env:BUILD_CONFIGURATION -o ./publish
       - uses: vimtor/action-zip@v1
@@ -53,8 +53,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
+          tag_name: ${{ env.TORCH_VERSION }}
+          release_name: Release v${{ env.TORCH_VERSION }}
           body: ${{ steps.github_release.outputs.changelog }}
           draft: true
           prerelease: false
