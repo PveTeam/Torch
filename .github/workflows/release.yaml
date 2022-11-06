@@ -31,7 +31,7 @@ jobs:
         run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github
       - name: Restore dependencies
         run: dotnet restore Torch.Server/Torch.Server.csproj --use-lock-file
-      - uses: bhowell2/github-substring-action
+      - uses: bhowell2/github-substring-action@v1.0.0
         id: normalize_version
         with:
           value: ${{ env.TORCH_VERSION }}
