@@ -31,8 +31,13 @@ jobs:
         run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github
       - name: Restore dependencies
         run: dotnet restore Torch.Server/Torch.Server.csproj --use-lock-file
+      - uses: bhowell2/github-substring-action
+        id: normalize_version
+        with:
+          value: ${{ env.TORCH_VERSION }}
+          index_of_str: "v"
       - name: Build
-        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} /p:AssemblyVersion=${{ env.TORCH_VERSION }} /p:Version=${{ env.TORCH_VERSION }}
+        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} /p:AssemblyVersion=${{ env.TORCH_VERSION }} /p:Version=${{ steps.normalize_version.outputs.substring }}
       - name: Publish
         run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c ${{ env.BUILD_CONFIGURATION }} -o ./publish
       - uses: vimtor/action-zip@v1
