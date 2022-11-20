@@ -21,8 +21,6 @@ namespace Torch.Managers.PatchManager
 {
     internal class DecoratedMethod : MethodRewritePattern
     {
-        private static Action<ILHook, bool> IsAppliedSetter;
-
         [ReflectedMethodInfo(typeof(MethodBase), nameof(MethodBase.GetMethodFromHandle), Parameters = new[] {typeof(RuntimeMethodHandle)})]
         private static MethodInfo _getMethodFromHandle = null!;
         
@@ -37,10 +35,6 @@ namespace Torch.Managers.PatchManager
         internal DecoratedMethod(MethodBase method) : base(null)
         {
             _method = method;
-            if (IsAppliedSetter == null)
-            {
-                IsAppliedSetter = typeof(ILHook).GetProperty(nameof(ILHook.IsApplied)).CreateSetter<ILHook, bool>();
-            }
         }
 
         internal bool HasChanged()
@@ -62,16 +56,14 @@ namespace Torch.Managers.PatchManager
                 _log.Log(PrintMode != 0 ? LogLevel.Info : LogLevel.Debug,
                     $"Begin patching {_method.DeclaringType?.FullName}#{_method.Name}({string.Join(", ", _method.GetParameters().Select(x => x.ParameterType.Name))})");
 
-                if (_hook == null)
-                    _hook = new ILHook(_method, Manipulator, new ILHookConfig {ManualApply = true});
-                IsAppliedSetter(_hook, false);
+                _hook ??= new ILHook(_method, Manipulator, false);
                 try
                 {
                     _hook.Apply();
                 }
                 catch (InvalidProgramException e)
                 {
-                    IsAppliedSetter(_hook, false);
+                    _hook.Undo();
                     PrintMode = PrintModeEnum.Emitted | PrintModeEnum.Original;
                     try
                     {

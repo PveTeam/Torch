@@ -62,7 +62,7 @@ internal static class AssemblyRewriter
     {
         using var module = ModuleDefinition.ReadModule(inputStream, new()
         {
-            AssemblyResolver = _zipResolver
+            AssemblyResolver = resolver
         });
         foreach (var fieldDefinition in FindAllToRewrite(module))
         {

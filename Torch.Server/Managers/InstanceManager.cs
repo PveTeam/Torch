@@ -90,8 +90,7 @@ namespace Torch.Server.Managers
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("Failed to load world at path: " + f);
-                    continue;
+                    Log.Error(ex, "Failed to load world at path: " + f);
                 }
             }
 
@@ -137,7 +136,7 @@ namespace Torch.Server.Managers
             }
             catch (Exception ex)
             {
-                Log.Error("Failed to load world at path: " + worldPath);
+                Log.Error(ex, "Failed to load world at path: " + worldPath);
                 DedicatedConfig.LoadWorld = null;
                 return;
             }

@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6-windows</TargetFramework>
-    <LangVersion>10</LangVersion>
+    <TargetFramework>net7-windows</TargetFramework>
     <NoWarn>1591,0649</NoWarn>
     <AssemblyTitle>Torch Tests</AssemblyTitle>
     <Product>Torch</Product>
@@ -18,8 +17,8 @@
   </PropertyGroup>
 <!--   <Import Project="$(SolutionDir)\TransformOnBuild.targets" /> -->
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="NLog" Version="5.0.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="NLog" Version="5.0.5" />
     <PackageReference Include="xunit" Version="2.4.2" />
   </ItemGroup>
   <ItemGroup>

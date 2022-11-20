@@ -112,7 +112,7 @@ namespace Torch.Patches
                 do
                 {
                     ins[i] = new(OpCodes.Nop);
-                } while (ins[--i].OpCode.OperandType != OperandType.ShortInlineBrTarget);
+                } while (ins[--i].OpCode.FlowControl != FlowControl.Cond_Branch);
 
                 ins[index] = new(OpCodes.Ret);
             }

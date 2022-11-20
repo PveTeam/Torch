@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6-windows</TargetFramework>
-    <LangVersion>10</LangVersion>
+    <TargetFramework>net7-windows</TargetFramework>
     <AssemblyTitle>Torch</AssemblyTitle>
     <Product>Torch</Product>
     <Copyright>Copyright © Torch API 2017</Copyright>
@@ -22,15 +21,15 @@
   <Import Project="..\Torch.Mod\Torch.Mod.projitems" Label="Shared" />
   
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="5.0.1" />
-    <PackageReference Include="HarmonyX" Version="2.10.0" />
+    <PackageReference Include="ControlzEx" Version="5.0.2" />
+    <PackageReference Include="HarmonyX" Version="2.10.2-prerelease" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.3.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
-    <PackageReference Include="MonoMod.RuntimeDetour" Version="22.5.1.1" />
-    <PackageReference Include="NLog" Version="5.0.4" />
-    <PackageReference Include="PropertyChanged.Fody" Version="4.0.3" PrivateAssets="all" />
+    <PackageReference Include="MonoModReorg.RuntimeDetour" Version="22.11.17-prerelease.1" />
+    <PackageReference Include="NLog" Version="5.0.5" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="protobuf-net" Version="2.4.7" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="Torch.SixLabors.ImageSharp" Version="1.0.0-beta6" />
