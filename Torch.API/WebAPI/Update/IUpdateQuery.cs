@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Torch.API.WebAPI;
+namespace Torch.API.WebAPI.Update;
 
 public interface IUpdateQuery : IDisposable
 {

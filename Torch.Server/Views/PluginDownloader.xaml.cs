@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using Torch.API.WebAPI.Plugin;
 
 namespace Torch.Server.Views
 {
@@ -50,7 +51,7 @@ namespace Torch.Server.Views
             var PercentChangeOnDownload = 100 / PluginsToDownload.Count;
 
             foreach (PluginItem PluginItem in PluginsToDownload) {
-                if (!PluginQuery.Instance.DownloadPlugin(PluginItem.Id).Result) {
+                if (!LegacyPluginQuery.Instance.DownloadPlugin(PluginItem.Id).Result) {
                     failedDownloads++;
                     DownloadProgress += PercentChangeOnDownload;
                     (sender as BackgroundWorker).ReportProgress(DownloadProgress);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Torch.API.Utils;
 using Version = SemanticVersioning.Version;
 
-namespace Torch.API.WebAPI
+namespace Torch.API.WebAPI.Update
 {
     public class JenkinsQuery : IUpdateQuery
     {

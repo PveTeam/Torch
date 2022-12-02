@@ -16,6 +16,7 @@ using Torch.API.Managers;
 using Torch.API.Plugins;
 using Torch.API.Session;
 using Torch.API.WebAPI;
+using Torch.API.WebAPI.Plugin;
 using Torch.Collections;
 using Torch.Commands;
 using Torch.Plugins;
@@ -306,7 +307,7 @@ namespace Torch.Managers
                         return;
                     }
                     item.Manifest.Version.TryExtractVersion(out Version currentVersion);
-                    var latest = await PluginQuery.Instance.QueryOne(item.Manifest.Guid);
+                    var latest = await LegacyPluginQuery.Instance.QueryOne(item.Manifest.Guid);
 
                     if (latest?.LatestVersion == null)
                     {
@@ -329,7 +330,7 @@ namespace Torch.Managers
                     }
 
                     _log.Info($"Updating plugin '{item.Manifest.Name}' from {currentVersion} to {newVersion}.");
-                    await PluginQuery.Instance.DownloadPlugin(latest, item.Path);
+                    await LegacyPluginQuery.Instance.DownloadPlugin(latest, item.Path);
                     Interlocked.Increment(ref count);
                 }
                 catch (Exception e)

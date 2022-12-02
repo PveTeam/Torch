@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using JorgeSerrano.Json;
 using Version = SemanticVersioning.Version;
 
-namespace Torch.API.WebAPI;
+namespace Torch.API.WebAPI.Update;
 
 public class GithubQuery : IUpdateQuery
 {

@@ -22,6 +22,7 @@ using Torch.Collections;
 using Torch.Server.Annotations;
 using Torch.Managers;
 using Torch.API.Managers;
+using Torch.API.WebAPI.Plugin;
 
 namespace Torch.Server.Views
 {
@@ -60,7 +61,7 @@ namespace Torch.Server.Views
             {
                 try
                 {
-                    var res = await PluginQuery.Instance.QueryAll();
+                    var res = await LegacyPluginQuery.Instance.QueryAll();
                     foreach (var item in res.Plugins.OrderBy(i => i.Name)) {
                         lock (_syncLock)
                         {

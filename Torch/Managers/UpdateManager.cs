@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using NLog;
 using Torch.API;
 using Torch.API.WebAPI;
+using Torch.API.WebAPI.Update;
 
 namespace Torch.Managers
 {
