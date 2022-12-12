@@ -8,6 +8,7 @@
     <OutputPath>..\bin\$(Platform)\$(Configuration)\</OutputPath>
     <UseWpf>True</UseWpf>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   
   <PropertyGroup Condition="$(Configuration) == 'Release'">

@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net7.0-windows7.0": {
+      "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": {
+        "type": "Direct",
+        "requested": "[0.9.0, )",
+        "resolved": "0.9.0",
+        "contentHash": "xCqODS+wzpUXNtg4bMMvXG5PLbP0iTwRzRn2R+zWHKm83E6tbV2bCagawXp1EnZeNpd5OXpMxehulZWns8efzQ=="
+      },
+      "NLog": {
+        "type": "Direct",
+        "requested": "[5.1.0, )",
+        "resolved": "5.1.0",
+        "contentHash": "oW7ekrkRG9okpDMUcEglunWj8Qf2RY8qkgl+/chJoavzg3dbT13y32t19R54FKkmq80fKzw4ZekZkCrRGanKgQ=="
+      },
+      "SemanticVersioning": {
+        "type": "Direct",
+        "requested": "[2.0.2, )",
+        "resolved": "2.0.2",
+        "contentHash": "4EQgYdNZ92SyaO7YFk6olVnebF5V+jrHyMUjvPq89tLeMo8NSfgDF+6Zwq/lgh9j/0yfQp9Lkm0ZA0rUATCZFA=="
+      },
+      "SpaceEngineersDedicated.ReferenceAssemblies": {
+        "type": "Direct",
+        "requested": "[1.201.13, )",
+        "resolved": "1.201.13",
+        "contentHash": "FRXuNLENsz5jGQvL0QkogAGsxEJyUQlXhvWHBWfZiHCnCrAWMD60nEis6yt0xCQpazszfMtHonbxz72XMxnFoQ==",
+        "dependencies": {
+          "protobuf-net": "1.0.0"
+        }
+      },
+      "protobuf-net": {
+        "type": "Transitive",
+        "resolved": "1.0.0",
+        "contentHash": "kTGOK0E87473sOImOjgZOnz3kTC2aMLffoRWQLYNuBLJnwNNmjanF9IkevZ9Q7yYLeABQfcF3BpeepuMntMVNw=="
+      }
+    }
+  }
+}
