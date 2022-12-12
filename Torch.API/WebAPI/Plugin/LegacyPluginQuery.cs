@@ -11,7 +11,7 @@ namespace Torch.API.WebAPI.Plugin;
 
 public class LegacyPluginQuery : IPluginQuery
 {
-    private const string BASE_URL = "https://torchapi.com/api/plugins/";
+    private const string BASE_URL = "https://torchapi.com/";
     private readonly HttpClient _client;
     private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
@@ -27,12 +27,12 @@ public class LegacyPluginQuery : IPluginQuery
 
     public async Task<PluginsResponse> QueryAll()
     {
-        return await _client.GetFromJsonAsync<PluginsResponse>("/", CancellationToken.None);
+        return await _client.GetFromJsonAsync<PluginsResponse>("/api/plugins/", CancellationToken.None);
     }
 
     public async Task<PluginItem> QueryOne(Guid guid)
     {
-        using var res = await _client.GetAsync($"/search/{guid}");
+        using var res = await _client.GetAsync($"/api/plugins/search/{guid}");
         if (!res.IsSuccessStatusCode)
             return null;
         return await res.Content.ReadFromJsonAsync<PluginItem>();

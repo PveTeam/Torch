@@ -22,6 +22,7 @@ using Torch.Collections;
 using Torch.Server.Annotations;
 using Torch.Managers;
 using Torch.API.Managers;
+using Torch.API.Plugins;
 using Torch.API.WebAPI.Plugin;
 
 namespace Torch.Server.Views
@@ -56,37 +57,36 @@ namespace Torch.Server.Views
             InitializeComponent();
 
             var installedPlugins = pluginManager.Plugins;
-            BindingOperations.EnableCollectionSynchronization(Plugins, _syncLock);
-            Task.Run(async () =>
-            {
-                try
-                {
-                    var res = await LegacyPluginQuery.Instance.QueryAll();
-                    foreach (var item in res.Plugins.OrderBy(i => i.Name)) {
-                        lock (_syncLock)
-                        {
-                            var pluginItem = item with
-                            {
-                                Description = item.Description.Replace("&lt;", "<").Replace("&gt;", ">"),
-                                Installed = installedPlugins.Keys.Contains(item.Id)
-                            };
-                            Plugins.Add(pluginItem);
-                            PluginsSource.Add(pluginItem);
-                        }
-                    }
-
-                    Dispatcher.Invoke(() => PluginsList.SelectedIndex = 0);
-                    CurrentDescription = "Please select a plugin...";
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.ToString(), "An Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-                    throw;
-                }
-            });
+            LoadAsync(installedPlugins);
 
             MarkdownFlow.CommandBindings.Add(new CommandBinding(NavigationCommands.GoToPage, (sender, e) => OpenUri((string)e.Parameter)));
+        }
+
+        private async void LoadAsync(IReadOnlyDictionary<Guid, ITorchPlugin> installedPlugins)
+        {
+            try
+            {
+                var res = await LegacyPluginQuery.Instance.QueryAll();
+                foreach (var item in res.Plugins.OrderBy(i => i.Name)) 
+                {
+                    var pluginItem = item with
+                    {
+                        Description = item.Description?.Replace("&lt;", "<").Replace("&gt;", ">") ?? string.Empty,
+                        Installed = installedPlugins.Keys.Contains(item.Id)
+                    };
+                    Plugins.Add(pluginItem);
+                    PluginsSource.Add(pluginItem);
+                }
+
+                PluginsList.SelectedIndex = 0;
+                CurrentDescription = "Please select a plugin...";
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString(), "An Error Occurred", MessageBoxButton.OK, MessageBoxImage.Error);
+                Close();
+                throw;
+            }
         }
 
         public static bool IsValidUri(string uri)

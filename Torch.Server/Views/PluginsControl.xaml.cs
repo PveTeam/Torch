@@ -71,7 +71,7 @@ namespace Torch.Server.Views
         private void OpenFolder_OnClick(object sender, RoutedEventArgs e)
         {
             if (_plugins?.PluginDir != null)
-                Process.Start(_plugins.PluginDir);
+                Process.Start("explorer", _plugins.PluginDir);
         }
 
         private void BrowsPlugins_OnClick(object sender, RoutedEventArgs e)
