@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Sandbox;
 using Sandbox.Game.Entities;
 using Torch.Utils;
@@ -68,6 +65,8 @@ namespace Torch.Patches
                     }
                 }
             }
+
+            MyEntities.Orchestrator = new MyParallelEntityUpdateOrchestrator();
 
             // static MyObjectPoolManager()
             // Render, so should be fine.

@@ -14,11 +14,11 @@
       },
       "HarmonyX": {
         "type": "Direct",
-        "requested": "[2.10.2-prerelease, )",
-        "resolved": "2.10.2-prerelease",
-        "contentHash": "a9wXURpkmi5aGTHEQiNCWv9DSKugpQLgT315wC1+zcnuxy5iUqgm7y7seH9IGDsWv7I33o6sGCUcGFAECsKusw==",
+        "requested": "[2.10.2-prerelease.1, )",
+        "resolved": "2.10.2-prerelease.1",
+        "contentHash": "5hbH0ENhQ+JV7tk63fQ2ab7MtplRHKJYH1JfIjG39rlltHNXxAcGJh05an+SQbVRV4EoP/+Qm9w9BrLc3RwRMA==",
         "dependencies": {
-          "MonoModReorg.RuntimeDetour": "22.11.17-prerelease.1",
+          "MonoModReorg.RuntimeDetour": "22.11.21-prerelease.2",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0"
         }
@@ -67,15 +67,15 @@
       },
       "MonoModReorg.RuntimeDetour": {
         "type": "Direct",
-        "requested": "[22.11.17-prerelease.1, )",
-        "resolved": "22.11.17-prerelease.1",
-        "contentHash": "gOFDFz88Lr/H5G6pQOejjvyq2lh63jLS8Fmajk0s3bt54BlW4v0pa+b3rI4ZPDOTmGdxAi1yZtREX20j6ewzqQ==",
+        "requested": "[22.11.21-prerelease.2, )",
+        "resolved": "22.11.21-prerelease.2",
+        "contentHash": "Qv1h4rW03LrHwxwVuw5R6hbL8X78l8Lfnxe5tMlyVAe+AK0HnwsRzjsTwzFF57wxWUwq12NbLflkzV6T+hIhJw==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.17-prerelease.1",
-          "MonoModReorg.Core": "22.11.17-prerelease.1",
-          "MonoModReorg.ILHelpers": "22.11.17-prerelease.1",
-          "MonoModReorg.Utils": "22.11.17-prerelease.1"
+          "MonoModReorg.Backports": "22.11.21-prerelease.2",
+          "MonoModReorg.Core": "22.11.21-prerelease.2",
+          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2",
+          "MonoModReorg.Utils": "22.11.21-prerelease.2"
         }
       },
       "NLog": {
@@ -159,36 +159,36 @@
       },
       "MonoModReorg.Backports": {
         "type": "Transitive",
-        "resolved": "22.11.17-prerelease.1",
-        "contentHash": "MZXad6VJQgkFd5d4MqRcBI0EPhSDFlCl590L1rFKBJC2BqZR6DO2ZjAsRNtP8JyomFp+JzDJIqOIR+YgoWkhAg==",
+        "resolved": "22.11.21-prerelease.2",
+        "contentHash": "69T6jjA5nx29jLkdqtfXKlJ8sMqIlc6czNDTomy0rbM68W0xo2JRJBgsu2mroBuqx7nvUdX+zIU6k1edS/pPbw==",
         "dependencies": {
-          "MonoModReorg.ILHelpers": "22.11.17-prerelease.1"
+          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2"
         }
       },
       "MonoModReorg.Core": {
         "type": "Transitive",
-        "resolved": "22.11.17-prerelease.1",
-        "contentHash": "2I3CRne3mAPW+z46/fmallENRCBD6ufa4sZnF7V5FleKFEwSxLkejZQfuvB/Jt4DaHo8b9ktly5UGpgcYpAOIQ==",
+        "resolved": "22.11.21-prerelease.2",
+        "contentHash": "gDoxu4aAF6TeOo8rsrj5prq2X36i12ch6NeRHu/Ct0H3qoPDHuEQ6JMJN/Eiy45YrLNEN7C5+Ku4BrNX4nwVQg==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.17-prerelease.1",
-          "MonoModReorg.ILHelpers": "22.11.17-prerelease.1",
-          "MonoModReorg.Utils": "22.11.17-prerelease.1"
+          "MonoModReorg.Backports": "22.11.21-prerelease.2",
+          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2",
+          "MonoModReorg.Utils": "22.11.21-prerelease.2"
         }
       },
       "MonoModReorg.ILHelpers": {
         "type": "Transitive",
-        "resolved": "22.11.17-prerelease.1",
-        "contentHash": "waeN4kdsQf2cXnXJd6SpqEfp4p+8kvcftcwijkSpq8I4fPGOagfCKNKRtDo5raRsi6PuCTK+dpljRsSOYQX6vg=="
+        "resolved": "22.11.21-prerelease.2",
+        "contentHash": "JtOKHJR4DEyq3HxmdEVXIxhqNQnu1KmjGFXuEQrNHoPbzi8Yr9465VKVXdsoAF0Lm8StdyJHQ03efjv3+OlonA=="
       },
       "MonoModReorg.Utils": {
         "type": "Transitive",
-        "resolved": "22.11.17-prerelease.1",
-        "contentHash": "i/F1vekXLt7jHGWqM05naWIsp5cQ5L3tCP4efcpAT3O/lrtPL6nmL7/9u+FV4Ip/jp5HNKqMHR67CdMWNh9aOA==",
+        "resolved": "22.11.21-prerelease.2",
+        "contentHash": "TX+vlgg2/x8rzEOqwiAy2qv61FjlJsr4u10WGTekCkulZVmmC+xxDmK+4Do9noXF/4RlgFN6sR3m9/W8KvJq3g==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.17-prerelease.1",
-          "MonoModReorg.ILHelpers": "22.11.17-prerelease.1"
+          "MonoModReorg.Backports": "22.11.21-prerelease.2",
+          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2"
         }
       },
       "SemanticVersioning": {

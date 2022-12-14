@@ -240,6 +240,7 @@ namespace Torch
             
             _log.Info("Services initialized");
             MySandboxGame.InitMultithreading();
+            MyVRage.Platform.System.OnThreadpoolInitialized();
             // MyInitializer.InitCheckSum();
 
 
@@ -309,6 +310,7 @@ namespace Torch
             _getVRagePluginList().Remove(_torch);
 
             MyInitializer.InvokeAfterRun();
+            MyVRage.Done();
         }
 
         private void DoStart()
