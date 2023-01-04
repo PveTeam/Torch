@@ -429,7 +429,7 @@ namespace Torch.Managers
             if (a.Version is null || b.Version is null)
                 return a.Name == b.Name;
             
-            return a.Name == b.Name && a.Version.Major == b.Version.Major && a.Version.Minor == b.Version.Minor;
+            return a.Name == b.Name && b.Version >= a.Version;
         }
         
         private void InstantiatePlugin(PluginManifest manifest, IEnumerable<Assembly> assemblies)
