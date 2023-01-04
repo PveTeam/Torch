@@ -100,8 +100,17 @@ namespace Torch.Managers
 
                 _log.Debug($"Unzipping {file.FullName}");
                 var targetFile = Path.Combine(extractPath, file.FullName);
-                _fsManager.SoftDelete(extractPath, file.FullName);
-                file.ExtractToFile(targetFile, true);
+                
+                // if its a directory
+                if (Path.GetFileName(targetFile).Length == 0)
+                {
+                    Directory.CreateDirectory(targetFile);
+                }
+                else
+                {
+                    _fsManager.SoftDelete(extractPath, file.FullName);
+                    file.ExtractToFile(targetFile, true);
+                }
             }
 
             //zip.ExtractToDirectory(extractPath); //throws exceptions sometimes?
