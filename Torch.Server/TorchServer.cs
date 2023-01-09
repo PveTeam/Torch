@@ -229,6 +229,8 @@ namespace Torch.Server
                 }
 
                 Process.Start(exe, $"--waitForPid {Environment.ProcessId} --tempAutostart true {string.Join(" ", args)}");
+                
+                Environment.Exit(0);
             })
             {
                 Name = "Restart thread"
