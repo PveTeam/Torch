@@ -3,11 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Diagnostics.Runtime;
 using NLog;
 using PropertyChanged;
@@ -21,8 +20,6 @@ using Torch.API.Session;
 using Torch.Commands;
 using Torch.Managers.PatchManager;
 using Torch.Mod;
-using Torch.Mod.Messages;
-using Torch.Patches;
 using Torch.Server.Commands;
 using Torch.Server.Managers;
 using Torch.Utils;
@@ -211,7 +208,7 @@ namespace Torch.Server
                 Environment.Exit(0);
 #endif
 
-                var exe = Assembly.GetExecutingAssembly().Location.Replace("dll", "exe");
+                var exe = Path.Combine(AppContext.BaseDirectory, "Torch.Server.exe");
 
                 var args = Environment.GetCommandLineArgs();
 
