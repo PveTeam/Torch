@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using NLog;
@@ -9,7 +10,7 @@ using Torch.API;
 
 namespace Torch.Managers
 {
-    public class FilesystemManager : Manager
+    public partial class FilesystemManager : Manager
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         /// <summary>
@@ -51,19 +52,27 @@ namespace Torch.Managers
             }
         }
 
-        /// <summary>
-        /// Move the given file (if it exists) to a temporary directory that will be cleared the next time the application starts.
-        /// </summary>
         public void SoftDelete(string path, string file)
         {
-            string source = Path.Combine(path, file);
+            var source = Path.Combine(path, file);
             if (!File.Exists(source))
                 return;
-            var rand = Path.GetRandomFileName();
-            var dest = Path.Combine(TempDirectory, rand);
-            File.Move(source, rand);
-            string rsource = Path.Combine(path, rand);
-            File.Move(rsource, dest);
+            
+            var tempFilePath = Path.Combine(path, file + ".old");
+            if (File.Exists(tempFilePath))
+                File.Delete(tempFilePath);
+
+            var errorCode = Rename(source, tempFilePath);
+            if (Marshal.GetExceptionForHR(errorCode) is { } exception)
+                throw exception;
         }
+        
+        [LibraryImport("msvcrt", SetLastError = true, EntryPoint = "rename")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static partial int Rename(
+            [MarshalAs(UnmanagedType.LPWStr)]
+            string oldpath,
+            [MarshalAs(UnmanagedType.LPWStr)]
+            string newpath);
     }
 }
