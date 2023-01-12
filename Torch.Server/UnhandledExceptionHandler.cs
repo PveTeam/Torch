@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using NLog;
 using VRage;
@@ -31,7 +32,7 @@ internal class UnhandledExceptionHandler
         {
             Console.WriteLine("Restarting in 5 seconds.");
             Thread.Sleep(5000);
-            var exe = typeof(Program).Assembly.Location;
+            var exe = Path.Combine(AppContext.BaseDirectory, "Torch.Server.exe");
             
             Process.Start(exe, $"-waitForPid {Environment.ProcessId} {_config}");
         }
