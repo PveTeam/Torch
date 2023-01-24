@@ -50,7 +50,7 @@ namespace Torch.Session
         {
             _overrideMods = new Dictionary<ulong, MyObjectBuilder_Checkpoint.ModItem>();
             if (Torch.Config.UgcServiceType == UGCServiceType.Steam)
-                _overrideMods.Add(TorchModCore.MOD_ID, ModItemUtils.Create(TorchModCore.MOD_ID));
+                _overrideMods.Add(ModCommunication.MOD_ID, ModItemUtils.Create(ModCommunication.MOD_ID));
         }
 
         /// <inheritdoc/>

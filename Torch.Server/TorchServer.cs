@@ -242,14 +242,12 @@ namespace Torch.Server
                 case TorchSessionState.Unloading:
                     _watchdog?.Dispose();
                     _watchdog = null;
-                    ModCommunication.Unregister();
                     break;
                 case TorchSessionState.Loaded:
                     _multiplayerManagerDedicated = CurrentSession.Managers.GetManager<MultiplayerManagerDedicated>();
                     _multiplayerManagerDedicated.PlayerJoined += MultiplayerManagerDedicatedOnPlayerJoined;
                     _multiplayerManagerDedicated.PlayerLeft += MultiplayerManagerDedicatedOnPlayerLeft;
                     CurrentSession.Managers.GetManager<CommandManager>().RegisterCommandModule(typeof(WhitelistCommands));
-                    ModCommunication.Register();
                     break;
                 case TorchSessionState.Loading:
                 case TorchSessionState.Unloaded:

@@ -32,11 +32,6 @@ namespace Torch.Mod.Messages
 
         public override void ProcessClient()
         {
-            if (TorchModCore.Debug)
-            {
-                MyAPIGateway.Utilities.ShowMessage("Torch", $"Joining server {Address} with delay {Delay}");
-            }
-
             if (Delay <= 0)
             {
                 MyAPIGateway.Multiplayer.JoinServer(Address);

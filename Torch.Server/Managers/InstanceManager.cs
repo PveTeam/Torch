@@ -146,7 +146,7 @@ namespace Torch.Server.Managers
             {
                 DedicatedConfig.Mods.Clear();
                 //remove the Torch mod to avoid running multiple copies of it
-                DedicatedConfig.SelectedWorld.WorldConfiguration.Mods.RemoveAll(m => m.PublishedFileId == TorchModCore.MOD_ID);
+                DedicatedConfig.SelectedWorld.WorldConfiguration.Mods.RemoveAll(m => m.PublishedFileId == ModCommunication.MOD_ID);
                 foreach (var m in DedicatedConfig.SelectedWorld.WorldConfiguration.Mods)
                     DedicatedConfig.Mods.Add(new ModItemInfo(m));
                 Task.Run(() => DedicatedConfig.UpdateAllModInfosAsync());
@@ -161,7 +161,7 @@ namespace Torch.Server.Managers
             {
                 DedicatedConfig.Mods.Clear();
                 //remove the Torch mod to avoid running multiple copies of it
-                DedicatedConfig.SelectedWorld.WorldConfiguration.Mods.RemoveAll(m => m.PublishedFileId == TorchModCore.MOD_ID);
+                DedicatedConfig.SelectedWorld.WorldConfiguration.Mods.RemoveAll(m => m.PublishedFileId == ModCommunication.MOD_ID);
                 foreach (var m in DedicatedConfig.SelectedWorld.WorldConfiguration.Mods)
                     DedicatedConfig.Mods.Add(new ModItemInfo(m));
                 Task.Run(() => DedicatedConfig.UpdateAllModInfosAsync());

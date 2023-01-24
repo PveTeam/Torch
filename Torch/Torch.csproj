@@ -13,6 +13,7 @@
     <Platforms>AnyCPU</Platforms>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DefineConstants>TRACE;TORCH</DefineConstants>
   </PropertyGroup>
   
   <PropertyGroup Condition="$(Configuration) == 'Release'">
