@@ -67,3 +67,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           id: ${{ steps.create_release.outputs.id }}
+          
+      - run: dotnet pack -c Release .\Torch.API\Torch.API.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build
+      - run: dotnet pack -c Release .\Torch\Torch.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg --no-build
+      - run: dotnet pack -c Release .\Torch.Server\Torch.Server.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version=${{ env.TORCH_VERSION }} --no-build
+        
+      - run: dotnet nuget push ./pack/*.nupkg -s github 
