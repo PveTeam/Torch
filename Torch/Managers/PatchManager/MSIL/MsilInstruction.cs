@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Windows.Documents;
+using HarmonyLib;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Utils;
@@ -87,6 +88,85 @@ namespace Torch.Managers.PatchManager.MSIL
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+        
+        public MsilInstruction(CodeInstruction instruction) : this(instruction.opcode)
+        {
+            switch (instruction.operand)
+            {
+                case LocalBuilder builder when Operand is MsilOperandInline.MsilOperandLocal operandLocal:
+                    operandLocal.Value = new(builder);
+                    break;
+                case MethodBase methodBase when Operand is MsilOperandInline.MsilOperandReflected<MethodBase> operandMethod:
+                    operandMethod.Value = methodBase;
+                    break;
+                case Type type when Operand is MsilOperandInline.MsilOperandReflected<Type> operandType:
+                    operandType.Value = type;
+                    break;
+                case MemberInfo info when Operand is MsilOperandInline.MsilOperandReflected<MemberInfo> operandMember:
+                    operandMember.Value = info;
+                    break;
+                case IEnumerable<Label> labels when Operand is MsilOperandSwitch operandSwitch:
+                    operandSwitch.Labels = labels.Select(b => new MsilLabel(b)).ToArray();
+                    break;
+                case float single when Operand is MsilOperandInline.MsilOperandSingle operandSingle:
+                    operandSingle.Value = single;
+                    break;
+                case FieldInfo fieldInfo when Operand is MsilOperandInline.MsilOperandReflected<FieldInfo> operandField:
+                    operandField.Value = fieldInfo;
+                    break;
+                case string str when Operand is MsilOperandInline.MsilOperandString operandString:
+                    operandString.Value = str;
+                    break;
+                case SignatureHelper signatureHelper when Operand is MsilOperandInline.MsilOperandSignature operandSignature:
+                    operandSignature.Value = signatureHelper;
+                    break;
+                case int int32 when Operand is MsilOperandInline.MsilOperandInt32 operandInt32:
+                    operandInt32.Value = int32;
+                    break;
+                case long int64 when Operand is MsilOperandInline.MsilOperandInt64 operandInt64:
+                    operandInt64.Value = int64;
+                    break;
+                case Label label when Operand is MsilOperandBrTarget operandBrTarget:
+                    operandBrTarget.Target = new(label);
+                    break;
+                case double @double when Operand is MsilOperandInline.MsilOperandDouble operandDouble:
+                    operandDouble.Value = @double;
+                    break;
+            }
+
+            Labels = instruction.labels.Select(b => new MsilLabel(b)).ToHashSet();
+            TryCatchOperations =
+                instruction.blocks.Select(
+                    b => new MsilTryCatchOperation((MsilTryCatchOperationType)b.blockType, b.catchType == typeof(object) ? null : b.catchType)).ToList();
+        }
+
+        internal CodeInstruction ToCodeIns(LoggingIlGenerator generator)
+        {
+            var ins = new CodeInstruction(OpCode, Operand switch
+            {
+                MsilOperandBrTarget msilOperandBrTarget => msilOperandBrTarget.Target.LabelFor(generator),
+                MsilOperandInline.MsilOperandReflected<MethodBase> msilOperandReflected => msilOperandReflected.Value,
+                MsilOperandInline.MsilOperandReflected<MemberInfo> msilOperandReflected => msilOperandReflected.Value,
+                MsilOperandInline.MsilOperandReflected<FieldInfo> msilOperandReflected => msilOperandReflected.Value,
+                MsilOperandInline.MsilOperandReflected<Type> msilOperandReflected => msilOperandReflected.Value,
+                MsilOperandInline.MsilOperandDouble msilOperandDouble => msilOperandDouble.Value,
+                MsilOperandInline.MsilOperandInt32 msilOperandInt32 => msilOperandInt32.Value,
+                MsilOperandInline.MsilOperandInt64 msilOperandInt64 => msilOperandInt64.Value,
+                MsilOperandInline.MsilOperandLocal msilOperandLocal => msilOperandLocal.Value.Local,
+                MsilOperandInline.MsilOperandSignature msilOperandSignature => msilOperandSignature.Value,
+                MsilOperandInline.MsilOperandSingle msilOperandSingle => msilOperandSingle.Value,
+                MsilOperandInline.MsilOperandString msilOperandString => msilOperandString.Value,
+                MsilOperandSwitch msilOperandSwitch => msilOperandSwitch.Labels.Select(b => b.LabelFor(generator)).ToArray(),
+                _ => null
+            })
+            {
+                labels = Labels.Select(b => b.LabelFor(generator)).ToList(),
+                blocks = TryCatchOperations.Select(b => new ExceptionBlock((ExceptionBlockType)b.Type, b.CatchType))
+                                           .ToList()
+            };
+
+            return ins;
         }
 
         /// <summary>

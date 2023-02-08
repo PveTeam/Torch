@@ -25,7 +25,7 @@ namespace Torch.Managers.PatchManager.Transpile
         /// <summary>
         /// Backing generator
         /// </summary>
-        public ILGeneratorShim Backing { get; }
+        public ILGenerator Backing { get; }
         
         private readonly LogLevel _level;
 
@@ -33,7 +33,7 @@ namespace Torch.Managers.PatchManager.Transpile
         /// Creates a new logging IL generator backed by the given generator.
         /// </summary>
         /// <param name="backing">Backing generator</param>
-        public LoggingIlGenerator(ILGeneratorShim backing, LogLevel level)
+        public LoggingIlGenerator(ILGenerator backing, LogLevel level)
         {
             Backing = backing;
             _level = level;

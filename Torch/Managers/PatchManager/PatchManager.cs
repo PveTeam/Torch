@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using HarmonyLib;
 using NLog;
 using Torch.API;
 using Torch.Managers.PatchManager.Transpile;
@@ -65,6 +66,7 @@ namespace Torch.Managers.PatchManager
         private static readonly Dictionary<Assembly, List<PatchContext>> _contexts = new Dictionary<Assembly, List<PatchContext>>();
         // ReSharper disable once CollectionNeverQueried.Local because we may want this in the future.
         private static readonly List<PatchContext> _coreContexts = new List<PatchContext>();
+        private static readonly Harmony HarmonyInstance = new("PatchManager");
 
         /// <inheritdoc cref="GetPattern"/>
         internal static MethodRewritePattern GetPatternInternal(MethodBase method)
@@ -73,7 +75,7 @@ namespace Torch.Managers.PatchManager
             {
                 if (_rewritePatterns.TryGetValue(method, out DecoratedMethod pattern))
                     return pattern;
-                var res = new DecoratedMethod(method);
+                var res = new DecoratedMethod(method, HarmonyInstance);
                 _rewritePatterns.Add(method, res);
                 return res;
             }

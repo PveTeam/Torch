@@ -162,12 +162,10 @@
       },
       "HarmonyX": {
         "type": "Transitive",
-        "resolved": "2.10.2-prerelease.1",
-        "contentHash": "5hbH0ENhQ+JV7tk63fQ2ab7MtplRHKJYH1JfIjG39rlltHNXxAcGJh05an+SQbVRV4EoP/+Qm9w9BrLc3RwRMA==",
+        "resolved": "2.10.2-prerelease.2",
+        "contentHash": "JCoFKWQx90PqF3iztNWCLLYaPnNjMyet4/pJZaSpX8zQGIhk8pWLomUD3JFLyqP+NpUzFxLbOYMxiQZYjDVpFw==",
         "dependencies": {
-          "MonoModReorg.RuntimeDetour": "22.11.21-prerelease.2",
-          "System.Reflection.Emit": "4.7.0",
-          "System.Reflection.Emit.Lightweight": "4.7.0"
+          "MonoModReorg.RuntimeDetour": "23.1.2-prerelease.1"
         }
       },
       "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": {
@@ -320,48 +318,48 @@
       },
       "MonoModReorg.Backports": {
         "type": "Transitive",
-        "resolved": "22.11.21-prerelease.2",
-        "contentHash": "69T6jjA5nx29jLkdqtfXKlJ8sMqIlc6czNDTomy0rbM68W0xo2JRJBgsu2mroBuqx7nvUdX+zIU6k1edS/pPbw==",
+        "resolved": "23.1.2-prerelease.1",
+        "contentHash": "m1wlCgVjZTFJs3mUxmC1aE/O0RIvsNbSFBI/g93Bqzz1tHa+LhXFyrHzL60PeZMQBIPVy3CeDX4um/UrqLOn/g==",
         "dependencies": {
-          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2"
+          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1"
         }
       },
       "MonoModReorg.Core": {
         "type": "Transitive",
-        "resolved": "22.11.21-prerelease.2",
-        "contentHash": "gDoxu4aAF6TeOo8rsrj5prq2X36i12ch6NeRHu/Ct0H3qoPDHuEQ6JMJN/Eiy45YrLNEN7C5+Ku4BrNX4nwVQg==",
+        "resolved": "23.1.2-prerelease.1",
+        "contentHash": "t1Y89M0rbwUx2VjDMCJOWgtSdsi1F5KNu0O6JAMOtwo2EWJ0HfYj9nS8UWWPwrgRpsquGjqbmYA8jhb59F2a/A==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.21-prerelease.2",
-          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2",
-          "MonoModReorg.Utils": "22.11.21-prerelease.2"
+          "MonoModReorg.Backports": "23.1.2-prerelease.1",
+          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1",
+          "MonoModReorg.Utils": "23.1.2-prerelease.1"
         }
       },
       "MonoModReorg.ILHelpers": {
         "type": "Transitive",
-        "resolved": "22.11.21-prerelease.2",
-        "contentHash": "JtOKHJR4DEyq3HxmdEVXIxhqNQnu1KmjGFXuEQrNHoPbzi8Yr9465VKVXdsoAF0Lm8StdyJHQ03efjv3+OlonA=="
+        "resolved": "23.1.2-prerelease.1",
+        "contentHash": "GVh1cmrTCAK0zHr3t8aHnKsyKIlDFiDERn++lCZomHcYc8dgcOAhpkZ7KmaKgZCTJuBIrc44RjpKFr/4ScQnGA=="
       },
       "MonoModReorg.RuntimeDetour": {
         "type": "Transitive",
-        "resolved": "22.11.21-prerelease.2",
-        "contentHash": "Qv1h4rW03LrHwxwVuw5R6hbL8X78l8Lfnxe5tMlyVAe+AK0HnwsRzjsTwzFF57wxWUwq12NbLflkzV6T+hIhJw==",
+        "resolved": "23.1.2-prerelease.1",
+        "contentHash": "UZyJ7OIbLCIBg+dzLejWq2paL1s11koUrq1noSLGCP9uNmFjwDPK+lRmGs0X4qg+Alfq6VsOpI45pGqmaAvP+Q==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.21-prerelease.2",
-          "MonoModReorg.Core": "22.11.21-prerelease.2",
-          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2",
-          "MonoModReorg.Utils": "22.11.21-prerelease.2"
+          "MonoModReorg.Backports": "23.1.2-prerelease.1",
+          "MonoModReorg.Core": "23.1.2-prerelease.1",
+          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1",
+          "MonoModReorg.Utils": "23.1.2-prerelease.1"
         }
       },
       "MonoModReorg.Utils": {
         "type": "Transitive",
-        "resolved": "22.11.21-prerelease.2",
-        "contentHash": "TX+vlgg2/x8rzEOqwiAy2qv61FjlJsr4u10WGTekCkulZVmmC+xxDmK+4Do9noXF/4RlgFN6sR3m9/W8KvJq3g==",
+        "resolved": "23.1.2-prerelease.1",
+        "contentHash": "6N4LNG+x4RVPLOc8QWL7dc5sqWdl0gxR+4ASRd1CvvappsK84ISgD9qgeYHgQQtTgE+h6Cuqr3Om4Ly0roLfoA==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "22.11.21-prerelease.2",
-          "MonoModReorg.ILHelpers": "22.11.21-prerelease.2"
+          "MonoModReorg.Backports": "23.1.2-prerelease.1",
+          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1"
         }
       },
       "Newtonsoft.Json": {
@@ -517,16 +515,6 @@
         "resolved": "4.5.5",
         "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw=="
       },
-      "System.Reflection.Emit": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "VR4kk8XLKebQ4MZuKuIni/7oh+QGFmZW3qORd1GvBq/8026OpW501SzT/oypwiQl4TvT8ErnReh/NzY9u+C6wQ=="
-      },
-      "System.Reflection.Emit.Lightweight": {
-        "type": "Transitive",
-        "resolved": "4.7.0",
-        "contentHash": "a4OLB4IITxAXJeV74MDx49Oq2+PsF6Sml54XAFv+2RyWwtDBcabzoxiiJRhdhx+gaohLh4hEGCLQyBozXoQPqA=="
-      },
       "System.Reflection.Metadata": {
         "type": "Transitive",
         "resolved": "5.0.0",
@@ -597,11 +585,11 @@
         "type": "Project",
         "dependencies": {
           "ControlzEx": "[5.0.2, )",
-          "HarmonyX": "[2.10.2-prerelease.1, )",
+          "HarmonyX": "[2.10.2-prerelease.2, )",
           "MahApps.Metro": "[2.4.9, )",
           "Microsoft.CodeAnalysis.CSharp": "[4.4.0, )",
           "Microsoft.CodeAnalysis.Common": "[4.4.0, )",
-          "MonoModReorg.RuntimeDetour": "[22.11.21-prerelease.2, )",
+          "MonoModReorg.RuntimeDetour": "[23.1.2-prerelease.1, )",
           "NLog": "[5.1.0, )",
           "System.ComponentModel.Annotations": "[5.0.0, )",
           "Torch.API": "[1.0.0, )",

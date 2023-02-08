@@ -13,14 +13,14 @@ namespace Torch.Managers.PatchManager.MSIL
         private readonly List<KeyValuePair<WeakReference<LoggingIlGenerator>, Label>> _labelInstances =
             new List<KeyValuePair<WeakReference<LoggingIlGenerator>, Label>>();
 
-        private readonly Label? _overrideLabel;
+        internal readonly Label? OverrideLabel;
 
         /// <summary>
         ///     Creates an empty label the allocates a new <see cref="Label" /> when requested.
         /// </summary>
         public MsilLabel()
         {
-            _overrideLabel = null;
+            OverrideLabel = null;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Torch.Managers.PatchManager.MSIL
         /// </summary>
         public MsilLabel(Label overrideLabel)
         {
-            _overrideLabel = overrideLabel;
+            OverrideLabel = overrideLabel;
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Torch.Managers.PatchManager.MSIL
 
         internal Label LabelFor(LoggingIlGenerator gen)
         {
-            if (_overrideLabel.HasValue)
-                return _overrideLabel.Value;
+            if (OverrideLabel.HasValue)
+                return OverrideLabel.Value;
             foreach (KeyValuePair<WeakReference<LoggingIlGenerator>, Label> kv in _labelInstances)
                 if (kv.Key.TryGetTarget(out LoggingIlGenerator gen2) && gen2 == gen)
                     return kv.Value;

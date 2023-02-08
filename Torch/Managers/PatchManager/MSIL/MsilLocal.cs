@@ -14,6 +14,8 @@ namespace Torch.Managers.PatchManager.MSIL
     /// </summary>
     public class MsilLocal
     {
+        internal LocalBuilder Local { get; }
+
         /// <summary>
         /// The index of this local.
         /// </summary>
@@ -31,6 +33,7 @@ namespace Torch.Managers.PatchManager.MSIL
 
         internal MsilLocal(LocalBuilder local)
         {
+            Local = local;
             Index = local.LocalIndex;
             Type = local.LocalType;
             Name = null;
