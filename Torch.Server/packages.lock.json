@@ -162,8 +162,8 @@
       },
       "HarmonyX": {
         "type": "Transitive",
-        "resolved": "2.10.2-prerelease.2",
-        "contentHash": "JCoFKWQx90PqF3iztNWCLLYaPnNjMyet4/pJZaSpX8zQGIhk8pWLomUD3JFLyqP+NpUzFxLbOYMxiQZYjDVpFw==",
+        "resolved": "2.10.2-prerelease.3",
+        "contentHash": "XnR2oKlFTCb7F+90OkJR0cqOYOsSPgsQrnX2v9qR0nmM6SPSET/v2SR9vjY/DQhBYUQia16NWv0Mwd8Ml4ZqKA==",
         "dependencies": {
           "MonoModReorg.RuntimeDetour": "23.1.2-prerelease.1"
         }
@@ -585,7 +585,7 @@
         "type": "Project",
         "dependencies": {
           "ControlzEx": "[5.0.2, )",
-          "HarmonyX": "[2.10.2-prerelease.2, )",
+          "HarmonyX": "[2.10.2-prerelease.3, )",
           "MahApps.Metro": "[2.4.9, )",
           "Microsoft.CodeAnalysis.CSharp": "[4.4.0, )",
           "Microsoft.CodeAnalysis.Common": "[4.4.0, )",
