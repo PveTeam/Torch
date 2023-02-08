@@ -431,8 +431,8 @@ namespace Torch.Managers
             
             return a.Name == b.Name && b.Version >= a.Version;
         }
-        
-        private void InstantiatePlugin(PluginManifest manifest, IEnumerable<Assembly> assemblies)
+
+        internal void InstantiatePlugin(PluginManifest manifest, IEnumerable<Assembly> assemblies)
         {
             Type pluginType = null;
             bool mult = false;

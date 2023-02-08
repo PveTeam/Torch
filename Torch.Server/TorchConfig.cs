@@ -119,6 +119,9 @@ public class TorchConfig : ViewModel, ITorchConfig
         SourceType = UpdateSourceType.Github
     };
 
+    [Display(Name = "Packages", Description = "Packages to install and use.", GroupName = "Server")]
+    public List<string> Packages { get; set; } = new();
+
     // for backward compatibility
     public void Save(string path = null) => Initializer.Instance?.ConfigPersistent?.Save(path);
 }

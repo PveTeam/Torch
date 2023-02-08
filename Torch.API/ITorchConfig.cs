@@ -33,7 +33,8 @@ namespace Torch
         bool EntityManagerEnabled { get; set; }
         string LoginToken { get; set; }
         UpdateSource UpdateSource { get; set; }
-        
+        List<string> Packages { get; set; }
+
         void Save(string path = null);
     }
 

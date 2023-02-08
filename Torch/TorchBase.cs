@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -11,7 +10,6 @@ using Sandbox;
 using Sandbox.Game;
 using Sandbox.Game.Multiplayer;
 using Sandbox.Game.Screens.Helpers;
-using SpaceEngineers.Game;
 using Torch.API;
 using Torch.API.Managers;
 using Torch.API.ModAPI;
@@ -21,10 +19,10 @@ using Torch.Event;
 using Torch.Managers;
 using Torch.Managers.ChatManager;
 using Torch.Managers.PatchManager;
+using Torch.Packages;
 using Torch.Patches;
 using Torch.Utils;
 using Torch.Session;
-using VRage.Platform.Windows;
 using VRage.Plugins;
 using VRage.Utils;
 
@@ -127,6 +125,7 @@ namespace Torch
             Managers.AddManager(new EventManager(this));
 #pragma warning disable CS0618
             Managers.AddManager(Plugins);
+            Managers.AddManager(new PackageManager(this, (PluginManager)Plugins));
 #pragma warning restore CS0618
             Managers.AddManager(new ScriptCompilationManager(this));
             TorchAPI.Instance = this;
@@ -286,6 +285,11 @@ namespace Torch
             Log.Info($"Executing directory: {AppDomain.CurrentDomain.BaseDirectory}");
 
             Managers.GetManager<PluginManager>().LoadPlugins();
+
+            var semaphore = new SemaphoreSlim(0, 1);
+            Managers.GetManager<PackageManager>().LoadAsync(semaphore);
+            semaphore.Wait();
+
             Game = new VRageGame(this, TweakGameSettings, SteamAppName, SteamAppId, InstancePath, RunArgs);
             if (!Game.WaitFor(VRageGame.GameState.Stopped))
                 Log.Warn("Failed to wait for game to be initialized");
