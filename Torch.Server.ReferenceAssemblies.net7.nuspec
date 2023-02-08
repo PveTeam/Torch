@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Torch.Server.ReferenceAssemblies.net7</id>
+        <version>1.0.1</version>
+        <title>Torch Server Reference Assemblies</title>
+        <authors>zznty</authors>
+        <owners>zznty</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Torch Server Reference Assemblies (.NET 7 edition)</description>
+        <repository type="git" url="https://github.com/PveTeam/Torch" />
+        <dependencies>
+            <group targetFramework="net7.0-windows7.0">
+                <dependency id="SpaceEngineersDedicated.ReferenceAssemblies" version="1.201.13" />
+                <dependency id="Torch.Server" version="torchVersion" />
+            </group>
+        </dependencies>
+        <frameworkReferences>
+            <group targetFramework="net7.0-windows7.0">
+                <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
+            </group>
+        </frameworkReferences>
+    </metadata>
+</package>
