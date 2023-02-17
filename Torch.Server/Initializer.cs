@@ -30,7 +30,7 @@ namespace Torch.Server
         private const string STEAMCMD_DIR = "steamcmd";
         private const string STEAMCMD_ZIP = "temp.zip";
         private static readonly string STEAMCMD_EXE = "steamcmd.exe";
-        private const string STEAMCMD_ARGS = "+force_install_dir \"{0}\" +login anonymous +app_update 298740 +quit";
+        private const string STEAMCMD_ARGS = "+force_install_dir \"{0}\" +login anonymous +app_update 298740 -beta automtatons-beta +quit";
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
