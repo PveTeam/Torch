@@ -27,10 +27,10 @@ namespace Torch.Server
 
         private static readonly Logger Log = LogManager.GetLogger(nameof(Initializer));
         private bool _init;
-        private const string STEAMCMD_DIR = "steamcmd";
-        private const string STEAMCMD_ZIP = "temp.zip";
-        private static readonly string STEAMCMD_EXE = "steamcmd.exe";
-        private const string STEAMCMD_ARGS = "+force_install_dir \"{0}\" +login anonymous +app_update 298740 -beta automtatons-beta +quit";
+        private const string TOOL_DIR = "tool";
+        private const string TOOL_ZIP = "temp.zip";
+        private static readonly string TOOL_EXE = "DepotDownloader.exe";
+        private const string TOOL_ARGS = "-app 298740 -depot 298741 -beta automatons-beta -dir \"{0}\"";
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
@@ -57,7 +57,7 @@ namespace Torch.Server
 #endif
             
             if (configuration.GetValue("getGameUpdates", true) && !configuration.GetValue("noupdate", false))
-                RunSteamCmd(configuration);
+                RunSteamCmdAsync(configuration).Wait();
 
             var processPid = configuration.GetValue<int>("waitForPid");
             if (processPid != 0)
@@ -124,36 +124,36 @@ namespace Torch.Server
             }
         }
         
-        public static void RunSteamCmd(IConfiguration configuration)
+        public static async Task RunSteamCmdAsync(IConfiguration configuration)
         {
-            var log = LogManager.GetLogger("SteamCMD");
+            var log = LogManager.GetLogger("SteamTool");
 
-            var path = configuration.GetValue<string>("steamCmdPath") ?? ApplicationContext.Current.TorchDirectory
-                .CreateSubdirectory(STEAMCMD_DIR).FullName;
+            var path = configuration.GetValue<string>("steamToolPath") ?? ApplicationContext.Current.TorchDirectory
+                .CreateSubdirectory(TOOL_DIR).FullName;
             
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            var steamCmdExePath = Path.Combine(path, STEAMCMD_EXE);
+            var steamCmdExePath = Path.Combine(path, TOOL_EXE);
             if (!File.Exists(steamCmdExePath))
             {
                 try
                 {
-                    log.Info("Downloading SteamCMD.");
-                    using (var client = new HttpClient()) 
-                    using (var file = File.Create(STEAMCMD_ZIP))
-                    using (var stream = client.GetStreamAsync("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip").Result)
-                        stream.CopyTo(file);
+                    log.Info("Downloading Steam Tool.");
+                    using (var client = new HttpClient())
+                    await using (var file = File.Create(TOOL_ZIP))
+                    await using (var stream = await client.GetStreamAsync("https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_2.4.7/depotdownloader-2.4.7.zip"))
+                        await stream.CopyToAsync(file);
 
-                    ZipFile.ExtractToDirectory(STEAMCMD_ZIP, path);
-                    File.Delete(STEAMCMD_ZIP);
-                    log.Info("SteamCMD downloaded successfully!");
+                    ZipFile.ExtractToDirectory(TOOL_ZIP, path);
+                    File.Delete(TOOL_ZIP);
+                    log.Info("Steam Tool downloaded successfully!");
                 }
                 catch (Exception e)
                 {
-                    log.Error(e, "Failed to download SteamCMD, unable to update the DS.");
+                    log.Error(e, "Failed to download Steam Tool, unable to update the DS.");
                     return;
                 }
             }
@@ -161,19 +161,16 @@ namespace Torch.Server
             log.Info("Checking for DS updates.");
             var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
             {
-                Arguments = string.Format(STEAMCMD_ARGS, configuration.GetValue("gamePath", "../")),
+                Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../")),
                 WorkingDirectory = path,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                StandardOutputEncoding = Encoding.ASCII
+                RedirectStandardOutput = true
             };
-            var cmd = Process.Start(steamCmdProc);
+            var cmd = Process.Start(steamCmdProc)!;
             
-            // ReSharper disable once PossibleNullReferenceException
             while (!cmd.HasExited)
             {
-                log.Info(cmd.StandardOutput.ReadLine());
-                Thread.Sleep(100);
+                if (await cmd.StandardOutput.ReadLineAsync() is { } line)
+                    log.Info(line);
             }
         }
     }
