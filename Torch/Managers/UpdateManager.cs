@@ -109,7 +109,14 @@ namespace Torch.Managers
                 else
                 {
                     _fsManager.SoftDelete(extractPath, file.FullName);
-                    file.ExtractToFile(targetFile, true);
+                    try
+                    {
+                        file.ExtractToFile(targetFile, true);
+                    }
+                    catch (Exception e)
+                    {
+                        _log.Warn(e, "unable to extract {0}", targetFile);
+                    }
                 }
             }
 

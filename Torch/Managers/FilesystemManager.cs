@@ -68,7 +68,14 @@ namespace Torch.Managers
                 if (File.Exists(tempFilePath))
                     File.Delete(tempFilePath);
 
-                File.Move(source, tempFilePath);
+                try
+                {
+                    File.Move(source, tempFilePath);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    // ignore
+                }
             }
         }
     }
