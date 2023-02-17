@@ -132,14 +132,8 @@ namespace Torch
 
             GameStateChanged += (game, state) =>
             {
-                if (state == TorchGameState.Created)
-                {
-                    // If the attached assemblies change (MySandboxGame.ctor => MySandboxGame.ParseArgs => MyPlugins.RegisterFromArgs)
-                    // attach assemblies to object factories again.
-                    ObjectFactoryInitPatch.ForceRegisterAssemblies();
-                    // safe to commit here; all important static ctors have run
+                if (state == TorchGameState.Created) 
                     PatchManager.CommitInternal();
-                }
             };
 
             var harmonyLog = LogManager.GetLogger("HarmonyX");
@@ -259,7 +253,6 @@ namespace Torch
         public virtual void Init()
         {
             Debug.Assert(!_init, "Torch instance is already initialized.");
-            ObjectFactoryInitPatch.ForceRegisterAssemblies();
             VRageGame.SetupVersionInfo();
 
             Debug.Assert(MyPerGameSettings.BasicGameInfo.GameVersion != null, "MyPerGameSettings.BasicGameInfo.GameVersion != null");

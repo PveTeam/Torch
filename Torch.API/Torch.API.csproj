@@ -21,7 +21,7 @@
     <PackageReference Include="NuGet.Commands" Version="6.4.0" />
     <PackageReference Include="NuGet.DependencyResolver.Core" Version="6.4.0" />
     <PackageReference Include="SemanticVersioning" Version="2.0.2" />
-    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.201.13">
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.202.48">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
