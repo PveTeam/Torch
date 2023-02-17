@@ -56,7 +56,7 @@ namespace Torch.Server
             Log.Debug("Debug logging enabled.");
 #endif
             
-            if (!configuration.GetValue("noupdate", false))
+            if (configuration.GetValue("getGameUpdates", true) && !configuration.GetValue("noupdate", false))
                 RunSteamCmd(configuration);
 
             var processPid = configuration.GetValue<int>("waitForPid");
