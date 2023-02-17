@@ -32,9 +32,25 @@ internal class UnhandledExceptionHandler
         {
             Console.WriteLine("Restarting in 5 seconds.");
             Thread.Sleep(5000);
-            var exe = Path.Combine(AppContext.BaseDirectory, "Torch.Server.exe");
             
-            Process.Start(exe, $"-waitForPid {Environment.ProcessId} {_config}");
+            var exe = Path.Combine(AppContext.BaseDirectory, "Torch.Server.exe");
+
+            var args = Environment.GetCommandLineArgs();
+
+            for (var i = 0; i < args.Length; i++)
+            {
+                if (args[i].Contains(' '))
+                    args[i] = $"\"{args[i]}\"";
+                    
+                if (!args[i].Contains("--tempAutostart", StringComparison.InvariantCultureIgnoreCase) &&
+                    !args[i].Contains("--waitForPid", StringComparison.InvariantCultureIgnoreCase)) 
+                    continue;
+                    
+                args[i] = string.Empty;
+                args[++i] = string.Empty;
+            }
+
+            Process.Start(exe, $"--waitForPid {Environment.ProcessId} --tempAutostart true {string.Join(" ", args)}");
         }
         else
         {

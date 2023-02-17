@@ -57,22 +57,19 @@ namespace Torch.Managers
             var source = Path.Combine(path, file);
             if (!File.Exists(source))
                 return;
-            
-            var tempFilePath = Path.Combine(path, file + ".old");
-            if (File.Exists(tempFilePath))
-                File.Delete(tempFilePath);
 
-            var errorCode = Rename(source, tempFilePath);
-            if (Marshal.GetExceptionForHR(errorCode) is { } exception)
-                throw exception;
+            try
+            {
+                File.Delete(source);
+            }
+            catch (IOException)
+            {
+                var tempFilePath = Path.Combine(path, file + ".old");
+                if (File.Exists(tempFilePath))
+                    File.Delete(tempFilePath);
+
+                File.Move(source, tempFilePath);
+            }
         }
-        
-        [LibraryImport("msvcrt", SetLastError = true, EntryPoint = "rename")]
-        [UnmanagedCallConv(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        private static partial int Rename(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string oldpath,
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string newpath);
     }
 }
