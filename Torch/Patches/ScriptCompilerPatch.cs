@@ -60,6 +60,7 @@ namespace Torch.Patches
                 typeof(System.Security.Policy.Evidence).Assembly.Location,
                 typeof(ProtoBuf.Meta.RuntimeTypeModel).Assembly.Location,
                 typeof(ProtoContractAttribute).Assembly.Location,
+                Path.Combine(baseDir, "System.Xml.ReaderWriter.dll"),
                 Path.Combine(baseDir, "netstandard.dll"),
                 Path.Combine(baseDir, "System.Runtime.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Game.dll"),
