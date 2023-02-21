@@ -58,11 +58,10 @@ namespace Torch.Patches
                 typeof(TypeConverter).Assembly.Location,
                 typeof(System.Diagnostics.TraceSource).Assembly.Location,
                 typeof(System.Security.Policy.Evidence).Assembly.Location,
-                typeof(ProtoBuf.Meta.RuntimeTypeModel).Assembly.Location,
-                typeof(ProtoContractAttribute).Assembly.Location,
                 Path.Combine(baseDir, "System.Xml.ReaderWriter.dll"),
                 Path.Combine(baseDir, "netstandard.dll"),
                 Path.Combine(baseDir, "System.Runtime.dll"),
+                Path.Combine(MyFileSystem.ExePath, "ProtoBuf.Net.Core.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Game.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Common.dll"),
                 Path.Combine(MyFileSystem.ExePath, "Sandbox.Graphics.dll"),
@@ -84,14 +83,6 @@ namespace Torch.Patches
 
             using var batch = MyScriptCompiler.Static.Whitelist.OpenBatch();
             batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(ConcurrentQueue<>));
-            batch.AllowNamespaceOfTypes(MyWhitelistTarget.Both, typeof(ImmutableArray), typeof(ArrayExtensions));
-            batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(ProtoContractAttribute).Assembly.GetExportedTypes()
-                                 .Where(b => b.Namespace == "ProtoBuf" && b.Name.Contains("Attribute"))
-                                 .Concat(new[]
-                                 {
-                                     typeof(DataFormat), typeof(MemberSerializationOptions), typeof(ImplicitFields)
-                                 }).ToArray());
-            batch.AllowTypes(MyWhitelistTarget.ModApi, typeof(WorkData));
             
             return false;
         }

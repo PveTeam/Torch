@@ -62,7 +62,7 @@ namespace Torch.Managers
             {
                 File.Delete(source);
             }
-            catch (IOException)
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
             {
                 var tempFilePath = Path.Combine(path, file + ".old");
                 if (File.Exists(tempFilePath))
