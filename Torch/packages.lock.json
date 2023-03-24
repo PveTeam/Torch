@@ -14,11 +14,11 @@
       },
       "HarmonyX": {
         "type": "Direct",
-        "requested": "[2.10.2-prerelease.3, )",
-        "resolved": "2.10.2-prerelease.3",
-        "contentHash": "XnR2oKlFTCb7F+90OkJR0cqOYOsSPgsQrnX2v9qR0nmM6SPSET/v2SR9vjY/DQhBYUQia16NWv0Mwd8Ml4ZqKA==",
+        "requested": "[2.10.2-prerelease.4, )",
+        "resolved": "2.10.2-prerelease.4",
+        "contentHash": "M/44/DhSu1WR8gL62aLPGKqAJ0rrgkw38nT3DgEvLAvyIoQLJmL2Jsn4/d4CC0eDT1Vv82cB9Mxgg0sFD3/qrQ==",
         "dependencies": {
-          "MonoModReorg.RuntimeDetour": "23.1.2-prerelease.1"
+          "MonoModReorg.RuntimeDetour": "23.3.22.1"
         }
       },
       "InfoOf.Fody": {
@@ -65,15 +65,15 @@
       },
       "MonoModReorg.RuntimeDetour": {
         "type": "Direct",
-        "requested": "[23.1.2-prerelease.1, )",
-        "resolved": "23.1.2-prerelease.1",
-        "contentHash": "UZyJ7OIbLCIBg+dzLejWq2paL1s11koUrq1noSLGCP9uNmFjwDPK+lRmGs0X4qg+Alfq6VsOpI45pGqmaAvP+Q==",
+        "requested": "[23.3.22.1, )",
+        "resolved": "23.3.22.1",
+        "contentHash": "cUES3Hi7QJtBNe0qwVdjZOCDkZDaCpdqS6Au0RaCyQ1PDIR4av13E9qBNAEYew46sgPe0fOrU334md6DLDGHlQ==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.1.2-prerelease.1",
-          "MonoModReorg.Core": "23.1.2-prerelease.1",
-          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1",
-          "MonoModReorg.Utils": "23.1.2-prerelease.1"
+          "MonoModReorg.Backports": "23.3.22.1",
+          "MonoModReorg.Core": "23.3.22.1",
+          "MonoModReorg.ILHelpers": "23.3.22.1",
+          "MonoModReorg.Utils": "23.3.22.1"
         }
       },
       "NLog": {
@@ -157,36 +157,36 @@
       },
       "MonoModReorg.Backports": {
         "type": "Transitive",
-        "resolved": "23.1.2-prerelease.1",
-        "contentHash": "m1wlCgVjZTFJs3mUxmC1aE/O0RIvsNbSFBI/g93Bqzz1tHa+LhXFyrHzL60PeZMQBIPVy3CeDX4um/UrqLOn/g==",
+        "resolved": "23.3.22.1",
+        "contentHash": "nLx18prtZbS0nVO8YHElP+TUj1kkDswRgQpa9agt3tyNWke9Kqk5lVkGu87Y3cCMhG+m5Ai0ZDH0+V5B6bXF+Q==",
         "dependencies": {
-          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1"
+          "MonoModReorg.ILHelpers": "23.3.22.1"
         }
       },
       "MonoModReorg.Core": {
         "type": "Transitive",
-        "resolved": "23.1.2-prerelease.1",
-        "contentHash": "t1Y89M0rbwUx2VjDMCJOWgtSdsi1F5KNu0O6JAMOtwo2EWJ0HfYj9nS8UWWPwrgRpsquGjqbmYA8jhb59F2a/A==",
+        "resolved": "23.3.22.1",
+        "contentHash": "Q3ZOgm6AOTL0icgcHsT/6mV5kYt6meqX3DEN1p/et5PxJsXUhVkiZfAptp8y/i+cO6HNgkcESpXEQ4jUWVwsDA==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.1.2-prerelease.1",
-          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1",
-          "MonoModReorg.Utils": "23.1.2-prerelease.1"
+          "MonoModReorg.Backports": "23.3.22.1",
+          "MonoModReorg.ILHelpers": "23.3.22.1",
+          "MonoModReorg.Utils": "23.3.22.1"
         }
       },
       "MonoModReorg.ILHelpers": {
         "type": "Transitive",
-        "resolved": "23.1.2-prerelease.1",
-        "contentHash": "GVh1cmrTCAK0zHr3t8aHnKsyKIlDFiDERn++lCZomHcYc8dgcOAhpkZ7KmaKgZCTJuBIrc44RjpKFr/4ScQnGA=="
+        "resolved": "23.3.22.1",
+        "contentHash": "dHE/3VZtnTUTkQ34j8Gu6CxKes1QDL8tBuF3QElxHHpPl/QabGCK938k47WWRcRBMoP7IAthkn+Bob4H97rBgw=="
       },
       "MonoModReorg.Utils": {
         "type": "Transitive",
-        "resolved": "23.1.2-prerelease.1",
-        "contentHash": "6N4LNG+x4RVPLOc8QWL7dc5sqWdl0gxR+4ASRd1CvvappsK84ISgD9qgeYHgQQtTgE+h6Cuqr3Om4Ly0roLfoA==",
+        "resolved": "23.3.22.1",
+        "contentHash": "q1cX0mbYxdw2WcE/qGBB84lVY/ffobEr46VQFuwGcWhtw6f1Ql1k4TZfs8gebpesSxHnca13grLeVHrUSpy1+g==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.1.2-prerelease.1",
-          "MonoModReorg.ILHelpers": "23.1.2-prerelease.1"
+          "MonoModReorg.Backports": "23.3.22.1",
+          "MonoModReorg.ILHelpers": "23.3.22.1"
         }
       },
       "Newtonsoft.Json": {

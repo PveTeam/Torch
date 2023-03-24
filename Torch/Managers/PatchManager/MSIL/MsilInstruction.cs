@@ -133,6 +133,12 @@ namespace Torch.Managers.PatchManager.MSIL
                 case double @double when Operand is MsilOperandInline.MsilOperandDouble operandDouble:
                     operandDouble.Value = @double;
                     break;
+                case byte @byte when Operand is MsilOperandInline.MsilOperandArgument operandArgument:
+                    operandArgument.Value = new(@byte);
+                    break;
+                case byte @byte when Operand is MsilOperandInline.MsilOperandLocal operandArgument:
+                    operandArgument.Value = new(@byte);
+                    break;
             }
 
             Labels = instruction.labels.Select(b => new MsilLabel(b)).ToHashSet();
@@ -153,7 +159,10 @@ namespace Torch.Managers.PatchManager.MSIL
                 MsilOperandInline.MsilOperandDouble msilOperandDouble => msilOperandDouble.Value,
                 MsilOperandInline.MsilOperandInt32 msilOperandInt32 => msilOperandInt32.Value,
                 MsilOperandInline.MsilOperandInt64 msilOperandInt64 => msilOperandInt64.Value,
-                MsilOperandInline.MsilOperandLocal msilOperandLocal => msilOperandLocal.Value.Local,
+                MsilOperandInline.MsilOperandLocal msilOperandLocal when OpCode.OperandType == OperandType.InlineVar => msilOperandLocal.Value.Local,
+                MsilOperandInline.MsilOperandLocal msilOperandLocal when OpCode.OperandType == OperandType.ShortInlineVar => (byte)msilOperandLocal.Value.Index,
+                MsilOperandInline.MsilOperandArgument msilOperandArgument when OpCode.OperandType == OperandType.InlineVar => msilOperandArgument.Value,
+                MsilOperandInline.MsilOperandArgument msilOperandArgument when OpCode.OperandType == OperandType.ShortInlineVar => (byte)msilOperandArgument.Value.Position,
                 MsilOperandInline.MsilOperandSignature msilOperandSignature => msilOperandSignature.Value,
                 MsilOperandInline.MsilOperandSingle msilOperandSingle => msilOperandSingle.Value,
                 MsilOperandInline.MsilOperandString msilOperandString => msilOperandString.Value,
