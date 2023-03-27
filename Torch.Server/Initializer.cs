@@ -30,7 +30,7 @@ namespace Torch.Server
         private const string TOOL_DIR = "tool";
         private const string TOOL_ZIP = "temp.zip";
         private static readonly string TOOL_EXE = "DepotDownloader.exe";
-        private const string TOOL_ARGS = "-app 298740 -depot 298741 -beta automatons-beta -dir \"{0}\"";
+        private const string TOOL_ARGS = "-app 298740 -depot 298741 -dir \"{0}\"";
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
