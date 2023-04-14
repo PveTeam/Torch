@@ -75,6 +75,6 @@ jobs:
       - run: dotnet pack -c Release ./Torch.API/Torch.API.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
       - run: dotnet pack -c Release ./Torch/Torch.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
       - run: dotnet pack -c Release ./Torch.Server/Torch.Server.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
-      - run: mkdir blank && sed -i 's/torchVersion/${{ steps.version.outputs.version }}/g' Torch.Server.ReferenceAssemblies.net7.nuspec && nuget pack Torch.Server.ReferenceAssemblies.net7.nuspec -BasePath ./blank -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" -OutputDirectory pack -NonInteractive -NoPackageAnalysis
+      - run: mkdir blank && sed -i 's/torchVersion/${{ steps.version.outputs.version }}/g' Torch.Server.ReferenceAssemblies.net7.nuspec && nuget pack Torch.Server.ReferenceAssemblies.net7.nuspec -BasePath ./blank -OutputDirectory pack -NonInteractive -NoPackageAnalysis
   
       - run: dotnet nuget push ./pack/*.nupkg -s github 
