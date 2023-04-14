@@ -2,21 +2,22 @@ name: Release
 
 on:
   push:
-    tags:
-      - '*'
+    branches: [master]
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     env:
-      TORCH_VERSION: ${{ github.ref_name }}
       BUILD_CONFIGURATION: Release
       DOTNET_NOLOGO: true
       DOTNET_CLI_TELEMETRY_OPTOUT: true
     steps:
       - uses: actions/checkout@master
         name: Checkout
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v3
         name: Setup dotnet
         with:
@@ -25,33 +26,34 @@ jobs:
         run: dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github
       - name: Restore dependencies
         run: dotnet restore Torch.Server/Torch.Server.csproj --locked-mode
+        
+      - name: Git Version
+        id: version
+        uses: codacy/git-version@2.7.1
+        
       - name: Build
-        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} /p:AssemblyVersion=${{ env.TORCH_VERSION }} /p:Version=${{ env.TORCH_VERSION }}
+        run: dotnet build Torch.Server/Torch.Server.csproj --no-restore -c ${{ env.BUILD_CONFIGURATION }} -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}"
       - name: Publish
         run: dotnet publish Torch.Server/Torch.Server.csproj --no-build -r win-x64 --sc -c ${{ env.BUILD_CONFIGURATION }} -o ./publish
+      
       - uses: vimtor/action-zip@v1
         name: Zip Release
         with:
           files: publish/
           dest: release.zip
-      - name: Build Changelog
-        id: build_changelog
-        uses: mikepenz/release-changelog-builder-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          commitMode: true
+      
       - name: Create release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.TORCH_VERSION }}
-          release_name: Release v${{ env.TORCH_VERSION }}
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release v${{ steps.version.outputs.version }}
           body: ${{ steps.github_release.outputs.changelog }}
           draft: true
           prerelease: false
+      
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
@@ -61,16 +63,16 @@ jobs:
           asset_path: release.zip
           asset_name: torch-server.zip
           asset_content_type: application/zip
-      - name: Publish release
-        uses: StuYarrow/publish-release@v1
+      
+      - uses: eregon/publish-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          id: ${{ steps.create_release.outputs.id }}
+          release_id: ${{ steps.create_release.outputs.id }}
           
-      - run: dotnet pack -c Release ./Torch.API/Torch.API.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version=${{ env.TORCH_VERSION }} --no-build
-      - run: dotnet pack -c Release ./Torch/Torch.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version=${{ env.TORCH_VERSION }} --no-build
-      - run: dotnet pack -c Release ./Torch.Server/Torch.Server.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version=${{ env.TORCH_VERSION }} --no-build
-      - run: mkdir blank && sed -i 's/torchVersion/${{ env.TORCH_VERSION }}/g' Torch.Server.ReferenceAssemblies.net7.nuspec && nuget pack Torch.Server.ReferenceAssemblies.net7.nuspec -BasePath ./blank -Version ${{ env.TORCH_VERSION }} -OutputDirectory pack -NonInteractive -NoPackageAnalysis
+      - run: dotnet pack -c Release ./Torch.API/Torch.API.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: dotnet pack -c Release ./Torch/Torch.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: dotnet pack -c Release ./Torch.Server/Torch.Server.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: mkdir blank && sed -i 's/torchVersion/${{ steps.version.outputs.version }}/g' Torch.Server.ReferenceAssemblies.net7.nuspec && nuget pack Torch.Server.ReferenceAssemblies.net7.nuspec -BasePath ./blank -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" -OutputDirectory pack -NonInteractive -NoPackageAnalysis
   
       - run: dotnet nuget push ./pack/*.nupkg -s github 

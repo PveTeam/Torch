@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Torch.Server.ReferenceAssemblies.net7</id>
-        <version>1.0.1</version>
+        <version>torchVersion</version>
         <title>Torch Server Reference Assemblies</title>
         <authors>zznty</authors>
         <owners>zznty</owners>
@@ -11,7 +11,7 @@
         <repository type="git" url="https://github.com/PveTeam/Torch" />
         <dependencies>
             <group targetFramework="net7.0-windows7.0">
-                <dependency id="SpaceEngineersDedicated.ReferenceAssemblies" version="1.201.13" />
+                <dependency id="SpaceEngineersDedicated.ReferenceAssemblies" version="1.202.66" />
                 <dependency id="Torch.Server" version="torchVersion" />
             </group>
         </dependencies>
