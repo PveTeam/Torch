@@ -102,25 +102,26 @@ namespace Torch.Server
                 }
 #endif
                 
-                var gameThread = new Thread(() =>
+                var uiThread = new Thread(() =>
                 {
-                    _server.Init();
-
-                    if (Config.Autostart || Config.TempAutostart)
-                    {
-                        Config.TempAutostart = false;
-                        _server.Start();
-                    }
+                    var ui = new TorchUI(_server);
+                
+                    SynchronizationContext.SetSynchronizationContext(
+                        new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
+                
+                    ui.ShowDialog();
                 });
                 
-                gameThread.Start();
-                
-                var ui = new TorchUI(_server);
-                
-                SynchronizationContext.SetSynchronizationContext(
-                    new DispatcherSynchronizationContext(Dispatcher.CurrentDispatcher));
-                
-                ui.ShowDialog();
+                uiThread.SetApartmentState(ApartmentState.STA);
+                uiThread.Start();
+
+                _server.Init();
+
+                if (Config.Autostart || Config.TempAutostart)
+                {
+                    Config.TempAutostart = false;
+                    _server.Start();
+                }
             }
         }
         

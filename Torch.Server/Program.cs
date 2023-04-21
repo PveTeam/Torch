@@ -12,7 +12,7 @@ namespace Torch.Server
 {
     internal static class Program
     {
-        [STAThread]
+        [MTAThread]
         public static void Main(string[] args)
         {
             var configurationBuilder = new ConfigurationBuilder()
