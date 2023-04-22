@@ -30,7 +30,8 @@ namespace Torch.Server
         private const string TOOL_DIR = "tool";
         private const string TOOL_ZIP = "temp.zip";
         private static readonly string TOOL_EXE = "DepotDownloader.exe";
-        private const string TOOL_ARGS = "-app 298740 -depot 298741 -dir \"{0}\"";
+        private const string TOOL_ARGS = "-app 298740 -depot {1} -dir \"{0}\"";
+        private static readonly int[] Depots = { 298741, 1004 }; 
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
@@ -160,18 +161,26 @@ namespace Torch.Server
             }
 
             log.Info("Checking for DS updates.");
-            var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
+            foreach (var depot in Depots)
             {
-                Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../")),
-                WorkingDirectory = path,
-                RedirectStandardOutput = true
-            };
-            var cmd = Process.Start(steamCmdProc)!;
+                await DownloadDepot(depot);
+            }
+
+            async Task DownloadDepot(int depotId)
+            {
+                var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
+                {
+                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId),
+                    WorkingDirectory = path,
+                    RedirectStandardOutput = true
+                };
+                var cmd = Process.Start(steamCmdProc)!;
             
-            while (!cmd.HasExited)
-            {
-                if (await cmd.StandardOutput.ReadLineAsync() is { } line)
-                    log.Info(line);
+                while (!cmd.HasExited)
+                {
+                    if (await cmd.StandardOutput.ReadLineAsync() is { } line)
+                        log.Info(line);
+                }
             }
         }
     }
