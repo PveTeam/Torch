@@ -47,7 +47,7 @@ namespace Torch.Utils
         
         private static void CopyNative()
         {
-            if (ApplicationContext.Current.GameFilesDirectory.Attributes.HasFlag(FileAttributes.ReadOnly))
+            if (ApplicationContext.Current.IsService || ApplicationContext.Current.GameFilesDirectory.Attributes.HasFlag(FileAttributes.ReadOnly))
             {
                 Log.Warn("Torch directory is readonly. You should copy steam_api64.dll, Havok.dll from bin manually");
                 return;
