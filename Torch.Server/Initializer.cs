@@ -123,6 +123,8 @@ namespace Torch.Server
                     Config.TempAutostart = false;
                     _server.Start();
                 }
+
+                uiThread.Join();
             }
         }
         
