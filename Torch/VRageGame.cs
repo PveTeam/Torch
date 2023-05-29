@@ -165,7 +165,7 @@ namespace Torch
             _tweakGameSettings();
 
             MyFileSystem.Reset();
-            MyInitializer.InvokeBeforeRun(_appSteamId, _appName, _userDataPath);
+            MyInitializer.InvokeBeforeRun(_appSteamId, _appName, MyVRage.Platform.System.GetRootPath(), _userDataPath);
 
             _log.Info("Loading Dedicated Config");
             // object created in SpaceEngineersGame.SetupPerGameSettings()
@@ -193,7 +193,7 @@ namespace Torch
             {
                 service = MyEOSService.Create();
 
-                MyEOSService.InitNetworking(dedicated,
+                MyEOSService.InitNetworking(dedicated, true, //true because using Eos
                     "Space Engineers",
                     service,
                     "xyza7891A4WeGrpP85BTlBa3BSfUEABN",
@@ -225,7 +225,8 @@ namespace Torch
             
             MyGameService.WorkshopService.AddAggregate(MyModIoService.Create(service, "spaceengineers", "264",
                 "1fb4489996a5e8ffc6ec1135f9985b5b", "331", "f2b64abe55452252b030c48adc0c1f0e",
-                MyPlatformGameSettings.UGC_TEST_ENVIRONMENT, true));
+                MyPlatformGameSettings.UGC_TEST_ENVIRONMENT, true, MyPlatformGameSettings.MODIO_PLATFORM,
+                MyPlatformGameSettings.MODIO_PORTAL));
             
             if (!isEos && !MyGameService.HasGameServer)
             {
