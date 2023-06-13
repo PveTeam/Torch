@@ -35,7 +35,7 @@
     <PackageReference Include="protobuf-net" Version="3.1.26" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="Torch.SixLabors.ImageSharp" Version="1.0.0-beta6" />
-    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.202.117">
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.202.120">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>

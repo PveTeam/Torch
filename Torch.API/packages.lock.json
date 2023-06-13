@@ -43,9 +43,9 @@
       },
       "SpaceEngineersDedicated.ReferenceAssemblies": {
         "type": "Direct",
-        "requested": "[1.202.117, )",
-        "resolved": "1.202.117",
-        "contentHash": "eMyu/AJiKxgmQqMiMUuyL+XdHgNpzw6AfpL6OJkYugXnOJQ10tU8sVvEpmlPqIjWGcRrOhyA6bIGIN4s0JyyUw==",
+        "requested": "[1.202.120, )",
+        "resolved": "1.202.120",
+        "contentHash": "HTP48NOSZY3eQPX3GJN+gjxdW83SM7DX6NcKCFqNIIvjz/J+l8uimHAQp9dnLySb0wb1K1Z1xBPIXyxMQRREIw==",
         "dependencies": {
           "protobuf-net": "1.0.0"
         }
