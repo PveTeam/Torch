@@ -30,7 +30,7 @@ namespace Torch.Server
         private const string TOOL_DIR = "tool";
         private const string TOOL_ZIP = "temp.zip";
         private static readonly string TOOL_EXE = "DepotDownloader.exe";
-        private const string TOOL_ARGS = "-app 298740 -depot {1} -dir \"{0}\"";
+        private const string TOOL_ARGS = "-app 298740 -depot {1} -dir \"{0}\" -manifest {2}";
         private static readonly int[] Depots = { 298741, 1004 }; 
         private TorchServer _server;
 
@@ -172,7 +172,7 @@ namespace Torch.Server
             {
                 var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
                 {
-                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId),
+                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId, "3215730643277932637"),
                     WorkingDirectory = path,
                     RedirectStandardOutput = true
                 };
