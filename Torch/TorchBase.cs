@@ -113,12 +113,6 @@ namespace Torch
             Plugins = new PluginManager(this);
 #pragma warning restore CS0618
 
-            var sessionManager = new TorchSessionManager(this);
-            sessionManager.AddFactory((x) => Sync.IsServer ? new ChatManagerServer(this) : new ChatManagerClient(this));
-            sessionManager.AddFactory((x) => Sync.IsServer ? new CommandManager(this) : null);
-            sessionManager.AddFactory((x) => new EntityManager(this));
-
-            Managers.AddManager(sessionManager);
             Managers.AddManager(new PatchManager(this));
             Managers.AddManager(new FilesystemManager(this));
             Managers.AddManager(new UpdateManager(this));
@@ -286,6 +280,15 @@ namespace Torch
             Game = new VRageGame(this, TweakGameSettings, SteamAppName, SteamAppId, InstancePath, RunArgs);
             if (!Game.WaitFor(VRageGame.GameState.Stopped))
                 Log.Warn("Failed to wait for game to be initialized");
+            
+            var sessionManager = new TorchSessionManager(this);
+            sessionManager.AddFactory((x) => Sync.IsServer ? new ChatManagerServer(this) : new ChatManagerClient(this));
+            sessionManager.AddFactory((x) => Sync.IsServer ? new CommandManager(this) : null);
+            sessionManager.AddFactory((x) => new EntityManager(this));
+
+            Managers.AddManager(sessionManager);
+
+            
             Managers.Attach();
             _init = true;
 

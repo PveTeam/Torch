@@ -56,9 +56,7 @@ namespace Torch.Server
                 AddManager(new EntityControlManager(this));
             AddManager(new RemoteAPIManager(this));
 
-            var sessionManager = Managers.GetManager<ITorchSessionManager>();
-            sessionManager.AddFactory(x => new MultiplayerManagerDedicated(this));
-            sessionManager.SessionStateChanged += OnSessionStateChanged;
+            
             
             // Needs to be done at some point after MyVRageWindows.Init
             // where the debug listeners are registered
@@ -128,6 +126,10 @@ namespace Torch.Server
         {
             Log.Info("Initializing server");
             base.Init();
+            var sessionManager = Managers.GetManager<ITorchSessionManager>();
+            sessionManager.AddFactory(x => new MultiplayerManagerDedicated(this));
+            sessionManager.SessionStateChanged += OnSessionStateChanged;
+            
             GetManager<InstanceManager>().LoadInstance(InstancePath);
             CanRun = true;
             Initialized?.Invoke(this);
