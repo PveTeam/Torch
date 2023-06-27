@@ -10,6 +10,7 @@ using Sandbox;
 using Sandbox.Game;
 using Sandbox.Game.Multiplayer;
 using Sandbox.Game.Screens.Helpers;
+using SpaceEngineers.Game;
 using Torch.API;
 using Torch.API.Managers;
 using Torch.API.ModAPI;
@@ -247,6 +248,8 @@ namespace Torch
         public virtual void Init()
         {
             Debug.Assert(!_init, "Torch instance is already initialized.");
+            SpaceEngineersGame.SetupBasicGameInfo();
+            SpaceEngineersGame.SetupPerGameSettings();
             VRageGame.SetupVersionInfo();
 
             Debug.Assert(MyPerGameSettings.BasicGameInfo.GameVersion != null, "MyPerGameSettings.BasicGameInfo.GameVersion != null");

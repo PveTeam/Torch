@@ -103,6 +103,7 @@ namespace Torch.Server
                 }
 #endif
                 
+                _server.Init();
                 var uiThread = new Thread(() =>
                 {
                     var ui = new TorchUI(_server);
@@ -116,7 +117,7 @@ namespace Torch.Server
                 uiThread.SetApartmentState(ApartmentState.STA);
                 uiThread.Start();
 
-                _server.Init();
+                
 
                 if (Config.Autostart || Config.TempAutostart)
                 {
