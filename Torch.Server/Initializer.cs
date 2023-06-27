@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Targets;
 using Sandbox.Engine.Utils;
+using SpaceEngineers.Game;
 using Torch.Utils;
 using VRage.FileSystem;
 
@@ -103,7 +104,8 @@ namespace Torch.Server
                 }
 #endif
                 
-                
+                SpaceEngineersGame.SetupBasicGameInfo();
+                SpaceEngineersGame.SetupPerGameSettings();
                 var uiThread = new Thread(() =>
                 {
                     var ui = new TorchUI(_server);
