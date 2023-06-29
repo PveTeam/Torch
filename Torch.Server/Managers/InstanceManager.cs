@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Havok;
 using NLog;
@@ -34,8 +35,46 @@ namespace Torch.Server.Managers
     public class InstanceManager : Manager, IInstanceManager
     {
         private const string CONFIG_NAME = "SpaceEngineers-Dedicated.cfg";
+        
+        private Action<ConfigDedicatedViewModel> _instanceLoaded;
 
-        public event Action<ConfigDedicatedViewModel> InstanceLoaded;
+        /// <summary>
+        /// Gets or sets the instance loaded event.
+        /// </summary>
+        /// <remarks>
+        /// Called when the instance is loaded and immediately if subscribed after the instance is loaded.
+        /// </remarks>
+        public event Action<ConfigDedicatedViewModel> InstanceLoaded
+        {
+            add
+            {
+                var action = _instanceLoaded;
+                Action<ConfigDedicatedViewModel> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<ConfigDedicatedViewModel>)Delegate.Combine(action2, value);
+                    action = Interlocked.CompareExchange(ref _instanceLoaded, action3, action2);
+                }
+                while (action != action2);
+
+                if (DedicatedConfig is not null)
+                    value(DedicatedConfig);
+            }
+            remove
+            {
+                var action = _instanceLoaded;
+                Action<ConfigDedicatedViewModel> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<ConfigDedicatedViewModel>)Delegate.Remove(action2, value);
+                    action = Interlocked.CompareExchange(ref _instanceLoaded, action3, action2);
+                }
+                while (action != action2);
+            }
+        }
+
         public ConfigDedicatedViewModel DedicatedConfig { get; set; }
         private static readonly Logger Log = LogManager.GetLogger(nameof(InstanceManager));
         [Dependency]
@@ -102,7 +141,7 @@ namespace Torch.Server.Managers
 
             SelectWorld(DedicatedConfig.LoadWorld ?? DedicatedConfig.Worlds.First().WorldPath, false);
 
-            InstanceLoaded?.Invoke(DedicatedConfig);
+            _instanceLoaded?.Invoke(DedicatedConfig);
         }
 
         public void SelectCreatedWorld(string worldPath)

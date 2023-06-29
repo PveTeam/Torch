@@ -154,7 +154,6 @@ namespace Torch
             Environment.SetEnvironmentVariable("SteamAppId", _appSteamId.ToString());
             MyVRageWindows.Init("SpaceEngineersDedicated", MySandboxGame.Log, null, false);
             SpaceEngineersGame.SetupPerGameSettings();
-            SpaceEngineersGame.SetupBasicGameInfo();
             MySessionComponentExtDebug.ForceDisable = true;
             MyPerGameSettings.SendLogToKeen = false;
             // SpaceEngineersGame.SetupAnalytics();
