@@ -601,6 +601,7 @@
         "type": "Project",
         "dependencies": {
           "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": "[0.9.0, )",
+          "Microsoft.Extensions.Configuration.Binder": "[7.0.4, )",
           "NLog": "[5.1.0, )",
           "NuGet.Commands": "[6.4.0, )",
           "NuGet.DependencyResolver.Core": "[6.4.0, )",

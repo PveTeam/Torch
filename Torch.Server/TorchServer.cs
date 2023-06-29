@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using Microsoft.Diagnostics.Runtime;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using PropertyChanged;
 using Sandbox;
@@ -46,8 +47,9 @@ namespace Torch.Server
 
         //Here to trigger rebuild
         /// <inheritdoc />
-        public TorchServer(ITorchConfig config, string instancePath, string instanceName) : base(config)
+        public TorchServer(ITorchConfig config, string instancePath, string instanceName, IConfiguration configuration) : base(config)
         {
+            Configuration = configuration;
             InstancePath = instancePath;
             InstanceName = instanceName;
             DedicatedInstance = new InstanceManager(this);
@@ -135,6 +137,8 @@ namespace Torch.Server
             Initialized?.Invoke(this);
             Log.Info($"Initialized server '{InstanceName}' at '{InstancePath}'");
         }
+
+        public override IConfiguration Configuration { get; }
 
         /// <inheritdoc />
         public override void Start()

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Havok;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using NLog.Fluent;
 using Sandbox;
@@ -30,6 +31,7 @@ using VRage.Dedicated;
 using VRage.EOS;
 using VRage.FileSystem;
 using VRage.Game;
+using VRage.Game.ModAPI;
 using VRage.Game.ObjectBuilder;
 using VRage.Game.SessionComponents;
 using VRage.GameServices;
@@ -169,10 +171,13 @@ namespace Torch
             MyInitializer.InvokeBeforeRun(_appSteamId, _appName, MyVRage.Platform.System.GetRootPath(), _userDataPath);
 
             _log.Info("Loading Dedicated Config");
+            
             // object created in SpaceEngineersGame.SetupPerGameSettings()
             MySandboxGame.ConfigDedicated.Load();
-            MyPlatformGameSettings.CONSOLE_COMPATIBLE = MySandboxGame.ConfigDedicated.ConsoleCompatibility;
+            ApplyConfiguration(MySandboxGame.ConfigDedicated);
             
+            MyPlatformGameSettings.CONSOLE_COMPATIBLE = MySandboxGame.ConfigDedicated.ConsoleCompatibility;
+
             //Type.GetType("VRage.Steam.MySteamService, VRage.Steam").GetProperty("IsActive").GetSetMethod(true).Invoke(service, new object[] {SteamAPI.Init()});
             _log.Info("Initializing network services");
 
@@ -300,6 +305,18 @@ namespace Torch
             MyPlugins.RegisterSandboxGameAssemblyFile(MyPerGameSettings.SandboxGameAssembly);
             //typeof(MySandboxGame).GetMethod("Preallocate", BindingFlags.Static | BindingFlags.NonPublic).Invoke(null, null);
             MyGlobalTypeMetadata.Static.Init(false);
+        }
+
+        private void ApplyConfiguration(IMyConfigDedicated dedicated)
+        {
+            var config = _torch.Configuration.GetSection("DedicatedServer");
+
+            dedicated.ServerPort = config.GetValue("Port", dedicated.ServerPort);
+            dedicated.ConsoleCompatibility = config.GetValue("ConsoleCompatibility", dedicated.ConsoleCompatibility);
+            dedicated.IP = config.GetValue("Ip", dedicated.IP);
+            dedicated.WorldName = config.GetValue("WorldName", dedicated.WorldName);
+            dedicated.ServerName = config.GetValue("ServerName", dedicated.ServerName);
+            dedicated.ServerDescription = config.GetValue("ServerDescription", dedicated.ServerDescription);
         }
 
         private void Destroy()

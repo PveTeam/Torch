@@ -39,7 +39,7 @@ namespace Torch.Server
                 context.GameBinariesDirectory.FullName);
 #endif
 
-            initializer.Run();
+            initializer.Run(configuration);
         }
 
         private static void SetupLogging(IApplicationContext context, IConfiguration configuration)

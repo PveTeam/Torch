@@ -85,9 +85,9 @@ namespace Torch.Server
             return true;
         }
 
-        public void Run()
+        public void Run(IConfiguration configuration)
         {
-            _server = new TorchServer(Config, ApplicationContext.Current.InstanceDirectory.FullName, ApplicationContext.Current.InstanceName);
+            _server = new TorchServer(Config, ApplicationContext.Current.InstanceDirectory.FullName, ApplicationContext.Current.InstanceName, configuration);
 
             if (ApplicationContext.Current.IsService || Config.NoGui)
             {

@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using NLog;
 using Sandbox;
 using Sandbox.Game;
@@ -58,6 +59,8 @@ namespace Torch
 
         /// <inheritdoc />
         public ITorchConfig Config { get; protected set; }
+
+        public abstract IConfiguration Configuration { get; }
 
         /// <inheritdoc />
         public SemanticVersioning.Version TorchVersion { get; }

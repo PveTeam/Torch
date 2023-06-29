@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Torch.API.Managers;
 using Torch.API.Session;
 using VRage.Game.ModAPI;
@@ -25,6 +26,11 @@ namespace Torch.API
         /// Configuration for the current instance.
         /// </summary>
         ITorchConfig Config { get; }
+        
+        /// <summary>
+        /// Extended Configuration for the current instance.
+        /// </summary>
+        IConfiguration Configuration { get; }
 
         /// <inheritdoc cref="IPluginManager"/>
         [Obsolete]
