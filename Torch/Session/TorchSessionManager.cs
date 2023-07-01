@@ -49,8 +49,6 @@ namespace Torch.Session
         public TorchSessionManager(ITorchBase torchInstance) : base(torchInstance)
         {
             _overrideMods = new Dictionary<ulong, MyObjectBuilder_Checkpoint.ModItem>();
-            if (Torch.Config.UgcServiceType == UGCServiceType.Steam)
-                _overrideMods.Add(ModCommunication.MOD_ID, ModItemUtils.Create(ModCommunication.MOD_ID));
         }
 
         /// <inheritdoc/>
@@ -193,6 +191,8 @@ namespace Torch.Session
             MySession.AfterLoading += SessionLoaded;
             MySession.OnUnloading += SessionUnloading;
             MySession.OnUnloaded += SessionUnloaded;
+            if (Torch.Config.UgcServiceType == UGCServiceType.Steam)
+                _overrideMods.Add(ModCommunication.MOD_ID, ModItemUtils.Create(ModCommunication.MOD_ID));
         }
 
 

@@ -52,8 +52,40 @@ namespace Torch.Managers
         /// <inheritdoc />
         public IReadOnlyDictionary<Guid, ITorchPlugin> Plugins => _plugins.AsReadOnlyObservable();
 
-        public event Action<IReadOnlyCollection<ITorchPlugin>> PluginsLoaded;
-        
+        private Action<IReadOnlyCollection<ITorchPlugin>> _pluginsLoaded;
+        private bool _loaded;
+
+        public event Action<IReadOnlyCollection<ITorchPlugin>> PluginsLoaded
+        {
+            add
+            {
+                var action = _pluginsLoaded;
+                Action<IReadOnlyCollection<ITorchPlugin>> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<IReadOnlyCollection<ITorchPlugin>>)Delegate.Combine(action2, value);
+                    action = Interlocked.CompareExchange(ref _pluginsLoaded, action3, action2);
+                }
+                while (action != action2);
+
+                if (_loaded)
+                    value(_plugins.Values.AsReadOnly());
+            }
+            remove
+            {
+                var action = _pluginsLoaded;
+                Action<IReadOnlyCollection<ITorchPlugin>> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<IReadOnlyCollection<ITorchPlugin>>)Delegate.Remove(action2, value);
+                    action = Interlocked.CompareExchange(ref _pluginsLoaded, action3, action2);
+                }
+                while (action != action2);
+            }
+        }
+
         public PluginManager(ITorchBase torchInstance) : base(torchInstance)
         {
             if (!Directory.Exists(PluginDir))
@@ -145,7 +177,8 @@ namespace Torch.Managers
                     plugin.Init(Torch);
                 }
                 _log.Info($"Loaded {_plugins.Count} plugins.");
-                PluginsLoaded?.Invoke(_plugins.Values.AsReadOnly());
+                _loaded = true;
+                _pluginsLoaded?.Invoke(_plugins.Values.AsReadOnly());
                 return;
             }
 
@@ -220,7 +253,8 @@ namespace Torch.Managers
                 plugin.Init(Torch);
             }
             _log.Info($"Loaded {_plugins.Count} plugins.");
-            PluginsLoaded?.Invoke(_plugins.Values.AsReadOnly());
+            _loaded = true;
+            _pluginsLoaded?.Invoke(_plugins.Values.AsReadOnly());
         }
 
         //debug flag is set when the user asks us to run with a specific plugin for plugin development debug

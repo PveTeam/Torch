@@ -14,6 +14,9 @@ namespace Torch.API.Managers
         /// <summary>
         /// Fired when plugins are loaded.
         /// </summary>
+        /// <remarks>
+        /// Fired when plugins are loaded and immediately if subscribed after the plugins are loaded.
+        /// </remarks>
         event Action<IReadOnlyCollection<ITorchPlugin>> PluginsLoaded;
 
         /// <summary>
