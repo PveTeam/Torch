@@ -121,7 +121,38 @@ namespace Torch.Server
         /// <inheritdoc />
         public ServerState State { get; private set; }
 
-        public event Action<ITorchServer> Initialized;
+        private Action<ITorchServer> _initializedEvent;
+
+        public event Action<ITorchServer> Initialized
+        {
+            add
+            {
+                var action = _initializedEvent;
+                Action<ITorchServer> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<ITorchServer>)Delegate.Combine(action2, value);
+                    action = Interlocked.CompareExchange(ref _initializedEvent, action3, action2);
+                }
+                while (action != action2);
+
+                if (GetManager<InstanceManager>().DedicatedConfig != null)
+                    value(this); //if already initialized
+            }
+            remove
+            {
+                var action = _initializedEvent;
+                Action<ITorchServer> action2;
+                do
+                {
+                    action2 = action;
+                    var action3 = (Action<ITorchServer>)Delegate.Remove(action2, value);
+                    action = Interlocked.CompareExchange(ref _initializedEvent, action3, action2);
+                }
+                while (action != action2);
+            }
+        }
 
         public int OnlinePlayers { get; private set; }
 
@@ -132,7 +163,7 @@ namespace Torch.Server
             base.Init();
             GetManager<InstanceManager>().LoadInstance(InstancePath);
             CanRun = true;
-            Initialized?.Invoke(this);
+            _initializedEvent?.Invoke(this);
             Log.Info($"Initialized server '{InstanceName}' at '{InstancePath}'");
         }
 
