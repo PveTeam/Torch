@@ -72,7 +72,9 @@ namespace Torch.Session
         {
             if (_overrideMods.ContainsKey(modId))
                 return false;
-            var item = ModItemUtils.Create(modId);
+#pragma warning disable CS0618
+            var item = ModItemUtils.Create(modId, TorchBase.Instance.Config.UgcServiceType.ToString());
+#pragma warning restore CS0618
             _overrideMods.Add(modId, item);
 
             OverrideModsChanged?.Invoke(new CollectionChangeEventArgs(CollectionChangeAction.Add, item));
