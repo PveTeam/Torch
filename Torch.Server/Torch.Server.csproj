@@ -41,7 +41,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="7.0.0" />
-    <PackageReference Include="NLog" Version="5.2.0" />
+    <PackageReference Include="NLog" Version="5.2.2" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="all" />
     <PackageReference Include="Steamworks.NET" Version="20.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -50,7 +50,7 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Management" Version="7.0.2" />
     <PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.5" />
-    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.202.120">
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.202.124">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>

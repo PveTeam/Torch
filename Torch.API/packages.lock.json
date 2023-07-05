@@ -19,9 +19,9 @@
       },
       "NLog": {
         "type": "Direct",
-        "requested": "[5.2.0, )",
-        "resolved": "5.2.0",
-        "contentHash": "uYBgseY0m/9lQUbZYGsQsTBFOWrfs3iaekzzYMH6vFmpoOAvV8/bp1XxG/suZkwB5h8nAiTJAp7VENWRDKtKPA=="
+        "requested": "[5.2.2, )",
+        "resolved": "5.2.2",
+        "contentHash": "r6Q9740g29gTwmTWlsgdIFm0mhNsfNZmbvWKX/Fxmi8X89ZrpUowHM2T2X1lP7RVpND+ef+XnfKL5g6Q1iNGXA=="
       },
       "NuGet.Commands": {
         "type": "Direct",
@@ -54,9 +54,9 @@
       },
       "SpaceEngineersDedicated.ReferenceAssemblies": {
         "type": "Direct",
-        "requested": "[1.202.120, )",
-        "resolved": "1.202.120",
-        "contentHash": "HTP48NOSZY3eQPX3GJN+gjxdW83SM7DX6NcKCFqNIIvjz/J+l8uimHAQp9dnLySb0wb1K1Z1xBPIXyxMQRREIw==",
+        "requested": "[1.202.124, )",
+        "resolved": "1.202.124",
+        "contentHash": "xw8mbJI2WwZcfWvgMf6c6E3agcQ/IQVVdnKZljszQBKq0cjhJG06AoonM+MI74CrYMJxf+wnA+4bzCt4mxy/Qg==",
         "dependencies": {
           "protobuf-net": "1.0.0"
         }

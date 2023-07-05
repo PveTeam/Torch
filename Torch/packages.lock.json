@@ -14,11 +14,11 @@
       },
       "HarmonyX": {
         "type": "Direct",
-        "requested": "[2.10.2-prerelease.4, )",
-        "resolved": "2.10.2-prerelease.4",
-        "contentHash": "M/44/DhSu1WR8gL62aLPGKqAJ0rrgkw38nT3DgEvLAvyIoQLJmL2Jsn4/d4CC0eDT1Vv82cB9Mxgg0sFD3/qrQ==",
+        "requested": "[2.10.2-prerelease.5, )",
+        "resolved": "2.10.2-prerelease.5",
+        "contentHash": "0ae0orZFSOMusmKRWfjcxeJY1rz04GMlTw4FRusljsT5UVZyToIBVZA1F8NVfD+zxCZZ++iNQth5EN0qsKtnLQ==",
         "dependencies": {
-          "MonoModReorg.RuntimeDetour": "23.3.22.1"
+          "MonoMod.RuntimeDetour": "25.0.0"
         }
       },
       "InfoOf.Fody": {
@@ -61,24 +61,24 @@
           "Microsoft.CodeAnalysis.Common": "[4.6.0]"
         }
       },
-      "MonoModReorg.RuntimeDetour": {
+      "MonoMod.RuntimeDetour": {
         "type": "Direct",
-        "requested": "[23.3.22.1, )",
-        "resolved": "23.3.22.1",
-        "contentHash": "cUES3Hi7QJtBNe0qwVdjZOCDkZDaCpdqS6Au0RaCyQ1PDIR4av13E9qBNAEYew46sgPe0fOrU334md6DLDGHlQ==",
+        "requested": "[25.0.0, )",
+        "resolved": "25.0.0",
+        "contentHash": "u+G34uSEjU0+fk4Iz3Mfws/+E4kW460i6fBz1b4L/yxSndfmdKkJ+pYbU9pwh7IUxgk0Ko0+Mx3fSUQPaNk8nA==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.3.22.1",
-          "MonoModReorg.Core": "23.3.22.1",
-          "MonoModReorg.ILHelpers": "23.3.22.1",
-          "MonoModReorg.Utils": "23.3.22.1"
+          "MonoMod.Backports": "1.0.0",
+          "MonoMod.Core": "1.0.0",
+          "MonoMod.ILHelpers": "1.0.0",
+          "MonoMod.Utils": "25.0.0"
         }
       },
       "NLog": {
         "type": "Direct",
-        "requested": "[5.2.0, )",
-        "resolved": "5.2.0",
-        "contentHash": "uYBgseY0m/9lQUbZYGsQsTBFOWrfs3iaekzzYMH6vFmpoOAvV8/bp1XxG/suZkwB5h8nAiTJAp7VENWRDKtKPA=="
+        "requested": "[5.2.2, )",
+        "resolved": "5.2.2",
+        "contentHash": "r6Q9740g29gTwmTWlsgdIFm0mhNsfNZmbvWKX/Fxmi8X89ZrpUowHM2T2X1lP7RVpND+ef+XnfKL5g6Q1iNGXA=="
       },
       "PropertyChanged.Fody": {
         "type": "Direct",
@@ -100,9 +100,9 @@
       },
       "SpaceEngineersDedicated.ReferenceAssemblies": {
         "type": "Direct",
-        "requested": "[1.202.120, )",
-        "resolved": "1.202.120",
-        "contentHash": "HTP48NOSZY3eQPX3GJN+gjxdW83SM7DX6NcKCFqNIIvjz/J+l8uimHAQp9dnLySb0wb1K1Z1xBPIXyxMQRREIw==",
+        "requested": "[1.202.124, )",
+        "resolved": "1.202.124",
+        "contentHash": "xw8mbJI2WwZcfWvgMf6c6E3agcQ/IQVVdnKZljszQBKq0cjhJG06AoonM+MI74CrYMJxf+wnA+4bzCt4mxy/Qg==",
         "dependencies": {
           "protobuf-net": "1.0.0"
         }
@@ -187,38 +187,38 @@
         "resolved": "0.11.4",
         "contentHash": "IC1h5g0NeJGHIUgzM1P82ld57knhP0IcQfrYITDPXlNpMYGUrsG5TxuaWTjaeqDNQMBDNZkB8L0rBnwsY6JHuQ=="
       },
-      "MonoModReorg.Backports": {
+      "MonoMod.Backports": {
         "type": "Transitive",
-        "resolved": "23.3.22.1",
-        "contentHash": "nLx18prtZbS0nVO8YHElP+TUj1kkDswRgQpa9agt3tyNWke9Kqk5lVkGu87Y3cCMhG+m5Ai0ZDH0+V5B6bXF+Q==",
+        "resolved": "1.0.0",
+        "contentHash": "J59I4CMe24aCmWboHCDzQIk37kXqHnJH6KQfDGstlznuDni7Lwdd/8CywmEwVXjVEgfs5yQzvOTW3Xg1NH7fDQ==",
         "dependencies": {
-          "MonoModReorg.ILHelpers": "23.3.22.1"
+          "MonoMod.ILHelpers": "1.0.0"
         }
       },
-      "MonoModReorg.Core": {
+      "MonoMod.Core": {
         "type": "Transitive",
-        "resolved": "23.3.22.1",
-        "contentHash": "Q3ZOgm6AOTL0icgcHsT/6mV5kYt6meqX3DEN1p/et5PxJsXUhVkiZfAptp8y/i+cO6HNgkcESpXEQ4jUWVwsDA==",
+        "resolved": "1.0.0",
+        "contentHash": "FlzAEa4ujbA1t3rbKxuW3DP36T0/L6k2IP1F4QXM1cOXMJLHm39Azjt98E/9LFRFBWYFdlMUmg+4THLv2xyisA==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.3.22.1",
-          "MonoModReorg.ILHelpers": "23.3.22.1",
-          "MonoModReorg.Utils": "23.3.22.1"
+          "MonoMod.Backports": "1.0.0",
+          "MonoMod.ILHelpers": "1.0.0",
+          "MonoMod.Utils": "25.0.0"
         }
       },
-      "MonoModReorg.ILHelpers": {
+      "MonoMod.ILHelpers": {
         "type": "Transitive",
-        "resolved": "23.3.22.1",
-        "contentHash": "dHE/3VZtnTUTkQ34j8Gu6CxKes1QDL8tBuF3QElxHHpPl/QabGCK938k47WWRcRBMoP7IAthkn+Bob4H97rBgw=="
+        "resolved": "1.0.0",
+        "contentHash": "dTjGA+dYl7W5yQ0oG/Wr57tsa+ueoFUrwPtz9MZF9iheun4n70u7lge52F8UJi9i0zMHRfS2mAY6+nPuRZHQyQ=="
       },
-      "MonoModReorg.Utils": {
+      "MonoMod.Utils": {
         "type": "Transitive",
-        "resolved": "23.3.22.1",
-        "contentHash": "q1cX0mbYxdw2WcE/qGBB84lVY/ffobEr46VQFuwGcWhtw6f1Ql1k4TZfs8gebpesSxHnca13grLeVHrUSpy1+g==",
+        "resolved": "25.0.0",
+        "contentHash": "E8m0pH3Kact+A2qH+lxMis90K8+ixInwprn0R1nuAMRHfotHUHeYmr304UEPeInSuY3+IlnC+OB8fqbQiTsWlQ==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoModReorg.Backports": "23.3.22.1",
-          "MonoModReorg.ILHelpers": "23.3.22.1"
+          "MonoMod.Backports": "1.0.0",
+          "MonoMod.ILHelpers": "1.0.0"
         }
       },
       "Newtonsoft.Json": {
@@ -408,7 +408,7 @@
         "dependencies": {
           "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": "[0.9.0, )",
           "Microsoft.Extensions.Configuration.Binder": "[7.0.4, )",
-          "NLog": "[5.2.0, )",
+          "NLog": "[5.2.2, )",
           "NuGet.Commands": "[6.6.1, )",
           "NuGet.DependencyResolver.Core": "[6.6.1, )",
           "SemanticVersioning": "[2.0.2, )",
