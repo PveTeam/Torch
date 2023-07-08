@@ -173,7 +173,7 @@ namespace Torch.Server
             {
                 var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
                 {
-                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId, "3111493184861426002"),
+                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId, "14195799952783859"),
                     WorkingDirectory = path,
                     RedirectStandardOutput = true
                 };

@@ -124,7 +124,9 @@ namespace Torch
             Managers.AddManager(sessionManager);
             Managers.AddManager(new PatchManager(this));
             Managers.AddManager(new FilesystemManager(this));
-            Managers.AddManager(new UpdateManager(this));
+#if !DEBUG
+            Managers.AddManager(new UpdateManager(this)); 
+#endif
             Managers.AddManager(new EventManager(this));
 #pragma warning disable CS0618
             Managers.AddManager(Plugins);

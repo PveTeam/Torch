@@ -214,7 +214,8 @@ public class ScriptCompilationManager : Manager
         return null;
     }
 
-    private readonly CSharpCompilationOptions _compilationOptions = new(OutputKind.DynamicallyLinkedLibrary);
+    private readonly CSharpCompilationOptions _compilationOptions = new(OutputKind.DynamicallyLinkedLibrary,
+        optimizationLevel: OptimizationLevel.Release, platform: Platform.X64);
     private readonly CSharpParseOptions _parseOptions = new(LanguageVersion.CSharp11, DocumentationMode.None);
     
     private CSharpCompilation CreateCompilation(string assemblyFileName, IEnumerable<Script> scripts)
