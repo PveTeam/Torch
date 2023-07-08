@@ -24,7 +24,7 @@
   
   <ItemGroup>
     <PackageReference Include="ControlzEx" Version="6.0.0" />
-    <PackageReference Include="HarmonyX" Version="2.10.2-prerelease.5" />
+    <PackageReference Include="HarmonyX" Version="2.10.2-prerelease.6" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.6.0" />

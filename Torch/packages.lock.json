@@ -14,9 +14,9 @@
       },
       "HarmonyX": {
         "type": "Direct",
-        "requested": "[2.10.2-prerelease.5, )",
-        "resolved": "2.10.2-prerelease.5",
-        "contentHash": "0ae0orZFSOMusmKRWfjcxeJY1rz04GMlTw4FRusljsT5UVZyToIBVZA1F8NVfD+zxCZZ++iNQth5EN0qsKtnLQ==",
+        "requested": "[2.10.2-prerelease.6, )",
+        "resolved": "2.10.2-prerelease.6",
+        "contentHash": "CPCUR/t5AQ5DDs40bTJ5OwUVTCoZONaJGbWKKjAOwg7c7Ct4KEbfybH6T+KvRGVjf5eN1oyGY5BN7EfWxUh9Xg==",
         "dependencies": {
           "MonoMod.RuntimeDetour": "25.0.0"
         }
