@@ -30,9 +30,8 @@ namespace Torch.Server
         private bool _init;
         private const string TOOL_DIR = "tool";
         private const string TOOL_ZIP = "temp.zip";
-        private static readonly string TOOL_EXE = "DepotDownloader.exe";
-        private const string TOOL_ARGS = "-app 298740 -depot {1} -dir \"{0}\" -manifest {2}";
-        private static readonly int[] Depots = { 298741, 1004 }; 
+        private static readonly string TOOL_EXE = "steamcmd.exe";
+        private const string TOOL_ARGS = "+login anonymous +app_update 298740 +force_install_dir \"{0}\"";
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
@@ -131,59 +130,51 @@ namespace Torch.Server
         
         public static async Task RunSteamCmdAsync(IConfiguration configuration)
         {
-            var log = LogManager.GetLogger("SteamTool");
-
+            var log = LogManager.GetLogger("SteamCMD");
+            
             var path = configuration.GetValue<string>("steamToolPath") ?? ApplicationContext.Current.TorchDirectory
                 .CreateSubdirectory(TOOL_DIR).FullName;
-            
+
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-
-            var steamCmdExePath = Path.Combine(path, TOOL_EXE);
-            if (!File.Exists(steamCmdExePath))
+            
+            var toolExe = Path.Combine(path, TOOL_EXE);
+            if (!File.Exists(toolExe))
             {
                 try
                 {
-                    log.Info("Downloading Steam Tool.");
+                    log.Info("Downloading SteamCMD.");
                     using (var client = new HttpClient())
                     await using (var file = File.Create(TOOL_ZIP))
-                    await using (var stream = await client.GetStreamAsync("https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_2.4.7/depotdownloader-2.4.7.zip"))
+                    await using (var stream = await client.GetStreamAsync("https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"))
                         await stream.CopyToAsync(file);
 
                     ZipFile.ExtractToDirectory(TOOL_ZIP, path);
                     File.Delete(TOOL_ZIP);
-                    log.Info("Steam Tool downloaded successfully!");
+                    log.Info("SteamCMD downloaded successfully!");
                 }
                 catch (Exception e)
                 {
-                    log.Error(e, "Failed to download Steam Tool, unable to update the DS.");
+                    log.Error(e, "Failed to download SteamCMD, unable to update the DS.");
                     return;
                 }
             }
 
             log.Info("Checking for DS updates.");
-            foreach (var depot in Depots)
+            var steamCmdProc = new ProcessStartInfo(toolExe)
             {
-                await DownloadDepot(depot);
-            }
-
-            async Task DownloadDepot(int depotId)
-            {
-                var steamCmdProc = new ProcessStartInfo(steamCmdExePath)
-                {
-                    Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../"), depotId, "14195799952783859"),
-                    WorkingDirectory = path,
-                    RedirectStandardOutput = true
-                };
-                var cmd = Process.Start(steamCmdProc)!;
+                Arguments = string.Format(TOOL_ARGS, configuration.GetValue("gamePath", "../")),
+                WorkingDirectory = path,
+                RedirectStandardOutput = true
+            };
+            var cmd = Process.Start(steamCmdProc)!;
             
-                while (!cmd.HasExited)
-                {
-                    if (await cmd.StandardOutput.ReadLineAsync() is { } line)
-                        log.Info(line);
-                }
+            while (!cmd.HasExited)
+            {
+                if (await cmd.StandardOutput.ReadLineAsync() is { } line)
+                    log.Info(line); //seems to hang sometimes, maybe switch back to Thread.Sleep?
             }
         }
     }
