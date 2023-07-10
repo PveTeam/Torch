@@ -31,7 +31,7 @@ namespace Torch.Server
         private const string TOOL_DIR = "tool";
         private const string TOOL_ZIP = "temp.zip";
         private static readonly string TOOL_EXE = "steamcmd.exe";
-        private const string TOOL_ARGS = "+login anonymous +app_update 298740 +force_install_dir \"{0}\"";
+        private const string TOOL_ARGS = "+force_install_dir \"{0}\" +login anonymous +app_update 298740 +quit";
         private TorchServer _server;
 
         internal Persistent<TorchConfig> ConfigPersistent { get; }
@@ -174,7 +174,7 @@ namespace Torch.Server
             while (!cmd.HasExited)
             {
                 if (await cmd.StandardOutput.ReadLineAsync() is { } line)
-                    log.Info(line); //seems to hang sometimes, maybe switch back to Thread.Sleep?
+                    log.Info(line);
             }
         }
     }
