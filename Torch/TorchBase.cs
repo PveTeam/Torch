@@ -372,10 +372,10 @@ namespace Torch
         /// <inheritdoc />
         public virtual void Stop()
         {
-            LogManager.Flush();
             Game.SignalStop();
-            if (!Game.WaitFor(VRageGame.GameState.Stopped))
+            if (!Game.WaitFor(VRageGame.GameState.Stopped, TimeSpan.FromSeconds(Config.TickTimeout)))
                 Log.Warn("Failed to wait for the game to be stopped");
+            LogManager.Flush();
         }
 
         /// <inheritdoc />

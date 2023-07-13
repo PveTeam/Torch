@@ -69,6 +69,14 @@ namespace Torch.Server
             
             _simUpdateTimer.Elapsed += SimUpdateElapsed;
             _simUpdateTimer.Start();
+
+            Console.CancelKeyPress += (_, _) =>
+            {
+                if (State == ServerState.Running)
+                    Stop();
+                
+                Environment.Exit(0);
+            };
         }
 
         private void SimUpdateElapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -239,9 +247,14 @@ namespace Torch.Server
                 StopInternal();
                 LogManager.Flush();
                 
+                if (
 #if DEBUG
-                Environment.Exit(0);
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                    true ||
 #endif
+                    ApplicationContext.Current.IsService
+                    )
+                    Environment.Exit(0);
 
                 var exe = Path.Combine(AppContext.BaseDirectory, "Torch.Server.exe");
 
