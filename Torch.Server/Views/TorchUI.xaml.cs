@@ -116,7 +116,7 @@ namespace Torch.Server
             if (_server?.State == ServerState.Running)
                 _server.Stop();
 
-            Process.GetCurrentProcess().Kill();
+            Environment.Exit(0);
         }
     }
 }
