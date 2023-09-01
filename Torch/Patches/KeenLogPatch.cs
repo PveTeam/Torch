@@ -78,6 +78,9 @@ namespace Torch.Patches
 
         [ReflectedSetter(Name = "m_enabled")]
         private static Action<MyLog, bool> _enabledSetter = null!;
+        
+        [ReflectedMethod(Type = typeof(MyLog), Name = "LogFlag")]
+        private static Func<MyLog, LoggingOptions, bool> _logFlag = null!;
 
         private static int GetIndentByCurrentThread()
         {
@@ -122,7 +125,7 @@ namespace Torch.Patches
         }
         private static bool PrefixWriteLineOptions(MyLog __instance, string message, LoggingOptions option)
         {
-            if (__instance.LogEnabled && __instance.LogFlag(option) && _log.IsDebugEnabled)
+            if (__instance.LogEnabled && _logFlag(__instance, option) && _log.IsDebugEnabled)
                 _log.Info($"{string.Empty.PadRight(3 * GetIndentByCurrentThread(), ' ')}{message}");
             return false;
         }

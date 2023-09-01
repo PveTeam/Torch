@@ -27,6 +27,7 @@ using VRage.Game.ModAPI;
 using VRage.Groups;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
+using VRage.ObjectBuilders.Private;
 using VRage.Sync;
 using VRageMath;
 
@@ -45,14 +46,14 @@ namespace Torch.Managers
         {
             var ob = grid.GetObjectBuilder(true);
             using (var f = File.Open(path, FileMode.CreateNew))
-                MyObjectBuilderSerializer.SerializeXML(f, ob);
+                MyObjectBuilderSerializerKeen.SerializeXML(f, ob);
         }
 
         public void ImportGrid(string path, Vector3D position)
         {
             MyObjectBuilder_EntityBase gridOb;
             using (var f = File.OpenRead(path))
-                MyObjectBuilderSerializer.DeserializeXML(f, out gridOb);
+                MyObjectBuilderSerializerKeen.DeserializeXML(f, out gridOb);
 
             var grid = MyEntities.CreateFromObjectBuilderParallel(gridOb);
             grid.PositionComp.SetPosition(position);

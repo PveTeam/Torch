@@ -82,7 +82,7 @@ public class ScriptCompilationManager : Manager
         TerminationReasonSetter(block, MyProgrammableBlock.ScriptTerminationReason.None);
 
         var component = ScriptComponentGetter(block);
-        component.NextUpdate = UpdateType.None;
+        component.UpdateFrequency = UpdateFrequency.None;
         component.NeedsUpdate = MyEntityUpdateEnum.NONE;
 
         try

@@ -28,6 +28,7 @@ using VRage.FileSystem;
 using VRage.Game;
 using VRage.Game.ObjectBuilder;
 using VRage.ObjectBuilders;
+using VRage.ObjectBuilders.Private;
 using VRage.Plugins;
 
 namespace Torch.Server.Managers
@@ -363,10 +364,10 @@ namespace Torch.Server.Managers
         public void SaveSandbox()
         {
             using (var f = File.Open(_checkpointPath, FileMode.Create))
-                MyObjectBuilderSerializer.SerializeXML(f, Checkpoint);
+                MyObjectBuilderSerializerKeen.SerializeXML(f, Checkpoint);
 
             using (var f = File.Open(_worldConfigPath, FileMode.Create))
-                MyObjectBuilderSerializer.SerializeXML(f, WorldConfiguration);
+                MyObjectBuilderSerializerKeen.SerializeXML(f, WorldConfiguration);
         }
 
         public void LoadSandbox()
