@@ -44,7 +44,7 @@ namespace Torch.Patches
         [ReflectedMethodInfo(typeof(MyLog), nameof(MyLog.WriteLineAndConsole), Parameters = new[] { typeof(string) })]
         private static MethodInfo _logWriteLineAndConsole;
 
-        [ReflectedMethodInfo(typeof(MyLog), nameof(MyLog.Init))]
+        [ReflectedMethodInfo(typeof(MyLog), nameof(MyLog.Init), Parameters = new[] { typeof(string), typeof(StringBuilder), typeof(bool) })]
         private static MethodInfo _logInit;
 
         [ReflectedMethodInfo(typeof(MyLog), nameof(MyLog.Close))]
