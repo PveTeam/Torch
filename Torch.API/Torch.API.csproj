@@ -18,9 +18,9 @@
   <ItemGroup>
     <PackageReference Include="JorgeSerrano.Json.JsonSnakeCaseNamingPolicy" Version="0.9.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.4" />
-    <PackageReference Include="NLog" Version="5.2.2" />
-    <PackageReference Include="NuGet.Commands" Version="6.6.1" />
-    <PackageReference Include="NuGet.DependencyResolver.Core" Version="6.6.1" />
+    <PackageReference Include="NLog" Version="5.2.4" />
+    <PackageReference Include="NuGet.Commands" Version="6.7.0" />
+    <PackageReference Include="NuGet.DependencyResolver.Core" Version="6.7.0" />
     <PackageReference Include="SemanticVersioning" Version="2.0.2" />
     <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.203.22.3">
       <PrivateAssets>all</PrivateAssets>
