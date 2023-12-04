@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <AssemblyTitle>Torch</AssemblyTitle>
     <Product>Torch</Product>
     <Copyright>Copyright © Torch API 2017</Copyright>
@@ -23,19 +23,20 @@
   <Import Project="..\Torch.Mod\Torch.Mod.projitems" Label="Shared" />
   
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="6.0.0" />
+    <PackageReference Include="MonoMod.RuntimeDetour" Version="25.0.2-daily.23.11.20.3" />
     <PackageReference Include="HarmonyX" Version="2.10.2-prerelease.6" />
+    
+    <PackageReference Include="ControlzEx" Version="6.0.0" />
     <PackageReference Include="InfoOf.Fody" Version="2.1.1" PrivateAssets="all" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.7.0" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
-    <PackageReference Include="MonoMod.RuntimeDetour" Version="25.0.2" />
-    <PackageReference Include="NLog" Version="5.2.4" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <PackageReference Include="NLog" Version="5.2.7" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="all" />
-    <PackageReference Include="protobuf-net" Version="3.2.26" />
+    <PackageReference Include="protobuf-net" Version="3.2.30" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="Torch.SixLabors.ImageSharp" Version="1.0.0-beta6" />
-    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.203.22.3">
+    <PackageReference Include="SpaceEngineersDedicated.ReferenceAssemblies" Version="1.203.505.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
