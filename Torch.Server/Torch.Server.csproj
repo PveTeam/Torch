@@ -34,7 +34,7 @@
   <ItemGroup>
     <PackageReference Include="AutoCompleteTextBox" Version="1.7.2" />
     <PackageReference Include="Ben.Demystifier" Version="0.4.1" />
-    <PackageReference Include="ControlzEx" Version="6.0.0" />
+    <PackageReference Include="ControlzEx" Version="5.0.2" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MdXaml" Version="1.22.0" />
     <PackageReference Include="Microsoft.Diagnostics.Runtime" Version="3.1.456101" />

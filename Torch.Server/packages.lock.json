@@ -19,12 +19,12 @@
       },
       "ControlzEx": {
         "type": "Direct",
-        "requested": "[6.0.0, )",
-        "resolved": "6.0.0",
-        "contentHash": "MEaqj6ienvKR4E7QJ3vwzo2vrdy2Kqw9Z3CudY5iUixR5iMYeLoMlks7EiABsz4WqDsgVLd9u7fixmCOGU+4ow==",
+        "requested": "[5.0.2, )",
+        "resolved": "5.0.2",
+        "contentHash": "f724LoDJ36LxaLR62G4ek9ZAJI8BiiYRJJ04furC/qjXSeIwU0qmHFIe19xB1/FwxyZjevdFguEr9ZUjf3dZgw==",
         "dependencies": {
-          "Microsoft.Xaml.Behaviors.Wpf": "1.1.39",
-          "System.Text.Json": "5.0.2"
+          "Microsoft.Xaml.Behaviors.Wpf": "1.1.31",
+          "System.Text.Json": "5.0.1"
         }
       },
       "MahApps.Metro": {
@@ -304,8 +304,8 @@
       },
       "Microsoft.Xaml.Behaviors.Wpf": {
         "type": "Transitive",
-        "resolved": "1.1.39",
-        "contentHash": "8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ=="
+        "resolved": "1.1.31",
+        "contentHash": "LZpuf82ACZWldmfMuv3CTUMDh3o0xo0uHUaybR5HgqVLDBJJ9RZLykplQ/bTJd0/VDt3EhD4iDgUgbdIUAM+Kg=="
       },
       "Mono.Cecil": {
         "type": "Transitive",
@@ -543,8 +543,8 @@
       },
       "System.Text.Json": {
         "type": "Transitive",
-        "resolved": "5.0.2",
-        "contentHash": "I47dVIGiV6SfAyppphxqupertT/5oZkYLDCX6vC3HpOI4ZLjyoKAreUoem2ie6G0RbRuFrlqz/PcTQjfb2DOfQ=="
+        "resolved": "5.0.1",
+        "contentHash": "/UM3UK1dXKl8Ybysg/21gM4S8DJgkR+yLU8JwqCVbuNqQNImelntgYFAN5QxR8sJJ1kMx//hOUdf0lltosi8cQ=="
       },
       "Torch.SixLabors.ImageSharp": {
         "type": "Transitive",
@@ -558,7 +558,7 @@
       "torch": {
         "type": "Project",
         "dependencies": {
-          "ControlzEx": "[6.0.0, )",
+          "ControlzEx": "[5.0.2, )",
           "HarmonyX": "[2.10.2-prerelease.6, )",
           "MahApps.Metro": "[2.4.10, )",
           "Microsoft.CodeAnalysis.CSharp": "[4.8.0, )",
