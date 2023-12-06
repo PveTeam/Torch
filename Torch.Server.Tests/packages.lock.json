@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net8.0-windows7.0": {
+    "net7.0-windows7.0": {
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
         "requested": "[17.8.0, )",
@@ -319,48 +319,48 @@
       },
       "MonoMod.Backports": {
         "type": "Transitive",
-        "resolved": "1.0.1-daily.23.11.20.3",
-        "contentHash": "+NF0Jq7emWRJqCFPyZ17UjH9KXitH0JEwSE6aFbpbuaMJh8KhfzbNteyDbwG3Gc+dyv7IqY887vIGm42k2czJA==",
+        "resolved": "1.0.1",
+        "contentHash": "LWIzLvkkmXlucCWL9gg17WBHhmw9hBpMjiFFBfVKJ4Cova6BLoLqjT+yjZM7RW70ezXJ/ry7zsicvvTV67Hxnw==",
         "dependencies": {
-          "MonoMod.ILHelpers": "1.0.0-daily.23.11.20.3"
+          "MonoMod.ILHelpers": "1.0.0"
         }
       },
       "MonoMod.Core": {
         "type": "Transitive",
-        "resolved": "1.0.1-daily.23.11.20.3",
-        "contentHash": "yoIQLUi2nXV0DnRPUIpeVoBZ+U2uTt6GmEw0P7IdMCp+9wo03R5iW3RHrF9GC6XSixG/A9zMjOxH54NGdMsyqw==",
+        "resolved": "1.0.1",
+        "contentHash": "VL7d4L+/JU9LR1eXe+Wo2NquCzPExeMorBe23S/7Rn8cydb4Ex+wMpFhnlUfwT9jbLV/TiNbaVGJtR73fBwVCw==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1-daily.23.11.20.3",
-          "MonoMod.ILHelpers": "1.0.0-daily.23.11.20.3",
-          "MonoMod.Utils": "25.0.3-daily.23.11.20.3"
+          "MonoMod.Backports": "1.0.1",
+          "MonoMod.ILHelpers": "1.0.0",
+          "MonoMod.Utils": "25.0.3"
         }
       },
       "MonoMod.ILHelpers": {
         "type": "Transitive",
-        "resolved": "1.0.0-daily.23.11.20.3",
-        "contentHash": "sbgc1RwynZBjSP82HrLb9j4Prf8jXh+GKqEIJhzWTMUak+LGPkIHEBSlWWj7M5hUwekCjnheRA4WUhuw+yLGPA=="
+        "resolved": "1.0.0",
+        "contentHash": "dTjGA+dYl7W5yQ0oG/Wr57tsa+ueoFUrwPtz9MZF9iheun4n70u7lge52F8UJi9i0zMHRfS2mAY6+nPuRZHQyQ=="
       },
       "MonoMod.RuntimeDetour": {
         "type": "Transitive",
-        "resolved": "25.0.2-daily.23.11.20.3",
-        "contentHash": "JU5K+pvq+U03DBTLP2mnSkFxHK0ILdL+X5wvYVIIAg5fFPDZCNoCyBthrRcohGZVBFROmpB/SXgoX+nxn9UOoQ==",
+        "resolved": "25.0.2",
+        "contentHash": "7HuQGIMMtu9q0PEnJYl7xztT14TmGSP56B4unBYWuZvPgWCZWX9hGOmTm7zDYhwMsjUQcCTl9iiqOlI1+NHVLg==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1-daily.23.11.20.3",
-          "MonoMod.Core": "1.0.1-daily.23.11.20.3",
-          "MonoMod.ILHelpers": "1.0.0-daily.23.11.20.3",
-          "MonoMod.Utils": "25.0.3-daily.23.11.20.3"
+          "MonoMod.Backports": "1.0.1",
+          "MonoMod.Core": "1.0.1",
+          "MonoMod.ILHelpers": "1.0.0",
+          "MonoMod.Utils": "25.0.3"
         }
       },
       "MonoMod.Utils": {
         "type": "Transitive",
-        "resolved": "25.0.3-daily.23.11.20.3",
-        "contentHash": "QCAYLKttu68kfCFmPoeCvmjvgM4nr8Y2m+S6BQzDlw5m4zBHzfVc5nbVwYGJa+d9cATJdX/gLwj/GXWrnX7AMg==",
+        "resolved": "25.0.3",
+        "contentHash": "+/lFnYwNB728wnqAzkzCny88Ik++dueJiDAE+mRuMQf8NYHvWhNgLyZQ1VTN4x8iTelQGL1SzaY0I2bBPNNAog==",
         "dependencies": {
           "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1-daily.23.11.20.3",
-          "MonoMod.ILHelpers": "1.0.0-daily.23.11.20.3"
+          "MonoMod.Backports": "1.0.1",
+          "MonoMod.ILHelpers": "1.0.0"
         }
       },
       "NETStandard.Library": {
@@ -1506,7 +1506,7 @@
           "MahApps.Metro": "[2.4.10, )",
           "Microsoft.CodeAnalysis.CSharp": "[4.8.0, )",
           "Microsoft.CodeAnalysis.Common": "[4.8.0, )",
-          "MonoMod.RuntimeDetour": "[25.0.2-daily.23.11.20.3, )",
+          "MonoMod.RuntimeDetour": "[25.0.2, )",
           "NLog": "[5.2.7, )",
           "System.ComponentModel.Annotations": "[5.0.0, )",
           "Torch.API": "[1.0.0, )",
@@ -1557,7 +1557,7 @@
         }
       }
     },
-    "net8.0-windows7.0/win-x64": {
+    "net7.0-windows7.0/win-x64": {
       "Microsoft.Win32.Primitives": {
         "type": "Transitive",
         "resolved": "4.3.0",
