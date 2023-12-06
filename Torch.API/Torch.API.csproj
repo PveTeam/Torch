@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
     <AssemblyTitle>Torch API</AssemblyTitle>
     <Product>Torch</Product>
     <Copyright>Copyright © Torch API 2017</Copyright>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <OutputPath>..\bin\$(Platform)\$(Configuration)\</OutputPath>
     <UseWpf>True</UseWpf>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   
   <PropertyGroup Condition="$(Configuration) == 'Release'">

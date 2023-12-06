@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
     <NoWarn>1591,0649</NoWarn>
     <AssemblyTitle>Torch Tests</AssemblyTitle>
     <Product>Torch</Product>
@@ -8,9 +7,6 @@
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <OutputPath>$(SolutionDir)\bin-test\$(Platform)\$(Configuration)\</OutputPath>
-    <PlatformTarget>x64</PlatformTarget>
-    <Configurations>Debug;Release</Configurations>
-    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition="$(Configuration) == 'Release'">
     <DocumentationFile>$(SolutionDir)\bin-test\$(Platform)\$(Configuration)\Torch.Tests.xml</DocumentationFile>
@@ -20,11 +16,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="NLog" Version="5.2.7" />
     <PackageReference Include="xunit" Version="2.6.2" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Torch.API\Torch.API.csproj" />

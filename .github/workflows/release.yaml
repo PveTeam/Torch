@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       BUILD_CONFIGURATION: Release
       DOTNET_NOLOGO: true
@@ -23,9 +23,7 @@ jobs:
         name: Setup dotnet
         with:
           dotnet-version: '8.0.x'
-          
-      - name: Add Packages Nuget Source
-        run: dotnet nuget add source "https://nuget.storage.yandexcloud.net/index.json" --name yandex-cloud
+
       - name: Restore dependencies
         run: dotnet restore Torch.Server/Torch.Server.csproj --locked-mode
         
@@ -72,9 +70,9 @@ jobs:
         with:
           release_id: ${{ steps.create_release.outputs.id }}
           
-      - run: dotnet pack -c Release ./Torch.API/Torch.API.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
-      - run: dotnet pack -c Release ./Torch/Torch.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
-      - run: dotnet pack -c Release ./Torch.Server/Torch.Server.csproj -o pack --include-symbols -p:SymbolPackageFormat=snupkg -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: dotnet pack -c Release ./Torch.API/Torch.API.csproj -o pack -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: dotnet pack -c Release ./Torch/Torch.csproj -o pack -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
+      - run: dotnet pack -c Release ./Torch.Server/Torch.Server.csproj -o pack -p:Version="${{ steps.version.outputs.version }}" -p:AssemblyVersion="${{ steps.version.outputs.version }}" --no-build
       - run: mkdir blank && sed -i 's/torchVersion/${{ steps.version.outputs.version }}/g' Torch.Server.ReferenceAssemblies.net7.nuspec && nuget pack Torch.Server.ReferenceAssemblies.net7.nuspec -BasePath ./blank -OutputDirectory pack -NonInteractive -NoPackageAnalysis
 
       - name: Install Sleet

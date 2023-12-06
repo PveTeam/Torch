@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <PublishUrl>publish\</PublishUrl>
     <UseApplicationTrust>false</UseApplicationTrust>
     <AssemblyTitle>Torch Server</AssemblyTitle>
     <Product>Torch</Product>
@@ -12,9 +9,7 @@
     <UseWPF>true</UseWPF>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
     <NeutralLanguage>en</NeutralLanguage>
-    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <TieredPGO>true</TieredPGO>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
   
   <PropertyGroup>
