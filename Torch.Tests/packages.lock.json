@@ -46,11 +46,6 @@
           "MonoMod.RuntimeDetour": "25.0.0"
         }
       },
-      "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": {
-        "type": "Transitive",
-        "resolved": "0.9.0",
-        "contentHash": "xCqODS+wzpUXNtg4bMMvXG5PLbP0iTwRzRn2R+zWHKm83E6tbV2bCagawXp1EnZeNpd5OXpMxehulZWns8efzQ=="
-      },
       "MahApps.Metro": {
         "type": "Transitive",
         "resolved": "2.4.10",
@@ -1186,10 +1181,18 @@
           "System.Text.Encoding": "4.3.0"
         }
       },
+      "System.Text.Encodings.Web": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ=="
+      },
       "System.Text.Json": {
         "type": "Transitive",
-        "resolved": "5.0.1",
-        "contentHash": "/UM3UK1dXKl8Ybysg/21gM4S8DJgkR+yLU8JwqCVbuNqQNImelntgYFAN5QxR8sJJ1kMx//hOUdf0lltosi8cQ=="
+        "resolved": "8.0.0",
+        "contentHash": "OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        }
       },
       "System.Text.RegularExpressions": {
         "type": "Transitive",
@@ -1349,13 +1352,13 @@
       "torch.api": {
         "type": "Project",
         "dependencies": {
-          "JorgeSerrano.Json.JsonSnakeCaseNamingPolicy": "[0.9.0, )",
           "Microsoft.Extensions.Configuration.Binder": "[8.0.0, )",
           "NLog": "[5.2.7, )",
           "NuGet.Commands": "[6.8.0, )",
           "NuGet.DependencyResolver.Core": "[6.8.0, )",
           "SemanticVersioning": "[2.0.2, )",
-          "System.Linq.Async": "[6.0.1, )"
+          "System.Linq.Async": "[6.0.1, )",
+          "System.Text.Json": "[8.0.0, )"
         }
       }
     },
@@ -2181,6 +2184,11 @@
           "System.Text.Encoding": "4.3.0",
           "runtime.any.System.Text.Encoding.Extensions": "4.3.0"
         }
+      },
+      "System.Text.Encodings.Web": {
+        "type": "Transitive",
+        "resolved": "8.0.0",
+        "contentHash": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ=="
       },
       "System.Threading.Overlapped": {
         "type": "Transitive",

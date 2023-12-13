@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-using JorgeSerrano.Json;
 using Version = SemanticVersioning.Version;
 
 namespace Torch.API.WebAPI.Update;
@@ -38,7 +37,7 @@ public class GithubQuery : IUpdateQuery
     {
         var response = await _client.GetFromJsonAsync<Release>($"/repos/{repository}/releases/latest", new JsonSerializerOptions(JsonSerializerDefaults.Web)
         {
-            PropertyNamingPolicy = new JsonSnakeCaseNamingPolicy()
+            PropertyNamingPolicy = JsonNamingPolicy.SnakeCaseLower
         });
 
         if (response is null)
