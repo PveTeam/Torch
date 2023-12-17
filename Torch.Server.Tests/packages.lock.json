@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net7.0-windows7.0": {
+    "net8.0-windows7.0": {
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
         "requested": "[17.8.0, )",
@@ -319,53 +319,53 @@
       },
       "Mono.Cecil": {
         "type": "Transitive",
-        "resolved": "0.11.4",
-        "contentHash": "IC1h5g0NeJGHIUgzM1P82ld57knhP0IcQfrYITDPXlNpMYGUrsG5TxuaWTjaeqDNQMBDNZkB8L0rBnwsY6JHuQ=="
+        "resolved": "0.11.5",
+        "contentHash": "fxfX+0JGTZ8YQeu1MYjbBiK2CYTSzDyEeIixt+yqKKTn7FW8rv7JMY70qevup4ZJfD7Kk/VG/jDzQQTpfch87g=="
       },
       "MonoMod.Backports": {
         "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "LWIzLvkkmXlucCWL9gg17WBHhmw9hBpMjiFFBfVKJ4Cova6BLoLqjT+yjZM7RW70ezXJ/ry7zsicvvTV67Hxnw==",
+        "resolved": "1.1.0-prerelease.1",
+        "contentHash": "mvJKs9Or+61tbKVuPdiE8H+hfMxnwP5Vq/KWYXaVyYOTRArJhEhn7GwYoWPxv6lY0IgPkenlySyFyB5ihP80Aw==",
         "dependencies": {
-          "MonoMod.ILHelpers": "1.0.0"
+          "MonoMod.ILHelpers": "1.0.1-prerelease.1"
         }
       },
       "MonoMod.Core": {
         "type": "Transitive",
-        "resolved": "1.0.1",
-        "contentHash": "VL7d4L+/JU9LR1eXe+Wo2NquCzPExeMorBe23S/7Rn8cydb4Ex+wMpFhnlUfwT9jbLV/TiNbaVGJtR73fBwVCw==",
+        "resolved": "1.1.0-prerelease.1",
+        "contentHash": "XXxy8cag+ZNV/P8a9p66pBkNerOGkTZqxDX+ZzVOhV6ZmEZn4P3AqaP1Hh5JWSvGFGm44rhMgnTtu/lGoEda/g==",
         "dependencies": {
-          "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1",
-          "MonoMod.ILHelpers": "1.0.0",
-          "MonoMod.Utils": "25.0.3"
+          "Mono.Cecil": "0.11.5",
+          "MonoMod.Backports": "1.1.0-prerelease.1",
+          "MonoMod.ILHelpers": "1.0.1-prerelease.1",
+          "MonoMod.Utils": "25.0.3-prerelease.1"
         }
       },
       "MonoMod.ILHelpers": {
         "type": "Transitive",
-        "resolved": "1.0.0",
-        "contentHash": "dTjGA+dYl7W5yQ0oG/Wr57tsa+ueoFUrwPtz9MZF9iheun4n70u7lge52F8UJi9i0zMHRfS2mAY6+nPuRZHQyQ=="
+        "resolved": "1.0.1-prerelease.1",
+        "contentHash": "ckHZRI75FMEfWiE4R6nSMTKasEpeELml9e5/gYovXL2eXRdLeBuc6abe7oe3lPBKLiQj3GnW3Wm36PWU0J2Thw=="
       },
       "MonoMod.RuntimeDetour": {
         "type": "Transitive",
-        "resolved": "25.0.2",
-        "contentHash": "7HuQGIMMtu9q0PEnJYl7xztT14TmGSP56B4unBYWuZvPgWCZWX9hGOmTm7zDYhwMsjUQcCTl9iiqOlI1+NHVLg==",
+        "resolved": "25.1.0-prerelease.1",
+        "contentHash": "2crDvrWWf+90IMVjmMWISaD+ysMHwVtGB1dsWiIo5v1vRWveNIRlZgHkQ3+BsmPPy9aiXm4h0J4rzqAvrFXkzA==",
         "dependencies": {
-          "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1",
-          "MonoMod.Core": "1.0.1",
-          "MonoMod.ILHelpers": "1.0.0",
-          "MonoMod.Utils": "25.0.3"
+          "Mono.Cecil": "0.11.5",
+          "MonoMod.Backports": "1.1.0-prerelease.1",
+          "MonoMod.Core": "1.1.0-prerelease.1",
+          "MonoMod.ILHelpers": "1.0.1-prerelease.1",
+          "MonoMod.Utils": "25.0.3-prerelease.1"
         }
       },
       "MonoMod.Utils": {
         "type": "Transitive",
-        "resolved": "25.0.3",
-        "contentHash": "+/lFnYwNB728wnqAzkzCny88Ik++dueJiDAE+mRuMQf8NYHvWhNgLyZQ1VTN4x8iTelQGL1SzaY0I2bBPNNAog==",
+        "resolved": "25.0.3-prerelease.1",
+        "contentHash": "ArLOPpXtPWdak6tFIkqeWtuIEfWVSjdQP5WNndzysuybIKvr7IjuYZ6C0f7ukUZTD/s2PgC2Tbe3F3ISjj0/6g==",
         "dependencies": {
-          "Mono.Cecil": "0.11.4",
-          "MonoMod.Backports": "1.0.1",
-          "MonoMod.ILHelpers": "1.0.0"
+          "Mono.Cecil": "0.11.5",
+          "MonoMod.Backports": "1.1.0-prerelease.1",
+          "MonoMod.ILHelpers": "1.0.1-prerelease.1"
         }
       },
       "NETStandard.Library": {
@@ -1519,7 +1519,7 @@
           "MahApps.Metro": "[2.4.10, )",
           "Microsoft.CodeAnalysis.CSharp": "[4.8.0, )",
           "Microsoft.CodeAnalysis.Common": "[4.8.0, )",
-          "MonoMod.RuntimeDetour": "[25.0.2, )",
+          "MonoMod.RuntimeDetour": "[25.1.0-prerelease.1, )",
           "NLog": "[5.2.7, )",
           "System.ComponentModel.Annotations": "[5.0.0, )",
           "Torch.API": "[1.0.0, )",
@@ -1572,7 +1572,7 @@
         }
       }
     },
-    "net7.0-windows7.0/win-x64": {
+    "net8.0-windows7.0/win-x64": {
       "Microsoft.Win32.Primitives": {
         "type": "Transitive",
         "resolved": "4.3.0",
