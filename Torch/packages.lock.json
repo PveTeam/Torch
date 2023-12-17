@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net8.0-windows7.0": {
+    "net7.0-windows7.0": {
       "ControlzEx": {
         "type": "Direct",
         "requested": "[5.0.2, )",
@@ -403,7 +403,7 @@
         }
       }
     },
-    "net8.0-windows7.0/win-x64": {
+    "net7.0-windows7.0/win-x64": {
       "System.Security.Cryptography.Pkcs": {
         "type": "Transitive",
         "resolved": "6.0.4",

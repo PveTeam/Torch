@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net8.0-windows7.0": {
+    "net7.0-windows7.0": {
       "AutoCompleteTextBox": {
         "type": "Direct",
         "requested": "[1.7.2, )",
@@ -599,7 +599,7 @@
         }
       }
     },
-    "net8.0-windows7.0/win-x64": {
+    "net7.0-windows7.0/win-x64": {
       "Steamworks.NET": {
         "type": "Direct",
         "requested": "[20.1.0, )",
