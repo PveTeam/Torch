@@ -1,9 +1,8 @@
 ﻿<Project>
     <PropertyGroup>
-        <TargetFramework>net7.0-windows</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <RuntimeIdentifier>win-x64</RuntimeIdentifier>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
-        <RuntimeFrameworkVersion>7.0.4</RuntimeFrameworkVersion>
     </PropertyGroup>
 </Project>
