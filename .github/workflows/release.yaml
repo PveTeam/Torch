@@ -75,7 +75,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore Torch.Server/Torch.Server.csproj --locked-mode
+        run: dotnet restore Torch.Server/Torch.Server.csproj --locked-mode -r win-x64
         
       - name: Publish
         run: dotnet publish Torch.Server/Torch.Server.csproj --no-restore --sc -r win-x64 -c ${{ env.BUILD_CONFIGURATION }} -o ./publish -p:Version="${{ needs.get-version.outputs.version }}" -p:AssemblyVersion="${{ needs.get-version.outputs.version }}"
