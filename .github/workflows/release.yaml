@@ -78,7 +78,7 @@ jobs:
         run: dotnet restore Torch.Server/Torch.Server.csproj --locked-mode
         
       - name: Publish
-        run: dotnet publish Torch.Server/Torch.Server.csproj --no-restore --sc -r win10-x64 -c ${{ env.BUILD_CONFIGURATION }} -o ./publish -p:Version="${{ needs.get-version.outputs.version }}" -p:AssemblyVersion="${{ needs.get-version.outputs.version }}"
+        run: dotnet publish Torch.Server/Torch.Server.csproj --no-restore --sc -r win-x64 -c ${{ env.BUILD_CONFIGURATION }} -o ./publish -p:Version="${{ needs.get-version.outputs.version }}" -p:AssemblyVersion="${{ needs.get-version.outputs.version }}"
       
       - uses: vimtor/action-zip@v1
         name: Zip Release
