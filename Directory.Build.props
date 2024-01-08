@@ -1,8 +1,9 @@
 ﻿<Project>
     <PropertyGroup>
         <TargetFramework>net8.0-windows</TargetFramework>
-        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
+        <UseRidGraph>true</UseRidGraph>
     </PropertyGroup>
 </Project>
