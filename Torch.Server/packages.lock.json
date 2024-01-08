@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    "net7.0-windows7.0": {
+    "net8.0-windows7.0": {
       "AutoCompleteTextBox": {
         "type": "Direct",
         "requested": "[1.7.2, )",
@@ -109,9 +109,9 @@
       },
       "NLog": {
         "type": "Direct",
-        "requested": "[5.2.7, )",
-        "resolved": "5.2.7",
-        "contentHash": "Ww/0b6V1NL8iqpFKtRKVQFFX03LoowNzYeNG6FpVzmhgCfLAkW0h/4lT3+V8mHfyvtHptNoV8Cz0YePLFRUaPA=="
+        "requested": "[5.2.8, )",
+        "resolved": "5.2.8",
+        "contentHash": "jAIELkWBs1CXFPp986KSGpDFQZHCFccO+LMbKBTTNm42KifaI1mYzFMFQQfuGmGMTrCx0TFPhDjHDE4cLAZWiQ=="
       },
       "nulastudio.NetCoreBeauty": {
         "type": "Direct",
@@ -579,7 +579,7 @@
           "Microsoft.CodeAnalysis.CSharp": "[4.8.0, )",
           "Microsoft.CodeAnalysis.Common": "[4.8.0, )",
           "MonoMod.RuntimeDetour": "[25.1.0-prerelease.1, )",
-          "NLog": "[5.2.7, )",
+          "NLog": "[5.2.8, )",
           "System.ComponentModel.Annotations": "[5.0.0, )",
           "Torch.API": "[1.0.0, )",
           "Torch.SixLabors.ImageSharp": "[1.0.0-beta6, )",
@@ -590,7 +590,7 @@
         "type": "Project",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "[8.0.0, )",
-          "NLog": "[5.2.7, )",
+          "NLog": "[5.2.8, )",
           "NuGet.Commands": "[6.8.0, )",
           "NuGet.DependencyResolver.Core": "[6.8.0, )",
           "SemanticVersioning": "[2.0.2, )",
@@ -599,7 +599,7 @@
         }
       }
     },
-    "net7.0-windows7.0/win-x64": {
+    "net8.0-windows7.0/win-x64": {
       "Steamworks.NET": {
         "type": "Direct",
         "requested": "[20.1.0, )",
